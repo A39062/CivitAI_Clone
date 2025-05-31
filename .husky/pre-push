@@ -11,6 +11,6 @@ fi
 
 echo "Running typecheck for all files"
 
-npm run typecheck
+npm run typecheck 
 
 echo "Typecheck successful"

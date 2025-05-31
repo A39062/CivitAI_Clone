@@ -55,7 +55,7 @@ const fbool = faker.datatype.boolean;
 //   return new File([blob], name, { type: blob.type });
 // };
 
-// TODO fix tables ownership from doadmin to civitai
+// TODO fix tables ownership from postgres to civitai
 
 const setSerialNotif = async (table: string) => {
   // language=text
@@ -145,7 +145,7 @@ const insertClickhouseRows = async (table: string, data: any[][]) => {
 const truncateRows = async () => {
   console.log('Truncating tables');
   await pgDbWrite.query(
-    `TRUNCATE TABLE "User", "Tag", "Leaderboard", "AuctionBase", "Tool", "Technique", "TagsOnImageNew", "EntityMetric", "JobQueue", "KeyValue", "ImageRank", "ModelVersionRank", "UserRank", "TagRank", "ArticleRank", "CollectionRank", "Changelog" RESTART IDENTITY CASCADE`
+    `TRUNCATE TABLE "User", "Tag", "Leaderboard", "AuctionBase", "Tool", "Technique", "TagsOnImageNew", "EntityMetric", "JobQueue", "KeyValue", "UserRank", "TagRank", "ArticleRank", "CollectionRank", "Changelog" RESTART IDENTITY CASCADE`
   );
 };
 
@@ -160,347 +160,267 @@ const truncateNotificationRows = async () => {
 const genUsers = (num: number, includeCiv = false) => {
   const ret = [];
 
-  const extraUsers = [];
+  const seenUsernames: string[] = [];
 
-  if (includeCiv) {
-    // civ user
-    extraUsers.push([
-      'Civitai',
-      'hello@civitai.com',
-      null,
-      null,
-      -1,
-      true,
-      false,
-      'civitai',
-      true,
-      '2021-11-13 00:00:00.000',
-      null,
-      null,
-      null,
-      null,
-      true,
-      '{"fp": "fp16", "size": "pruned", "format": "SafeTensor"}',
-      null,
-      null,
-      '{"scores": {"total": 39079263, "users": 223000, "images": 2043471, "models": 36812792, "reportsAgainst": -8000, "reportsActioned": null}, "firstImage": "2022-11-09T17:39:48.137"}',
-      '{"newsletterSubscriber": true}',
-      null,
-      false,
-      1,
-      0,
-      '{}',
-      null,
-      false,
-      null,
-      'Eligible',
-      null,
-    ]);
-
-    // - test users
-
-    // mod
-    extraUsers.push([
-      'Test - Moderator', // name
-      'test-mod@civitai.com', // email
-      null,
-      null,
-      1, // id
-      false, // blurnsfw
-      true, // shownsfw
-      'test_mod', // username
-      true, // isMod
-      '2021-11-13 00:00:00.000',
-      null, // deletedAt
-      null, // bannedAt
-      null,
-      null,
-      true,
-      '{"fp": "fp16", "size": "pruned", "format": "SafeTensor"}',
-      null,
-      null,
-      '{}', // meta
-      '{}', // settings
-      null, // "mutedAt"
-      false, // muted
-      31, // "browsingLevel"
-      15, // onboarding
-      '{}', // "publicSettings"
-      null, // "muteConfirmedAt"
-      false,
-      null,
-      'Eligible',
-      `ctm_01j6${faker.string.alphanumeric(22)}`,
-    ]);
-
-    // newbie
-    extraUsers.push([
-      'Test - Newbie', // name
-      'test-newbie@civitai.com', // email
-      null,
-      null,
-      2, // id
-      true, // blurnsfw
-      false, // shownsfw
-      'test_newbie', // username
-      false, // isMod
-      '2024-11-13 00:00:00.000',
-      null, // deletedAt
-      null, // bannedAt
-      null,
-      null,
-      false,
-      '{"fp": "fp16", "size": "pruned", "format": "SafeTensor"}',
-      null,
-      null,
-      '{}', // meta
-      '{}', // settings
-      null, // "mutedAt"
-      false, // muted
-      1, // "browsingLevel"
-      0, // onboarding
-      '{}', // "publicSettings"
-      null, // "muteConfirmedAt"
-      false,
-      null,
-      'Eligible',
-      null,
-    ]);
-
-    // degen
-    extraUsers.push([
-      'Test - Degen', // name
-      'test-degen@civitai.com', // email
-      '2023-11-14 00:00:00.000',
-      null,
-      3, // id
-      false, // blurnsfw
-      true, // shownsfw
-      'test_degen', // username
-      false, // isMod
-      '2023-11-13 00:00:00.000',
-      null, // deletedAt
-      null, // bannedAt
-      null,
-      null,
-      true,
-      '{"fp": "fp16", "size": "pruned", "format": "SafeTensor"}',
-      null,
-      null,
-      '{"scores": {"total": 374, "users": 300, "images": 70, "models": 4, "reportsActioned": 50}}', // meta
-      '{}', // settings
-      null, // "mutedAt"
-      false, // muted
-      31, // "browsingLevel"
-      15, // onboarding
-      '{}', // "publicSettings"
-      null, // "muteConfirmedAt"
-      false,
-      null,
-      'Eligible',
-      `ctm_01j6${faker.string.alphanumeric(22)}`,
-    ]);
-
-    // banned
-    extraUsers.push([
-      'Test - Banned', // name
-      'test-banned@civitai.com', // email
-      '2023-11-14 00:00:00.000',
-      null,
-      4, // id
-      false, // blurnsfw
-      true, // shownsfw
-      'test_banned', // username
-      false, // isMod
-      '2023-11-13 00:00:00.000',
-      null, // deletedAt
-      '2023-11-17 00:00:00.000', // bannedAt
-      null,
-      null,
-      true,
-      '{"fp": "fp16", "size": "pruned", "format": "SafeTensor"}',
-      null,
-      null,
-      '{}', // meta
-      '{}', // settings
-      null, // "mutedAt"
-      false, // muted
-      31, // "browsingLevel"
-      15, // onboarding
-      '{}', // "publicSettings"
-      null, // "muteConfirmedAt"
-      false,
-      null,
-      'Eligible',
-      `ctm_01j6${faker.string.alphanumeric(22)}`,
-    ]);
-
-    // deleted
-    extraUsers.push([
-      'Test - Deleted', // name
-      'test-deleted@civitai.com', // email
-      '2023-11-14 00:00:00.000',
-      null,
-      5, // id
-      false, // blurnsfw
-      true, // shownsfw
-      'test_deleted', // username
-      false, // isMod
-      '2023-11-13 00:00:00.000',
-      '2023-11-17 00:00:00.000', // deletedAt
-      null, // bannedAt
-      null,
-      null,
-      true,
-      '{"fp": "fp16", "size": "pruned", "format": "SafeTensor"}',
-      null,
-      null,
-      '{}', // meta
-      '{}', // settings
-      null, // "mutedAt"
-      false, // muted
-      31, // "browsingLevel"
-      15, // onboarding
-      '{}', // "publicSettings"
-      null, // "muteConfirmedAt"
-      false,
-      null,
-      'Eligible',
-      `ctm_01j6${faker.string.alphanumeric(22)}`,
-    ]);
-
-    // muted
-    extraUsers.push([
-      'Test - Muted', // name
-      'test-muted@civitai.com', // email
-      '2023-11-14 00:00:00.000',
-      null,
-      6, // id
-      false, // blurnsfw
-      true, // shownsfw
-      'test_muted', // username
-      false, // isMod
-      '2023-11-13 00:00:00.000',
-      null, // deletedAt
-      null, // bannedAt
-      null,
-      null,
-      true,
-      '{"fp": "fp16", "size": "pruned", "format": "SafeTensor"}',
-      null,
-      null,
-      '{}', // meta
-      '{}', // settings
-      '2023-11-17 00:00:00.000', // "mutedAt"
-      true, // muted
-      31, // "browsingLevel"
-      15, // onboarding
-      '{}', // "publicSettings"
-      '2023-11-17 01:00:00.000', // "muteConfirmedAt"
-      false,
-      null,
-      'Eligible',
-      `ctm_01j6${faker.string.alphanumeric(22)}`,
-    ]);
-
-    // subscriber
-    // customerSubscription?
-
-    ret.push(...extraUsers);
-    num += extraUsers.length;
-  }
-
-  const seenUserNames: string[] = [];
-
-  // random users
-  for (let step = extraUsers.length + (includeCiv ? 0 : 1); step <= num; step++) {
-    const created = faker.date.past({ years: 3 }).toISOString();
-    const isMuted = fbool(0.01);
-    let username = faker.internet.userName();
-    if (seenUserNames.includes(username)) username = `${username} ${faker.number.int(1_000)}`;
-    seenUserNames.push(username);
-
-    const row = [
-      randw([
-        { value: null, weight: 1 },
-        { value: faker.person.fullName(), weight: 20 },
-      ]), // name
-      randw([
-        { value: null, weight: 1 },
-        { value: faker.internet.email(), weight: 20 },
-      ]), // email
-      randw([
-        { value: null, weight: 1 },
-        { value: faker.date.between({ from: created, to: Date.now() }).toISOString(), weight: 3 },
-      ]), // "emailVerified"
-      randw([
-        { value: null, weight: 1 },
-        { value: faker.image.avatar(), weight: 10 },
-      ]), // image
-      step, // id
-      fbool(), // "blurNsfw"
-      fbool(), // "showNsfw"
-      randw([
-        { value: null, weight: 1 },
-        { value: username, weight: 20 },
-      ]), // username
-      fbool(0.01), // "isModerator"
-      created, // "createdAt"
-      randw([
-        { value: null, weight: 100 },
-        { value: faker.date.between({ from: created, to: Date.now() }).toISOString(), weight: 1 },
-      ]), // "deletedAt"
-      randw([
-        { value: null, weight: 100 },
-        { value: faker.date.between({ from: created, to: Date.now() }).toISOString(), weight: 1 },
-      ]), // "bannedAt"
-      randw([
-        { value: null, weight: 1 },
-        { value: `cus_Na${faker.string.alphanumeric(12)}`, weight: 5 },
-      ]), // "customerId"
-      randw([
-        { value: null, weight: 10 },
-        { value: `sub_${faker.string.alphanumeric(24)}`, weight: 1 },
-      ]), // "subscriptionId"
-      fbool(), // "autoplayGifs"
-      '{"fp": "fp16", "size": "pruned", "format": "SafeTensor"}', // "filePreferences" // TODO make random
-      randw([
-        { value: null, weight: 30 },
-        { value: 'overall', weight: 2 },
-        { value: 'new_creators', weight: 1 },
-      ]), // "leaderboardShowcase"
-      null, // "profilePictureId" // TODO link with Image ID
-      randw([
-        { value: '{}', weight: 5 },
-        { value: '{"scores": {"total": 0, "users": 0}}', weight: 3 },
-        {
-          value: `{"scores": {"total": ${faker.number.int(10_000_000)}, "users": ${faker.number.int(
-            100_000
-          )}, "images": ${faker.number.int(100_000)}, "models": ${faker.number.int(
-            1_000_000
-          )}, "articles": ${faker.number.int(100_000)}}, "firstImage": "${faker.date
-            .between({ from: created, to: Date.now() })
-            .toISOString()}"}`,
-          weight: 1,
-        },
-      ]), // meta
-      '{}', // settings // TODO not sure if we even need this
-      isMuted ? faker.date.between({ from: created, to: Date.now() }).toISOString() : null, // "mutedAt"
-      isMuted, // muted
-      rand([1, 31]), // "browsingLevel" // TODO which other ones?
-      rand([3, 15]), // onboarding // TODO which other ones?
-      '{}', // "publicSettings" // TODO not sure if we even need this
-      isMuted ? faker.date.between({ from: created, to: Date.now() }).toISOString() : null, // "muteConfirmedAt"
-      fbool(0.01), // "excludeFromLeaderboards"
-      null, // "eligibilityChangedAt" // TODO
-      'Eligible', // "rewardsEligibility" // TODO
-      randw([
-        { value: null, weight: 3 },
-        { value: `ctm_01j6${faker.string.alphanumeric(22)}`, weight: 1 },
-      ]), // "paddleCustomerId"
+  const makeUser = ({
+    id,
+    name,
+    email,
+    emailVerified = null,
+    image = null,
+    blurNsfw = false,
+    showNsfw = true,
+    username,
+    isModerator = false,
+    createdAt,
+    deletedAt = null,
+    bannedAt = null,
+    customerId = null,
+    subscriptionId = null,
+    autoplayGifs = true,
+    filePreferences = { fp: 'fp16', size: 'pruned', format: 'SafeTensor' },
+    leaderboardShowcase = null,
+    profilePictureId = null,
+    meta = {},
+    settings = {},
+    mutedAt = null,
+    muted = false,
+    browsingLevel = 1,
+    onboarding = 0,
+    publicSettings = {},
+    muteConfirmedAt = null,
+    excludeFromLeaderboards = false,
+    eligibilityChangedAt = null,
+    rewardsEligibility = 'Eligible',
+    paddleCustomerId = null,
+  }: {
+    id: number;
+    name: string;
+    email: string;
+    username: string;
+    createdAt: string;
+    emailVerified?: string | null;
+    image?: string | null;
+    blurNsfw?: boolean;
+    showNsfw?: boolean;
+    isModerator?: boolean;
+    deletedAt?: string | null;
+    bannedAt?: string | null;
+    customerId?: string | null;
+    subscriptionId?: string | null;
+    autoplayGifs?: boolean;
+    filePreferences?: Record<string, unknown>;
+    leaderboardShowcase?: string | null;
+    profilePictureId?: number | null;
+    meta?: Record<string, unknown>;
+    settings?: Record<string, unknown>;
+    mutedAt?: string | null;
+    muted?: boolean;
+    browsingLevel?: number;
+    onboarding?: number;
+    publicSettings?: Record<string, unknown>;
+    muteConfirmedAt?: string | null;
+    excludeFromLeaderboards?: boolean;
+    eligibilityChangedAt?: string | null;
+    rewardsEligibility?: string;
+    paddleCustomerId?: string | null;
+  }) => [
+      publicSettings,
+      filePreferences,
+      meta,
+      excludeFromLeaderboards,
+      rewardsEligibility,
+      eligibilityChangedAt,
+      profilePictureId,
+      settings,
+      id,
+      emailVerified,
+      showNsfw,
+      blurNsfw,
+      browsingLevel,
+      onboarding,
+      isModerator,
+      createdAt,
+      deletedAt,
+      mutedAt,
+      muted,
+      muteConfirmedAt,
+      bannedAt,
+      autoplayGifs,
+      name,
+      username,
+      email,
+      subscriptionId,
+      image,
+      customerId,
+      leaderboardShowcase,
+      paddleCustomerId,
     ];
 
-    ret.push(row);
+  const addTestUsers = () => {
+    const users = [
+      {
+        id: -1,
+        name: 'Civitai',
+        email: 'hello@civitai.com',
+        username: 'civitai',
+        createdAt: '2021-11-13T00:00:00.000Z',
+        isModerator: true,
+        meta: {
+          scores: {
+            total: 39079263,
+            users: 223000,
+            images: 2043471,
+            models: 36812792,
+            reportsAgainst: -8000,
+            reportsActioned: null,
+          },
+          firstImage: '2022-11-09T17:39:48.137',
+        },
+        publicSettings: { newsletterSubscriber: true },
+      },
+      {
+        id: 1,
+        name: 'Test - Moderator',
+        email: 'test-mod@civitai.com',
+        username: 'test_mod',
+        createdAt: '2021-11-13T00:00:00.000Z',
+        isModerator: true,
+        browsingLevel: 31,
+        onboarding: 15,
+        paddleCustomerId: `ctm_01j6${faker.string.alphanumeric(22)}`,
+      },
+      {
+        id: 2,
+        name: 'Test - Newbie',
+        email: 'test-newbie@civitai.com',
+        username: 'test_newbie',
+        createdAt: '2024-11-13T00:00:00.000Z',
+        blurNsfw: true,
+        showNsfw: false,
+        onboarding: 0,
+      },
+      {
+        id: 3,
+        name: 'Test - Degen',
+        email: 'test-degen@civitai.com',
+        username: 'test_degen',
+        createdAt: '2023-11-13T00:00:00.000Z',
+        emailVerified: '2023-11-14T00:00:00.000Z',
+        meta: {
+          scores: {
+            total: 374,
+            users: 300,
+            images: 70,
+            models: 4,
+            reportsActioned: 50,
+          },
+        },
+        browsingLevel: 31,
+        onboarding: 15,
+        paddleCustomerId: `ctm_01j6${faker.string.alphanumeric(22)}`,
+      },
+      {
+        id: 4,
+        name: 'Test - Banned',
+        email: 'test-banned@civitai.com',
+        username: 'test_banned',
+        createdAt: '2023-11-13T00:00:00.000Z',
+        emailVerified: '2023-11-14T00:00:00.000Z',
+        bannedAt: '2023-11-17T00:00:00.000Z',
+        browsingLevel: 31,
+        onboarding: 15,
+        paddleCustomerId: `ctm_01j6${faker.string.alphanumeric(22)}`,
+      },
+      {
+        id: 5,
+        name: 'Test - Deleted',
+        email: 'test-deleted@civitai.com',
+        username: 'test_deleted',
+        createdAt: '2023-11-13T00:00:00.000Z',
+        emailVerified: '2023-11-14T00:00:00.000Z',
+        deletedAt: '2023-11-17T00:00:00.000Z',
+        browsingLevel: 31,
+        onboarding: 15,
+        paddleCustomerId: `ctm_01j6${faker.string.alphanumeric(22)}`,
+      },
+      {
+        id: 6,
+        name: 'Test - Muted',
+        email: 'test-muted@civitai.com',
+        username: 'test_muted',
+        createdAt: '2023-11-13T00:00:00.000Z',
+        emailVerified: '2023-11-14T00:00:00.000Z',
+        muted: true,
+        mutedAt: '2023-11-17T00:00:00.000Z',
+        muteConfirmedAt: '2023-11-17T01:00:00.000Z',
+        browsingLevel: 31,
+        onboarding: 15,
+        paddleCustomerId: `ctm_01j6${faker.string.alphanumeric(22)}`,
+      },
+    ];
+
+    for (const user of users) {
+      ret.push(makeUser(user));
+      seenUsernames.push(user.username);
+    }
+
+    return users.length;
+  };
+
+  let offset = 0;
+  if (includeCiv) {
+    offset = addTestUsers();
+  }
+
+  for (let i = offset + 1; i <= num; i++) {
+    const createdAt = faker.date.past({ years: 3 }).toISOString();
+    const isMuted = fbool(0.01);
+    let username = faker.internet.userName();
+    while (seenUsernames.includes(username)) {
+      username = `${username}${faker.number.int(999)}`;
+    }
+    seenUsernames.push(username);
+
+    ret.push(
+      makeUser({
+        id: i,
+        name: faker.person.fullName(),
+        email: faker.internet.email(),
+        username,
+        createdAt,
+        emailVerified: fbool(0.8)
+          ? faker.date.between({ from: createdAt, to: Date.now() }).toISOString()
+          : null,
+        image: faker.image.avatar(),
+        blurNsfw: fbool(),
+        showNsfw: fbool(),
+        isModerator: fbool(0.01),
+        deletedAt: fbool(0.01)
+          ? faker.date.between({ from: createdAt, to: Date.now() }).toISOString()
+          : null,
+        bannedAt: fbool(0.01)
+          ? faker.date.between({ from: createdAt, to: Date.now() }).toISOString()
+          : null,
+        muted: isMuted,
+        mutedAt: isMuted
+          ? faker.date.between({ from: createdAt, to: Date.now() }).toISOString()
+          : null,
+        muteConfirmedAt: isMuted
+          ? faker.date.between({ from: createdAt, to: Date.now() }).toISOString()
+          : null,
+        customerId: fbool(0.05) ? `cus_Na${faker.string.alphanumeric(12)}` : null,
+        subscriptionId: fbool(0.05) ? `sub_${faker.string.alphanumeric(24)}` : null,
+        browsingLevel: rand([1, 31]),
+        onboarding: rand([0, 3, 15]),
+        leaderboardShowcase: fbool(0.2) ? 'overall' : null,
+        paddleCustomerId: fbool(0.05) ? `ctm_01j6${faker.string.alphanumeric(22)}` : null,
+        meta: {},
+        settings: {},
+        publicSettings: {},
+        filePreferences: { fp: 'fp16', size: 'pruned', format: 'SafeTensor' },
+      })
+    );
   }
 
   return ret;
@@ -526,8 +446,8 @@ const genModels = (num: number, userIds: number[]) => {
       isCheckpoint
         ? 'Checkpoint'
         : isLora
-        ? 'LORA'
-        : rand(Object.values(ModelType).filter((v) => !['Checkpoint', 'LORA'].includes(v))), // type
+          ? 'LORA'
+          : rand(Object.values(ModelType).filter((v) => !['Checkpoint', 'LORA'].includes(v))), // type
       created, // createdAt
       rand([created, faker.date.between({ from: created, to: Date.now() }).toISOString()]), // updatedAt
       fbool(), // nsfw
@@ -537,8 +457,8 @@ const genModels = (num: number, userIds: number[]) => {
       isDeleted
         ? 'Deleted'
         : isPublished
-        ? 'Published'
-        : rand(Object.values(ModelStatus).filter((v) => !['Deleted', 'Published'].includes(v))), // status
+          ? 'Published'
+          : rand(Object.values(ModelStatus).filter((v) => !['Deleted', 'Published'].includes(v))), // status
       null, // fromImportId // TODO
       fbool(0.1), // poi
       isPublished ? faker.date.between({ from: created, to: Date.now() }).toISOString() : null, // publishedAt
@@ -566,14 +486,14 @@ const genModels = (num: number, userIds: number[]) => {
       isEa
         ? 'EarlyAccess'
         : randw([
-            { value: 'Public', weight: 30 },
-            {
-              value: rand(
-                Object.values(Availability).filter((v) => !['Public', 'EarlyAccess'].includes(v))
-              ),
-              weight: 1,
-            },
-          ]), // availability
+          { value: 'Public', weight: 30 },
+          {
+            value: rand(
+              Object.values(Availability).filter((v) => !['Public', 'EarlyAccess'].includes(v))
+            ),
+            weight: 1,
+          },
+        ]), // availability
       rand(['{Sell}', '{Image,RentCivit,Rent,Sell}', '{Image,RentCivit}']), // allowCommercialUse
       randw([
         { value: 0, weight: 5 },
@@ -619,8 +539,8 @@ const genMvs = (num: number, modelData: { id: number; type: ModelUploadType }[])
       isDeleted
         ? 'Deleted'
         : isPublished
-        ? 'Published'
-        : rand(Object.values(ModelStatus).filter((v) => !['Deleted', 'Published'].includes(v))), // status
+          ? 'Published'
+          : rand(Object.values(ModelStatus).filter((v) => !['Deleted', 'Published'].includes(v))), // status
       null, // fromImportId // TODO
       faker.number.int({ min: 1, max: 8 }), // index // TODO needs other indices?
       fbool(0.01), // inaccurate
@@ -633,11 +553,11 @@ const genMvs = (num: number, modelData: { id: number; type: ModelUploadType }[])
       rand([null, ...constants.baseModelTypes]), // baseModelType
       isTrain
         ? rand([
-            '{}',
-            '{"type": "Character"}',
-            '{"type": "Character", "mediaType": "video"}',
-            '{"type": "Character", "params": {"engine": "kohya", "unetLR": 0.0005, "clipSkip": 1, "loraType": "lora", "keepTokens": 0, "networkDim": 32, "numRepeats": 14, "resolution": 512, "lrScheduler": "cosine_with_restarts", "minSnrGamma": 5, "noiseOffset": 0.1, "targetSteps": 1050, "enableBucket": true, "networkAlpha": 16, "optimizerType": "AdamW8Bit", "textEncoderLR": 0.00005, "maxTrainEpochs": 10, "shuffleCaption": false, "trainBatchSize": 2, "flipAugmentation": false, "lrSchedulerNumCycles": 3}, "staging": false, "baseModel": "realistic", "highPriority": false, "baseModelType": "sd15", "samplePrompts": ["", "", ""]}',
-          ])
+          '{}',
+          '{"type": "Character"}',
+          '{"type": "Character", "mediaType": "video"}',
+          '{"type": "Character", "params": {"engine": "kohya", "unetLR": 0.0005, "clipSkip": 1, "loraType": "lora", "keepTokens": 0, "networkDim": 32, "numRepeats": 14, "resolution": 512, "lrScheduler": "cosine_with_restarts", "minSnrGamma": 5, "noiseOffset": 0.1, "targetSteps": 1050, "enableBucket": true, "networkAlpha": 16, "optimizerType": "AdamW8Bit", "textEncoderLR": 0.00005, "maxTrainEpochs": 10, "shuffleCaption": false, "trainBatchSize": 2, "flipAugmentation": false, "lrSchedulerNumCycles": 3}, "staging": false, "baseModel": "realistic", "highPriority": false, "baseModelType": "sd15", "samplePrompts": ["", "", ""]}',
+        ])
         : null, // trainingDetails
       isTrain ? rand(Object.values(TrainingStatus)) : null, // trainingStatus
       fbool(0.2), // requireAuth
@@ -742,33 +662,32 @@ const genMFiles = (num: number, mvData: { id: number; type: ModelUploadType }[])
       null, // virusScanMessage
       passScan ? faker.date.between({ from: created, to: Date.now() }).toISOString() : null, // scannedAt
       passScan
-        ? `{"url": "${
-            typeMap[type].url
-          }", "fixed": null, "hashes": {"CRC32": "${faker.string.hexadecimal({
-            length: 8,
-            casing: 'upper',
-            prefix: '',
-          })}", "AutoV1": "${faker.string.hexadecimal({
-            length: 8,
-            casing: 'upper',
-            prefix: '',
-          })}", "AutoV2": "${faker.string.hexadecimal({
-            length: 10,
-            casing: 'upper',
-            prefix: '',
-          })}", "AutoV3": "${faker.string.hexadecimal({
-            length: 64,
-            casing: 'upper',
-            prefix: '',
-          })}", "Blake3": "${faker.string.hexadecimal({
-            length: 64,
-            casing: 'upper',
-            prefix: '',
-          })}", "SHA256": "${faker.string.hexadecimal({
-            length: 64,
-            casing: 'upper',
-            prefix: '',
-          })}"}, "fileExists": 1, "conversions": {}, "clamscanOutput": "", "clamscanExitCode": 0, "picklescanOutput": "", "picklescanExitCode": 0, "picklescanGlobalImports": null, "picklescanDangerousImports": null}`
+        ? `{"url": "${typeMap[type].url
+        }", "fixed": null, "hashes": {"CRC32": "${faker.string.hexadecimal({
+          length: 8,
+          casing: 'upper',
+          prefix: '',
+        })}", "AutoV1": "${faker.string.hexadecimal({
+          length: 8,
+          casing: 'upper',
+          prefix: '',
+        })}", "AutoV2": "${faker.string.hexadecimal({
+          length: 10,
+          casing: 'upper',
+          prefix: '',
+        })}", "AutoV3": "${faker.string.hexadecimal({
+          length: 64,
+          casing: 'upper',
+          prefix: '',
+        })}", "Blake3": "${faker.string.hexadecimal({
+          length: 64,
+          casing: 'upper',
+          prefix: '',
+        })}", "SHA256": "${faker.string.hexadecimal({
+          length: 64,
+          casing: 'upper',
+          prefix: '',
+        })}"}, "fileExists": 1, "conversions": {}, "clamscanOutput": "", "clamscanExitCode": 0, "picklescanOutput": "", "picklescanExitCode": 0, "picklescanGlobalImports": null, "picklescanDangerousImports": null}`
         : null, // rawScanResult
       faker.date.between({ from: created, to: Date.now() }).toISOString(), // scanRequestedAt
       randw([
@@ -1098,21 +1017,21 @@ const genImages = (num: number, userIds: number[], postIds: number[]) => {
       !isGenned
         ? null
         : `{"Size": "${width}x${height}", "seed": ${faker.string.numeric({
-            length: 10,
-            allowLeadingZeros: false,
-          })}, "steps": ${faker.number.int(
-            100
-          )}, "prompt": "${faker.lorem.sentence()}", "sampler": "${rand(
-            constants.samplers
-          )}", "cfgScale": ${faker.number.int(10)}, "clipSkip": ${rand([
-            0, 1, 2,
-          ])}, "resources": ${randw([
-            { value: '[]', weight: 5 },
-            {
-              value: `[{"name": "${faker.word.noun()}", "type": "lora", "weight": 0.95}]`,
-              weight: 1,
-            },
-          ])}, "Created Date": "${created}", "negativePrompt": "bad stuff", "civitaiResources": [{"type": "checkpoint", "modelVersionId": 272376, "modelVersionName": "1.0"}]}`, // meta
+          length: 10,
+          allowLeadingZeros: false,
+        })}, "steps": ${faker.number.int(
+          100
+        )}, "prompt": "${faker.lorem.sentence()}", "sampler": "${rand(
+          constants.samplers
+        )}", "cfgScale": ${faker.number.int(10)}, "clipSkip": ${rand([
+          0, 1, 2,
+        ])}, "resources": ${randw([
+          { value: '[]', weight: 5 },
+          {
+            value: `[{"name": "${faker.word.noun()}", "type": "lora", "weight": 0.95}]`,
+            weight: 1,
+          },
+        ])}, "Created Date": "${created}", "negativePrompt": "bad stuff", "civitaiResources": [{"type": "checkpoint", "modelVersionId": 272376, "modelVersionName": "1.0"}]}`, // meta
       fbool(0.01), // tosViolation
       null, // analysis
       isGenned ? rand(Object.values(ImageGenerationProcess)) : null, // generationProcess
@@ -1133,13 +1052,13 @@ const genImages = (num: number, userIds: number[], postIds: number[]) => {
       null, // needsReview
       type === 'image'
         ? `{"hash": "${hash}", "size": ${faker.number.int(
-            1_000_000
-          )}, "width": ${width}, "height": ${height}}`
+          1_000_000
+        )}, "width": ${width}, "height": ${height}}`
         : `{"hash": "${hash}", "size": ${faker.number.int(
-            1_000_000
-          )}, "width": ${width}, "height": ${height}, "audio": ${fbool(
-            0.2
-          )}, "duration": ${faker.number.float(30)}}`, // metadata
+          1_000_000
+        )}, "width": ${width}, "height": ${height}, "audio": ${fbool(
+          0.2
+        )}, "duration": ${faker.number.float(30)}}`, // metadata
       type, // type
       '{"wd14": "20279865", "scans": {"WD14": 1716391779426, "Rekognition": 1716391774556}, "rekognition": "20279864", "common-conversions": "20279863"}', // scanJobs
       randw([
@@ -3382,11 +3301,11 @@ const genRedisSystemFeatures = async () => {
 const main = async () => {
   checkLocalDb();
 
-  await pgDbWrite.query('REASSIGN OWNED BY doadmin, civitai, "civitai-jobs" TO postgres');
+  // await pgDbWrite.query('REASSIGN OWNED BY postgres, civitai, "civitai-jobs" TO postgres');
   await pgDbWrite.query(
-    'ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO "postgres"'
+    'ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO "civitai"'
   );
-  await pgDbWrite.query('GRANT ALL ON ALL TABLES IN schema public TO "postgres"');
+  await pgDbWrite.query('GRANT ALL ON ALL TABLES IN schema public TO "civitai"');
 
   await genRows();
 

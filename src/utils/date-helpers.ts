@@ -1,10 +1,13 @@
 import dayjs from 'dayjs';
 import minMax from 'dayjs/plugin/minMax';
 import utc from 'dayjs/plugin/utc';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import isBetween from 'dayjs/plugin/isBetween';
 
 dayjs.extend(minMax);
 dayjs.extend(utc);
-
+dayjs.extend(relativeTime);
+dayjs.extend(isBetween);
 export function formatDate(value: dayjs.ConfigType, format = 'MMM D, YYYY', utc = false) {
   if (utc) return dayjs.utc(value).format(format);
   return dayjs(value).format(format);

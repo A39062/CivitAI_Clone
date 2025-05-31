@@ -47,7 +47,7 @@ COMMENT ON EXTENSION pg_stat_statements IS 'track planning and execution statist
 
 
 --
--- Name: ApiKeyType; Type: TYPE; Schema: public; Owner: doadmin
+-- Name: ApiKeyType; Type: TYPE; Schema: public; Owner: postgres
 --
 
 CREATE TYPE public."ApiKeyType" AS ENUM (
@@ -58,7 +58,7 @@ CREATE TYPE public."ApiKeyType" AS ENUM (
 );
 
 
-ALTER TYPE public."ApiKeyType" OWNER TO doadmin;
+ALTER TYPE public."ApiKeyType" OWNER TO postgres;
 
 --
 -- Name: ArticleEngagementType; Type: TYPE; Schema: public; Owner: civitai
@@ -98,7 +98,7 @@ CREATE TYPE public."Availability" AS ENUM (
 ALTER TYPE public."Availability" OWNER TO civitai;
 
 --
--- Name: BlockImageReason; Type: TYPE; Schema: public; Owner: doadmin
+-- Name: BlockImageReason; Type: TYPE; Schema: public; Owner: postgres
 --
 
 CREATE TYPE public."BlockImageReason" AS ENUM (
@@ -108,7 +108,7 @@ CREATE TYPE public."BlockImageReason" AS ENUM (
 );
 
 
-ALTER TYPE public."BlockImageReason" OWNER TO doadmin;
+ALTER TYPE public."BlockImageReason" OWNER TO postgres;
 
 --
 -- Name: BountyEngagementType; Type: TYPE; Schema: public; Owner: civitai
@@ -393,7 +393,7 @@ CREATE TYPE public."CosmeticType" AS ENUM (
 ALTER TYPE public."CosmeticType" OWNER TO civitai;
 
 --
--- Name: CsamReportType; Type: TYPE; Schema: public; Owner: doadmin
+-- Name: CsamReportType; Type: TYPE; Schema: public; Owner: postgres
 --
 
 CREATE TYPE public."CsamReportType" AS ENUM (
@@ -402,7 +402,7 @@ CREATE TYPE public."CsamReportType" AS ENUM (
 );
 
 
-ALTER TYPE public."CsamReportType" OWNER TO doadmin;
+ALTER TYPE public."CsamReportType" OWNER TO postgres;
 
 --
 -- Name: Currency; Type: TYPE; Schema: public; Owner: civitai
@@ -817,7 +817,7 @@ CREATE TYPE public."ModelVersionSponsorshipSettingsType" AS ENUM (
 ALTER TYPE public."ModelVersionSponsorshipSettingsType" OWNER TO civitai;
 
 --
--- Name: NotificationCategory; Type: TYPE; Schema: public; Owner: doadmin
+-- Name: NotificationCategory; Type: TYPE; Schema: public; Owner: postgres
 --
 
 CREATE TYPE public."NotificationCategory" AS ENUM (
@@ -831,7 +831,7 @@ CREATE TYPE public."NotificationCategory" AS ENUM (
 );
 
 
-ALTER TYPE public."NotificationCategory" OWNER TO doadmin;
+ALTER TYPE public."NotificationCategory" OWNER TO postgres;
 
 --
 -- Name: NsfwLevel; Type: TYPE; Schema: public; Owner: civitai
@@ -849,7 +849,7 @@ CREATE TYPE public."NsfwLevel" AS ENUM (
 ALTER TYPE public."NsfwLevel" OWNER TO civitai;
 
 --
--- Name: OauthTokenType; Type: TYPE; Schema: public; Owner: doadmin
+-- Name: OauthTokenType; Type: TYPE; Schema: public; Owner: postgres
 --
 
 CREATE TYPE public."OauthTokenType" AS ENUM (
@@ -858,7 +858,7 @@ CREATE TYPE public."OauthTokenType" AS ENUM (
 );
 
 
-ALTER TYPE public."OauthTokenType" OWNER TO doadmin;
+ALTER TYPE public."OauthTokenType" OWNER TO postgres;
 
 --
 -- Name: OnboardingStep; Type: TYPE; Schema: public; Owner: civitai
@@ -909,7 +909,7 @@ CREATE TYPE public."PurchasableRewardUsage" AS ENUM (
 ALTER TYPE public."PurchasableRewardUsage" OWNER TO civitai;
 
 --
--- Name: RedeemableCodeType; Type: TYPE; Schema: public; Owner: doadmin
+-- Name: RedeemableCodeType; Type: TYPE; Schema: public; Owner: postgres
 --
 
 CREATE TYPE public."RedeemableCodeType" AS ENUM (
@@ -918,7 +918,7 @@ CREATE TYPE public."RedeemableCodeType" AS ENUM (
 );
 
 
-ALTER TYPE public."RedeemableCodeType" OWNER TO doadmin;
+ALTER TYPE public."RedeemableCodeType" OWNER TO postgres;
 
 --
 -- Name: ReportReason; Type: TYPE; Schema: public; Owner: civitai
@@ -966,7 +966,7 @@ CREATE TYPE public."ReviewReactions" AS ENUM (
 ALTER TYPE public."ReviewReactions" OWNER TO civitai;
 
 --
--- Name: RewardsEligibility; Type: TYPE; Schema: public; Owner: doadmin
+-- Name: RewardsEligibility; Type: TYPE; Schema: public; Owner: postgres
 --
 
 CREATE TYPE public."RewardsEligibility" AS ENUM (
@@ -976,7 +976,7 @@ CREATE TYPE public."RewardsEligibility" AS ENUM (
 );
 
 
-ALTER TYPE public."RewardsEligibility" OWNER TO doadmin;
+ALTER TYPE public."RewardsEligibility" OWNER TO postgres;
 
 --
 -- Name: ScanResultCode; Type: TYPE; Schema: public; Owner: civitai
@@ -1104,7 +1104,7 @@ CREATE TYPE public."TagsOnTagsType" AS ENUM (
 ALTER TYPE public."TagsOnTagsType" OWNER TO civitai;
 
 --
--- Name: TechniqueType; Type: TYPE; Schema: public; Owner: doadmin
+-- Name: TechniqueType; Type: TYPE; Schema: public; Owner: postgres
 --
 
 CREATE TYPE public."TechniqueType" AS ENUM (
@@ -1113,7 +1113,7 @@ CREATE TYPE public."TechniqueType" AS ENUM (
 );
 
 
-ALTER TYPE public."TechniqueType" OWNER TO doadmin;
+ALTER TYPE public."TechniqueType" OWNER TO postgres;
 
 --
 -- Name: ToolType; Type: TYPE; Schema: public; Owner: civitai
@@ -1178,7 +1178,7 @@ CREATE TYPE public."VaultItemStatus" AS ENUM (
 ALTER TYPE public."VaultItemStatus" OWNER TO civitai;
 
 --
--- Name: get_column_stats(); Type: FUNCTION; Schema: pganalyze; Owner: doadmin
+-- Name: get_column_stats(); Type: FUNCTION; Schema: pganalyze; Owner: postgres
 --
 
 CREATE FUNCTION pganalyze.get_column_stats() RETURNS SETOF pg_stats
@@ -1191,10 +1191,10 @@ CREATE FUNCTION pganalyze.get_column_stats() RETURNS SETOF pg_stats
 $$;
 
 
-ALTER FUNCTION pganalyze.get_column_stats() OWNER TO doadmin;
+ALTER FUNCTION pganalyze.get_column_stats() OWNER TO postgres;
 
 --
--- Name: get_relation_stats_ext(); Type: FUNCTION; Schema: pganalyze; Owner: doadmin
+-- Name: get_relation_stats_ext(); Type: FUNCTION; Schema: pganalyze; Owner: postgres
 --
 
 CREATE FUNCTION pganalyze.get_relation_stats_ext() RETURNS TABLE(statistics_schemaname text, statistics_name text, inherited boolean, n_distinct pg_ndistinct, dependencies pg_dependencies, most_common_val_nulls boolean[], most_common_freqs double precision[], most_common_base_freqs double precision[])
@@ -1207,10 +1207,10 @@ CREATE FUNCTION pganalyze.get_relation_stats_ext() RETURNS TABLE(statistics_sche
 $$;
 
 
-ALTER FUNCTION pganalyze.get_relation_stats_ext() OWNER TO doadmin;
+ALTER FUNCTION pganalyze.get_relation_stats_ext() OWNER TO postgres;
 
 --
--- Name: get_stat_replication(); Type: FUNCTION; Schema: pganalyze; Owner: doadmin
+-- Name: get_stat_replication(); Type: FUNCTION; Schema: pganalyze; Owner: postgres
 --
 
 CREATE FUNCTION pganalyze.get_stat_replication() RETURNS SETOF pg_stat_replication
@@ -1220,10 +1220,10 @@ CREATE FUNCTION pganalyze.get_stat_replication() RETURNS SETOF pg_stat_replicati
 $$;
 
 
-ALTER FUNCTION pganalyze.get_stat_replication() OWNER TO doadmin;
+ALTER FUNCTION pganalyze.get_stat_replication() OWNER TO postgres;
 
 --
--- Name: get_stat_statements(boolean); Type: FUNCTION; Schema: pganalyze; Owner: doadmin
+-- Name: get_stat_statements(boolean); Type: FUNCTION; Schema: pganalyze; Owner: postgres
 --
 
 CREATE FUNCTION pganalyze.get_stat_statements(showtext boolean DEFAULT true) RETURNS SETOF public.pg_stat_statements
@@ -1233,11 +1233,11 @@ CREATE FUNCTION pganalyze.get_stat_statements(showtext boolean DEFAULT true) RET
     UNION ALL
   SELECT * FROM pganalyze.get_stat_statements_civitai_read(showtext)
     UNION ALL
-  SELECT * FROM pganalyze.get_stat_statements_doadmin(showtext)
+  SELECT * FROM pganalyze.get_stat_statements_postgres(showtext)
 $$;
 
 
-ALTER FUNCTION pganalyze.get_stat_statements(showtext boolean) OWNER TO doadmin;
+ALTER FUNCTION pganalyze.get_stat_statements(showtext boolean) OWNER TO postgres;
 
 --
 -- Name: get_stat_statements_civitai(boolean); Type: FUNCTION; Schema: pganalyze; Owner: civitai
@@ -1266,20 +1266,20 @@ $$;
 ALTER FUNCTION pganalyze.get_stat_statements_civitai_read(showtext boolean) OWNER TO "civitai-read";
 
 --
--- Name: get_stat_statements_doadmin(boolean); Type: FUNCTION; Schema: pganalyze; Owner: doadmin
+-- Name: get_stat_statements_postgres(boolean); Type: FUNCTION; Schema: pganalyze; Owner: postgres
 --
 
-CREATE FUNCTION pganalyze.get_stat_statements_doadmin(showtext boolean DEFAULT true) RETURNS SETOF public.pg_stat_statements
+CREATE FUNCTION pganalyze.get_stat_statements_postgres(showtext boolean DEFAULT true) RETURNS SETOF public.pg_stat_statements
     LANGUAGE sql SECURITY DEFINER
     AS $$
-  SELECT * FROM public.pg_stat_statements(showtext) WHERE userid = 'doadmin'::regrole;
+  SELECT * FROM public.pg_stat_statements(showtext) WHERE userid = 'postgres'::regrole;
 $$;
 
 
-ALTER FUNCTION pganalyze.get_stat_statements_doadmin(showtext boolean) OWNER TO doadmin;
+ALTER FUNCTION pganalyze.get_stat_statements_postgres(showtext boolean) OWNER TO postgres;
 
 --
--- Name: pg_stat_activity(); Type: FUNCTION; Schema: pghero; Owner: doadmin
+-- Name: pg_stat_activity(); Type: FUNCTION; Schema: pghero; Owner: postgres
 --
 
 CREATE FUNCTION pghero.pg_stat_activity() RETURNS SETOF pg_stat_activity
@@ -1289,10 +1289,10 @@ CREATE FUNCTION pghero.pg_stat_activity() RETURNS SETOF pg_stat_activity
 $$;
 
 
-ALTER FUNCTION pghero.pg_stat_activity() OWNER TO doadmin;
+ALTER FUNCTION pghero.pg_stat_activity() OWNER TO postgres;
 
 --
--- Name: pg_stat_statements(); Type: FUNCTION; Schema: pghero; Owner: doadmin
+-- Name: pg_stat_statements(); Type: FUNCTION; Schema: pghero; Owner: postgres
 --
 
 CREATE FUNCTION pghero.pg_stat_statements() RETURNS SETOF public.pg_stat_statements
@@ -1302,10 +1302,10 @@ CREATE FUNCTION pghero.pg_stat_statements() RETURNS SETOF public.pg_stat_stateme
 $$;
 
 
-ALTER FUNCTION pghero.pg_stat_statements() OWNER TO doadmin;
+ALTER FUNCTION pghero.pg_stat_statements() OWNER TO postgres;
 
 --
--- Name: pg_stats(); Type: FUNCTION; Schema: pghero; Owner: doadmin
+-- Name: pg_stats(); Type: FUNCTION; Schema: pghero; Owner: postgres
 --
 
 CREATE FUNCTION pghero.pg_stats() RETURNS TABLE(schemaname name, tablename name, attname name, null_frac real, avg_width integer, n_distinct real)
@@ -1315,7 +1315,7 @@ CREATE FUNCTION pghero.pg_stats() RETURNS TABLE(schemaname name, tablename name,
 $$;
 
 
-ALTER FUNCTION pghero.pg_stats() OWNER TO doadmin;
+ALTER FUNCTION pghero.pg_stats() OWNER TO postgres;
 
 --
 -- Name: add_image_metrics(); Type: FUNCTION; Schema: public; Owner: civitai
@@ -1341,7 +1341,7 @@ $$;
 ALTER FUNCTION public.add_image_metrics() OWNER TO civitai;
 
 --
--- Name: add_model_metrics(); Type: FUNCTION; Schema: public; Owner: doadmin
+-- Name: add_model_metrics(); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
 CREATE FUNCTION public.add_model_metrics() RETURNS trigger
@@ -1361,7 +1361,7 @@ END;
 $$;
 
 
-ALTER FUNCTION public.add_model_metrics() OWNER TO doadmin;
+ALTER FUNCTION public.add_model_metrics() OWNER TO postgres;
 
 --
 -- Name: create_buzz_withdrawal_request_history_on_insert(); Type: FUNCTION; Schema: public; Owner: civitai
@@ -1400,7 +1400,7 @@ $$;
 ALTER FUNCTION public.create_job_queue_record(entityid integer, entitytype text, type text) OWNER TO civitai;
 
 --
--- Name: create_redeemable_codes(text, integer, integer, public."RedeemableCodeType", timestamp without time zone); Type: FUNCTION; Schema: public; Owner: doadmin
+-- Name: create_redeemable_codes(text, integer, integer, public."RedeemableCodeType", timestamp without time zone); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
 CREATE FUNCTION public.create_redeemable_codes(prefix text, unit_value integer, quantity integer DEFAULT 1, code_type public."RedeemableCodeType" DEFAULT 'Buzz'::public."RedeemableCodeType", expires_at timestamp without time zone DEFAULT NULL::timestamp without time zone) RETURNS SETOF text
@@ -1437,10 +1437,10 @@ END;
 $$;
 
 
-ALTER FUNCTION public.create_redeemable_codes(prefix text, unit_value integer, quantity integer, code_type public."RedeemableCodeType", expires_at timestamp without time zone) OWNER TO doadmin;
+ALTER FUNCTION public.create_redeemable_codes(prefix text, unit_value integer, quantity integer, code_type public."RedeemableCodeType", expires_at timestamp without time zone) OWNER TO postgres;
 
 --
--- Name: early_access_ends_at(); Type: FUNCTION; Schema: public; Owner: doadmin
+-- Name: early_access_ends_at(); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
 CREATE FUNCTION public.early_access_ends_at() RETURNS trigger
@@ -1472,7 +1472,7 @@ END;
 $$;
 
 
-ALTER FUNCTION public.early_access_ends_at() OWNER TO doadmin;
+ALTER FUNCTION public.early_access_ends_at() OWNER TO postgres;
 
 --
 -- Name: feature_images(integer); Type: FUNCTION; Schema: public; Owner: civitai
@@ -1569,7 +1569,7 @@ $$;
 ALTER FUNCTION public.feature_images(tags_to_exclude text, num_images_per_category integer) OWNER TO civitai;
 
 --
--- Name: generate_redeemable_code(text); Type: FUNCTION; Schema: public; Owner: doadmin
+-- Name: generate_redeemable_code(text); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
 CREATE FUNCTION public.generate_redeemable_code(prefix text DEFAULT 'db'::text) RETURNS text
@@ -1581,10 +1581,10 @@ END;
 $$;
 
 
-ALTER FUNCTION public.generate_redeemable_code(prefix text) OWNER TO doadmin;
+ALTER FUNCTION public.generate_redeemable_code(prefix text) OWNER TO postgres;
 
 --
--- Name: generate_token(integer); Type: FUNCTION; Schema: public; Owner: doadmin
+-- Name: generate_token(integer); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
 CREATE FUNCTION public.generate_token(length integer) RETURNS text
@@ -1603,10 +1603,10 @@ END;
 $$;
 
 
-ALTER FUNCTION public.generate_token(length integer) OWNER TO doadmin;
+ALTER FUNCTION public.generate_token(length integer) OWNER TO postgres;
 
 --
--- Name: get_image_resources(integer); Type: FUNCTION; Schema: public; Owner: doadmin
+-- Name: get_image_resources(integer); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
 CREATE FUNCTION public.get_image_resources(image_id integer) RETURNS TABLE(id integer, modelversionid integer, name text, hash text, strength integer, detected boolean)
@@ -1739,7 +1739,7 @@ END;
 $$;
 
 
-ALTER FUNCTION public.get_image_resources(image_id integer) OWNER TO doadmin;
+ALTER FUNCTION public.get_image_resources(image_id integer) OWNER TO postgres;
 
 --
 -- Name: get_image_resources2(integer); Type: FUNCTION; Schema: public; Owner: civitai
@@ -1878,7 +1878,7 @@ $$;
 ALTER FUNCTION public.get_image_resources2(image_id integer) OWNER TO civitai;
 
 --
--- Name: get_nsfw_level_name(integer); Type: FUNCTION; Schema: public; Owner: doadmin
+-- Name: get_nsfw_level_name(integer); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
 CREATE FUNCTION public.get_nsfw_level_name(nsfw_level_id integer) RETURNS character varying
@@ -1898,7 +1898,7 @@ END;
 $$;
 
 
-ALTER FUNCTION public.get_nsfw_level_name(nsfw_level_id integer) OWNER TO doadmin;
+ALTER FUNCTION public.get_nsfw_level_name(nsfw_level_id integer) OWNER TO postgres;
 
 --
 -- Name: hamming_distance(bigint, bigint); Type: FUNCTION; Schema: public; Owner: civitai
@@ -2110,7 +2110,7 @@ $$;
 ALTER FUNCTION public.insert_image_resource(image_id integer) OWNER TO civitai;
 
 --
--- Name: is_new_user(integer); Type: FUNCTION; Schema: public; Owner: doadmin
+-- Name: is_new_user(integer); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
 CREATE FUNCTION public.is_new_user(userid integer) RETURNS boolean
@@ -2129,7 +2129,7 @@ END;
 $$;
 
 
-ALTER FUNCTION public.is_new_user(userid integer) OWNER TO doadmin;
+ALTER FUNCTION public.is_new_user(userid integer) OWNER TO postgres;
 
 --
 -- Name: months_between(timestamp without time zone, timestamp without time zone); Type: FUNCTION; Schema: public; Owner: civitai
@@ -2218,7 +2218,7 @@ $$;
 ALTER FUNCTION public.slugify(input_string text) OWNER TO civitai;
 
 --
--- Name: truncate_autov3_hash(); Type: FUNCTION; Schema: public; Owner: doadmin
+-- Name: truncate_autov3_hash(); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
 CREATE FUNCTION public.truncate_autov3_hash() RETURNS trigger
@@ -2233,7 +2233,7 @@ END;
 $$;
 
 
-ALTER FUNCTION public.truncate_autov3_hash() OWNER TO doadmin;
+ALTER FUNCTION public.truncate_autov3_hash() OWNER TO postgres;
 
 --
 -- Name: update_article_nsfw_level(); Type: FUNCTION; Schema: public; Owner: civitai
@@ -2879,7 +2879,7 @@ $$;
 ALTER FUNCTION public.update_post_nsfw_levels(post_ids integer[]) OWNER TO civitai;
 
 --
--- Name: pg_stat_activity; Type: VIEW; Schema: pghero; Owner: doadmin
+-- Name: pg_stat_activity; Type: VIEW; Schema: pghero; Owner: postgres
 --
 
 CREATE VIEW pghero.pg_stat_activity AS
@@ -2908,10 +2908,10 @@ CREATE VIEW pghero.pg_stat_activity AS
    FROM pghero.pg_stat_activity() pg_stat_activity(datid, datname, pid, leader_pid, usesysid, usename, application_name, client_addr, client_hostname, client_port, backend_start, xact_start, query_start, state_change, wait_event_type, wait_event, state, backend_xid, backend_xmin, query_id, query, backend_type);
 
 
-ALTER TABLE pghero.pg_stat_activity OWNER TO doadmin;
+ALTER TABLE pghero.pg_stat_activity OWNER TO postgres;
 
 --
--- Name: pg_stats; Type: VIEW; Schema: pghero; Owner: doadmin
+-- Name: pg_stats; Type: VIEW; Schema: pghero; Owner: postgres
 --
 
 CREATE VIEW pghero.pg_stats AS
@@ -2924,7 +2924,7 @@ CREATE VIEW pghero.pg_stats AS
    FROM pghero.pg_stats() pg_stats(schemaname, tablename, attname, null_frac, avg_width, n_distinct);
 
 
-ALTER TABLE pghero.pg_stats OWNER TO doadmin;
+ALTER TABLE pghero.pg_stats OWNER TO postgres;
 
 SET default_tablespace = '';
 
@@ -4250,7 +4250,7 @@ ALTER SEQUENCE public."Bounty_id_seq" OWNED BY public."Bounty".id;
 
 
 --
--- Name: BuildGuide; Type: TABLE; Schema: public; Owner: doadmin
+-- Name: BuildGuide; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public."BuildGuide" (
@@ -4265,10 +4265,10 @@ CREATE TABLE public."BuildGuide" (
 );
 
 
-ALTER TABLE public."BuildGuide" OWNER TO doadmin;
+ALTER TABLE public."BuildGuide" OWNER TO postgres;
 
 --
--- Name: BuildGuide_id_seq; Type: SEQUENCE; Schema: public; Owner: doadmin
+-- Name: BuildGuide_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public."BuildGuide_id_seq"
@@ -4280,10 +4280,10 @@ CREATE SEQUENCE public."BuildGuide_id_seq"
     CACHE 1;
 
 
-ALTER TABLE public."BuildGuide_id_seq" OWNER TO doadmin;
+ALTER TABLE public."BuildGuide_id_seq" OWNER TO postgres;
 
 --
--- Name: BuildGuide_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: doadmin
+-- Name: BuildGuide_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public."BuildGuide_id_seq" OWNED BY public."BuildGuide".id;
@@ -5587,7 +5587,7 @@ CREATE TABLE public."CustomerSubscription" (
 ALTER TABLE public."CustomerSubscription" OWNER TO civitai;
 
 --
--- Name: Donation; Type: TABLE; Schema: public; Owner: doadmin
+-- Name: Donation; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public."Donation" (
@@ -5601,10 +5601,10 @@ CREATE TABLE public."Donation" (
 );
 
 
-ALTER TABLE public."Donation" OWNER TO doadmin;
+ALTER TABLE public."Donation" OWNER TO postgres;
 
 --
--- Name: DonationGoal; Type: TABLE; Schema: public; Owner: doadmin
+-- Name: DonationGoal; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public."DonationGoal" (
@@ -5621,10 +5621,10 @@ CREATE TABLE public."DonationGoal" (
 );
 
 
-ALTER TABLE public."DonationGoal" OWNER TO doadmin;
+ALTER TABLE public."DonationGoal" OWNER TO postgres;
 
 --
--- Name: DonationGoal_id_seq; Type: SEQUENCE; Schema: public; Owner: doadmin
+-- Name: DonationGoal_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public."DonationGoal_id_seq"
@@ -5636,17 +5636,17 @@ CREATE SEQUENCE public."DonationGoal_id_seq"
     CACHE 1;
 
 
-ALTER TABLE public."DonationGoal_id_seq" OWNER TO doadmin;
+ALTER TABLE public."DonationGoal_id_seq" OWNER TO postgres;
 
 --
--- Name: DonationGoal_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: doadmin
+-- Name: DonationGoal_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public."DonationGoal_id_seq" OWNED BY public."DonationGoal".id;
 
 
 --
--- Name: Donation_id_seq; Type: SEQUENCE; Schema: public; Owner: doadmin
+-- Name: Donation_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public."Donation_id_seq"
@@ -5658,10 +5658,10 @@ CREATE SEQUENCE public."Donation_id_seq"
     CACHE 1;
 
 
-ALTER TABLE public."Donation_id_seq" OWNER TO doadmin;
+ALTER TABLE public."Donation_id_seq" OWNER TO postgres;
 
 --
--- Name: Donation_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: doadmin
+-- Name: Donation_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public."Donation_id_seq" OWNED BY public."Donation".id;
@@ -5974,7 +5974,7 @@ CREATE TABLE public."ImageEngagement" (
 ALTER TABLE public."ImageEngagement" OWNER TO civitai;
 
 --
--- Name: ImageFlag; Type: TABLE; Schema: public; Owner: doadmin
+-- Name: ImageFlag; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public."ImageFlag" (
@@ -5984,7 +5984,7 @@ CREATE TABLE public."ImageFlag" (
 );
 
 
-ALTER TABLE public."ImageFlag" OWNER TO doadmin;
+ALTER TABLE public."ImageFlag" OWNER TO postgres;
 
 --
 -- Name: ImageMetric; Type: TABLE; Schema: public; Owner: civitai
@@ -6346,7 +6346,7 @@ CREATE TABLE public."ResourceReview" (
 ALTER TABLE public."ResourceReview" OWNER TO civitai;
 
 --
--- Name: ImageResourceHelper; Type: VIEW; Schema: public; Owner: doadmin
+-- Name: ImageResourceHelper; Type: VIEW; Schema: public; Owner: postgres
 --
 
 CREATE VIEW public."ImageResourceHelper" AS
@@ -6381,7 +6381,7 @@ CREATE VIEW public."ImageResourceHelper" AS
      LEFT JOIN public."ResourceReview" rr ON (((rr."modelVersionId" = mv.id) AND (rr."userId" = i."userId"))));
 
 
-ALTER TABLE public."ImageResourceHelper" OWNER TO doadmin;
+ALTER TABLE public."ImageResourceHelper" OWNER TO postgres;
 
 --
 -- Name: ImageResource_id_seq; Type: SEQUENCE; Schema: public; Owner: civitai
@@ -6596,7 +6596,7 @@ CREATE VIEW public."ImageTag" AS
 ALTER TABLE public."ImageTag" OWNER TO civitai;
 
 --
--- Name: ImageTechnique; Type: TABLE; Schema: public; Owner: doadmin
+-- Name: ImageTechnique; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public."ImageTechnique" (
@@ -6607,7 +6607,7 @@ CREATE TABLE public."ImageTechnique" (
 );
 
 
-ALTER TABLE public."ImageTechnique" OWNER TO doadmin;
+ALTER TABLE public."ImageTechnique" OWNER TO postgres;
 
 --
 -- Name: ImageTool; Type: TABLE; Schema: public; Owner: civitai
@@ -7004,7 +7004,7 @@ ALTER SEQUENCE public."ModelFile_id_seq" OWNED BY public."ModelFile".id;
 
 
 --
--- Name: ModelFlag; Type: TABLE; Schema: public; Owner: doadmin
+-- Name: ModelFlag; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public."ModelFlag" (
@@ -7020,7 +7020,7 @@ CREATE TABLE public."ModelFlag" (
 );
 
 
-ALTER TABLE public."ModelFlag" OWNER TO doadmin;
+ALTER TABLE public."ModelFlag" OWNER TO postgres;
 
 --
 -- Name: ModelHash; Type: VIEW; Schema: public; Owner: civitai
@@ -7739,7 +7739,7 @@ ALTER SEQUENCE public."Model_id_seq" OWNED BY public."Model".id;
 
 
 --
--- Name: OauthClient; Type: TABLE; Schema: public; Owner: doadmin
+-- Name: OauthClient; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public."OauthClient" (
@@ -7754,10 +7754,10 @@ CREATE TABLE public."OauthClient" (
 );
 
 
-ALTER TABLE public."OauthClient" OWNER TO doadmin;
+ALTER TABLE public."OauthClient" OWNER TO postgres;
 
 --
--- Name: OauthToken; Type: TABLE; Schema: public; Owner: doadmin
+-- Name: OauthToken; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public."OauthToken" (
@@ -7771,7 +7771,7 @@ CREATE TABLE public."OauthToken" (
 );
 
 
-ALTER TABLE public."OauthToken" OWNER TO doadmin;
+ALTER TABLE public."OauthToken" OWNER TO postgres;
 
 --
 -- Name: Partner; Type: TABLE; Schema: public; Owner: civitai
@@ -7805,7 +7805,7 @@ CREATE TABLE public."Partner" (
 ALTER TABLE public."Partner" OWNER TO civitai;
 
 --
--- Name: OnDemandRunStrategy; Type: VIEW; Schema: public; Owner: doadmin
+-- Name: OnDemandRunStrategy; Type: VIEW; Schema: public; Owner: postgres
 --
 
 CREATE VIEW public."OnDemandRunStrategy" AS
@@ -7818,7 +7818,7 @@ CREATE VIEW public."OnDemandRunStrategy" AS
   WHERE (((p.nsfw = true) OR (m.nsfw = false)) AND (m.poi = false) AND (p.personal OR (m."allowCommercialUse" && ARRAY['Rent'::public."CommercialUse", 'Sell'::public."CommercialUse"])));
 
 
-ALTER TABLE public."OnDemandRunStrategy" OWNER TO doadmin;
+ALTER TABLE public."OnDemandRunStrategy" OWNER TO postgres;
 
 --
 -- Name: Partner_id_seq; Type: SEQUENCE; Schema: public; Owner: civitai
@@ -8096,7 +8096,7 @@ CREATE TABLE public."PostReport" (
 ALTER TABLE public."PostReport" OWNER TO civitai;
 
 --
--- Name: PostResourceHelper; Type: VIEW; Schema: public; Owner: doadmin
+-- Name: PostResourceHelper; Type: VIEW; Schema: public; Owner: postgres
 --
 
 CREATE VIEW public."PostResourceHelper" AS
@@ -8125,7 +8125,7 @@ CREATE VIEW public."PostResourceHelper" AS
    FROM public."ImageResourceHelper";
 
 
-ALTER TABLE public."PostResourceHelper" OWNER TO doadmin;
+ALTER TABLE public."PostResourceHelper" OWNER TO postgres;
 
 --
 -- Name: PostStat; Type: VIEW; Schema: public; Owner: civitai
@@ -8440,7 +8440,7 @@ ALTER SEQUENCE public."Purchase_id_seq" OWNED BY public."Purchase".id;
 
 
 --
--- Name: QueryDurationLog; Type: TABLE; Schema: public; Owner: doadmin
+-- Name: QueryDurationLog; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public."QueryDurationLog" (
@@ -8451,10 +8451,10 @@ CREATE TABLE public."QueryDurationLog" (
 );
 
 
-ALTER TABLE public."QueryDurationLog" OWNER TO doadmin;
+ALTER TABLE public."QueryDurationLog" OWNER TO postgres;
 
 --
--- Name: QueryDurationLog_id_seq; Type: SEQUENCE; Schema: public; Owner: doadmin
+-- Name: QueryDurationLog_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public."QueryDurationLog_id_seq"
@@ -8466,17 +8466,17 @@ CREATE SEQUENCE public."QueryDurationLog_id_seq"
     CACHE 1;
 
 
-ALTER TABLE public."QueryDurationLog_id_seq" OWNER TO doadmin;
+ALTER TABLE public."QueryDurationLog_id_seq" OWNER TO postgres;
 
 --
--- Name: QueryDurationLog_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: doadmin
+-- Name: QueryDurationLog_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public."QueryDurationLog_id_seq" OWNED BY public."QueryDurationLog".id;
 
 
 --
--- Name: QueryParamsLog; Type: TABLE; Schema: public; Owner: doadmin
+-- Name: QueryParamsLog; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public."QueryParamsLog" (
@@ -8487,10 +8487,10 @@ CREATE TABLE public."QueryParamsLog" (
 );
 
 
-ALTER TABLE public."QueryParamsLog" OWNER TO doadmin;
+ALTER TABLE public."QueryParamsLog" OWNER TO postgres;
 
 --
--- Name: QueryParamsLog_id_seq; Type: SEQUENCE; Schema: public; Owner: doadmin
+-- Name: QueryParamsLog_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public."QueryParamsLog_id_seq"
@@ -8502,17 +8502,17 @@ CREATE SEQUENCE public."QueryParamsLog_id_seq"
     CACHE 1;
 
 
-ALTER TABLE public."QueryParamsLog_id_seq" OWNER TO doadmin;
+ALTER TABLE public."QueryParamsLog_id_seq" OWNER TO postgres;
 
 --
--- Name: QueryParamsLog_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: doadmin
+-- Name: QueryParamsLog_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public."QueryParamsLog_id_seq" OWNED BY public."QueryParamsLog".id;
 
 
 --
--- Name: QuerySqlLog; Type: TABLE; Schema: public; Owner: doadmin
+-- Name: QuerySqlLog; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public."QuerySqlLog" (
@@ -8522,10 +8522,10 @@ CREATE TABLE public."QuerySqlLog" (
 );
 
 
-ALTER TABLE public."QuerySqlLog" OWNER TO doadmin;
+ALTER TABLE public."QuerySqlLog" OWNER TO postgres;
 
 --
--- Name: QuerySqlLog_id_seq; Type: SEQUENCE; Schema: public; Owner: doadmin
+-- Name: QuerySqlLog_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public."QuerySqlLog_id_seq"
@@ -8537,10 +8537,10 @@ CREATE SEQUENCE public."QuerySqlLog_id_seq"
     CACHE 1;
 
 
-ALTER TABLE public."QuerySqlLog_id_seq" OWNER TO doadmin;
+ALTER TABLE public."QuerySqlLog_id_seq" OWNER TO postgres;
 
 --
--- Name: QuerySqlLog_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: doadmin
+-- Name: QuerySqlLog_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public."QuerySqlLog_id_seq" OWNED BY public."QuerySqlLog".id;
@@ -8727,7 +8727,7 @@ ALTER SEQUENCE public."RecommendedResource_id_seq" OWNED BY public."RecommendedR
 
 
 --
--- Name: RedeemableCode; Type: TABLE; Schema: public; Owner: doadmin
+-- Name: RedeemableCode; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public."RedeemableCode" (
@@ -8742,7 +8742,7 @@ CREATE TABLE public."RedeemableCode" (
 );
 
 
-ALTER TABLE public."RedeemableCode" OWNER TO doadmin;
+ALTER TABLE public."RedeemableCode" OWNER TO postgres;
 
 --
 -- Name: Report_id_seq; Type: SEQUENCE; Schema: public; Owner: civitai
@@ -9190,7 +9190,7 @@ CREATE TABLE public."TagsOnTags" (
 ALTER TABLE public."TagsOnTags" OWNER TO civitai;
 
 --
--- Name: Technique; Type: TABLE; Schema: public; Owner: doadmin
+-- Name: Technique; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public."Technique" (
@@ -9202,10 +9202,10 @@ CREATE TABLE public."Technique" (
 );
 
 
-ALTER TABLE public."Technique" OWNER TO doadmin;
+ALTER TABLE public."Technique" OWNER TO postgres;
 
 --
--- Name: Technique_id_seq; Type: SEQUENCE; Schema: public; Owner: doadmin
+-- Name: Technique_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public."Technique_id_seq"
@@ -9217,10 +9217,10 @@ CREATE SEQUENCE public."Technique_id_seq"
     CACHE 1;
 
 
-ALTER TABLE public."Technique_id_seq" OWNER TO doadmin;
+ALTER TABLE public."Technique_id_seq" OWNER TO postgres;
 
 --
--- Name: Technique_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: doadmin
+-- Name: Technique_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public."Technique_id_seq" OWNED BY public."Technique".id;
@@ -9604,7 +9604,7 @@ CREATE TABLE public."UserRank" (
 ALTER TABLE public."UserRank" OWNER TO civitai;
 
 --
--- Name: UserStat; Type: VIEW; Schema: public; Owner: doadmin
+-- Name: UserStat; Type: VIEW; Schema: public; Owner: postgres
 --
 
 CREATE VIEW public."UserStat" AS
@@ -9860,10 +9860,10 @@ CREATE VIEW public."UserStat" AS
    FROM full_user_stats;
 
 
-ALTER TABLE public."UserStat" OWNER TO doadmin;
+ALTER TABLE public."UserStat" OWNER TO postgres;
 
 --
--- Name: UserRank_Live; Type: VIEW; Schema: public; Owner: doadmin
+-- Name: UserRank_Live; Type: VIEW; Schema: public; Owner: postgres
 --
 
 CREATE VIEW public."UserRank_Live" AS
@@ -9935,7 +9935,7 @@ CREATE VIEW public."UserRank_Live" AS
      LEFT JOIN lowest_position lp ON ((lp."userId" = us."userId")));
 
 
-ALTER TABLE public."UserRank_Live" OWNER TO doadmin;
+ALTER TABLE public."UserRank_Live" OWNER TO postgres;
 
 --
 -- Name: UserReferral; Type: TABLE; Schema: public; Owner: civitai
@@ -10299,7 +10299,7 @@ ALTER SEQUENCE public.homeblock_id_seq OWNED BY public."HomeBlock".id;
 
 
 --
--- Name: internal_leaderboard_models; Type: VIEW; Schema: public; Owner: doadmin
+-- Name: internal_leaderboard_models; Type: VIEW; Schema: public; Owner: postgres
 --
 
 CREATE VIEW public.internal_leaderboard_models AS
@@ -10349,10 +10349,10 @@ CREATE VIEW public.internal_leaderboard_models AS
    FROM entries_multiplied;
 
 
-ALTER TABLE public.internal_leaderboard_models OWNER TO doadmin;
+ALTER TABLE public.internal_leaderboard_models OWNER TO postgres;
 
 --
--- Name: research_ratings; Type: TABLE; Schema: public; Owner: doadmin
+-- Name: research_ratings; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.research_ratings (
@@ -10364,10 +10364,10 @@ CREATE TABLE public.research_ratings (
 );
 
 
-ALTER TABLE public.research_ratings OWNER TO doadmin;
+ALTER TABLE public.research_ratings OWNER TO postgres;
 
 --
--- Name: research_ratings_resets; Type: TABLE; Schema: public; Owner: doadmin
+-- Name: research_ratings_resets; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.research_ratings_resets (
@@ -10376,7 +10376,7 @@ CREATE TABLE public.research_ratings_resets (
 );
 
 
-ALTER TABLE public.research_ratings_resets OWNER TO doadmin;
+ALTER TABLE public.research_ratings_resets OWNER TO postgres;
 
 --
 -- Name: subscriptions; Type: TABLE; Schema: public; Owner: civitai
@@ -10404,7 +10404,7 @@ CREATE TABLE public.subscriptions (
 ALTER TABLE public.subscriptions OWNER TO civitai;
 
 --
--- Name: temp_deleted_user_posts; Type: TABLE; Schema: public; Owner: doadmin
+-- Name: temp_deleted_user_posts; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.temp_deleted_user_posts (
@@ -10412,10 +10412,10 @@ CREATE TABLE public.temp_deleted_user_posts (
 );
 
 
-ALTER TABLE public.temp_deleted_user_posts OWNER TO doadmin;
+ALTER TABLE public.temp_deleted_user_posts OWNER TO postgres;
 
 --
--- Name: temp_goals; Type: TABLE; Schema: public; Owner: doadmin
+-- Name: temp_goals; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.temp_goals (
@@ -10426,10 +10426,10 @@ CREATE TABLE public.temp_goals (
 );
 
 
-ALTER TABLE public.temp_goals OWNER TO doadmin;
+ALTER TABLE public.temp_goals OWNER TO postgres;
 
 --
--- Name: temp_model_files; Type: TABLE; Schema: public; Owner: doadmin
+-- Name: temp_model_files; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.temp_model_files (
@@ -10437,10 +10437,10 @@ CREATE TABLE public.temp_model_files (
 );
 
 
-ALTER TABLE public.temp_model_files OWNER TO doadmin;
+ALTER TABLE public.temp_model_files OWNER TO postgres;
 
 --
--- Name: temp_paddle_import; Type: TABLE; Schema: public; Owner: doadmin
+-- Name: temp_paddle_import; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.temp_paddle_import (
@@ -10451,7 +10451,7 @@ CREATE TABLE public.temp_paddle_import (
 );
 
 
-ALTER TABLE public.temp_paddle_import OWNER TO doadmin;
+ALTER TABLE public.temp_paddle_import OWNER TO postgres;
 
 --
 -- Name: tmp_s; Type: TABLE; Schema: public; Owner: civitai
@@ -10541,7 +10541,7 @@ ALTER SEQUENCE public.untitled_table_420_id_seq OWNED BY public.untitled_table_4
 
 
 --
--- Name: username_bak; Type: TABLE; Schema: public; Owner: doadmin
+-- Name: username_bak; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.username_bak (
@@ -10551,10 +10551,10 @@ CREATE TABLE public.username_bak (
 );
 
 
-ALTER TABLE public.username_bak OWNER TO doadmin;
+ALTER TABLE public.username_bak OWNER TO postgres;
 
 --
--- Name: username_bak_id_seq; Type: SEQUENCE; Schema: public; Owner: doadmin
+-- Name: username_bak_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.username_bak_id_seq
@@ -10566,10 +10566,10 @@ CREATE SEQUENCE public.username_bak_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.username_bak_id_seq OWNER TO doadmin;
+ALTER TABLE public.username_bak_id_seq OWNER TO postgres;
 
 --
--- Name: username_bak_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: doadmin
+-- Name: username_bak_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.username_bak_id_seq OWNED BY public.username_bak.id;
@@ -10639,7 +10639,7 @@ ALTER TABLE ONLY public."BountyEntry" ALTER COLUMN id SET DEFAULT nextval('publi
 
 
 --
--- Name: BuildGuide id; Type: DEFAULT; Schema: public; Owner: doadmin
+-- Name: BuildGuide id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public."BuildGuide" ALTER COLUMN id SET DEFAULT nextval('public."BuildGuide_id_seq"'::regclass);
@@ -10779,14 +10779,14 @@ ALTER TABLE ONLY public."CsamReport" ALTER COLUMN id SET DEFAULT nextval('public
 
 
 --
--- Name: Donation id; Type: DEFAULT; Schema: public; Owner: doadmin
+-- Name: Donation id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public."Donation" ALTER COLUMN id SET DEFAULT nextval('public."Donation_id_seq"'::regclass);
 
 
 --
--- Name: DonationGoal id; Type: DEFAULT; Schema: public; Owner: doadmin
+-- Name: DonationGoal id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public."DonationGoal" ALTER COLUMN id SET DEFAULT nextval('public."DonationGoal_id_seq"'::regclass);
@@ -10940,21 +10940,21 @@ ALTER TABLE ONLY public."Purchase" ALTER COLUMN id SET DEFAULT nextval('public."
 
 
 --
--- Name: QueryDurationLog id; Type: DEFAULT; Schema: public; Owner: doadmin
+-- Name: QueryDurationLog id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public."QueryDurationLog" ALTER COLUMN id SET DEFAULT nextval('public."QueryDurationLog_id_seq"'::regclass);
 
 
 --
--- Name: QueryParamsLog id; Type: DEFAULT; Schema: public; Owner: doadmin
+-- Name: QueryParamsLog id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public."QueryParamsLog" ALTER COLUMN id SET DEFAULT nextval('public."QueryParamsLog_id_seq"'::regclass);
 
 
 --
--- Name: QuerySqlLog id; Type: DEFAULT; Schema: public; Owner: doadmin
+-- Name: QuerySqlLog id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public."QuerySqlLog" ALTER COLUMN id SET DEFAULT nextval('public."QuerySqlLog_id_seq"'::regclass);
@@ -11017,7 +11017,7 @@ ALTER TABLE ONLY public."Tag" ALTER COLUMN id SET DEFAULT nextval('public."Tag_i
 
 
 --
--- Name: Technique id; Type: DEFAULT; Schema: public; Owner: doadmin
+-- Name: Technique id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public."Technique" ALTER COLUMN id SET DEFAULT nextval('public."Technique_id_seq"'::regclass);
@@ -11101,7 +11101,7 @@ ALTER TABLE ONLY public.untitled_table_420 ALTER COLUMN id SET DEFAULT nextval('
 
 
 --
--- Name: username_bak id; Type: DEFAULT; Schema: public; Owner: doadmin
+-- Name: username_bak id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.username_bak ALTER COLUMN id SET DEFAULT nextval('public.username_bak_id_seq'::regclass);
@@ -11284,7 +11284,7 @@ ALTER TABLE ONLY public."Bounty"
 
 
 --
--- Name: BuildGuide BuildGuide_pkey; Type: CONSTRAINT; Schema: public; Owner: doadmin
+-- Name: BuildGuide BuildGuide_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public."BuildGuide"
@@ -11572,7 +11572,7 @@ ALTER TABLE ONLY public."CustomerSubscription"
 
 
 --
--- Name: DonationGoal DonationGoal_pkey; Type: CONSTRAINT; Schema: public; Owner: doadmin
+-- Name: DonationGoal DonationGoal_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public."DonationGoal"
@@ -11580,7 +11580,7 @@ ALTER TABLE ONLY public."DonationGoal"
 
 
 --
--- Name: Donation Donation_pkey; Type: CONSTRAINT; Schema: public; Owner: doadmin
+-- Name: Donation Donation_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public."Donation"
@@ -11660,7 +11660,7 @@ ALTER TABLE ONLY public."ImageEngagement"
 
 
 --
--- Name: ImageFlag ImageFlag_pkey; Type: CONSTRAINT; Schema: public; Owner: doadmin
+-- Name: ImageFlag ImageFlag_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public."ImageFlag"
@@ -11708,7 +11708,7 @@ ALTER TABLE ONLY public."ImageResource"
 
 
 --
--- Name: ImageTechnique ImageTechnique_pkey; Type: CONSTRAINT; Schema: public; Owner: doadmin
+-- Name: ImageTechnique ImageTechnique_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public."ImageTechnique"
@@ -11852,7 +11852,7 @@ ALTER TABLE ONLY public."ModelFile"
 
 
 --
--- Name: ModelFlag ModelFlag_pkey; Type: CONSTRAINT; Schema: public; Owner: doadmin
+-- Name: ModelFlag ModelFlag_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public."ModelFlag"
@@ -11948,7 +11948,7 @@ ALTER TABLE ONLY public."Model"
 
 
 --
--- Name: OauthClient OauthClient_pkey; Type: CONSTRAINT; Schema: public; Owner: doadmin
+-- Name: OauthClient OauthClient_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public."OauthClient"
@@ -11956,7 +11956,7 @@ ALTER TABLE ONLY public."OauthClient"
 
 
 --
--- Name: OauthToken OauthToken_pkey; Type: CONSTRAINT; Schema: public; Owner: doadmin
+-- Name: OauthToken OauthToken_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public."OauthToken"
@@ -12044,7 +12044,7 @@ ALTER TABLE ONLY public."Purchase"
 
 
 --
--- Name: QueryDurationLog QueryDurationLog_pkey; Type: CONSTRAINT; Schema: public; Owner: doadmin
+-- Name: QueryDurationLog QueryDurationLog_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public."QueryDurationLog"
@@ -12052,7 +12052,7 @@ ALTER TABLE ONLY public."QueryDurationLog"
 
 
 --
--- Name: QueryParamsLog QueryParamsLog_pkey; Type: CONSTRAINT; Schema: public; Owner: doadmin
+-- Name: QueryParamsLog QueryParamsLog_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public."QueryParamsLog"
@@ -12060,7 +12060,7 @@ ALTER TABLE ONLY public."QueryParamsLog"
 
 
 --
--- Name: QuerySqlLog QuerySqlLog_pkey; Type: CONSTRAINT; Schema: public; Owner: doadmin
+-- Name: QuerySqlLog QuerySqlLog_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public."QuerySqlLog"
@@ -12100,7 +12100,7 @@ ALTER TABLE ONLY public."RecommendedResource"
 
 
 --
--- Name: RedeemableCode RedeemableCode_pkey; Type: CONSTRAINT; Schema: public; Owner: doadmin
+-- Name: RedeemableCode RedeemableCode_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public."RedeemableCode"
@@ -12292,7 +12292,7 @@ ALTER TABLE ONLY public."TagsOnTags"
 
 
 --
--- Name: Technique Technique_pkey; Type: CONSTRAINT; Schema: public; Owner: doadmin
+-- Name: Technique Technique_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public."Technique"
@@ -12564,7 +12564,7 @@ ALTER TABLE ONLY public."UserRank"
 
 
 --
--- Name: research_ratings research_ratings_pkey; Type: CONSTRAINT; Schema: public; Owner: doadmin
+-- Name: research_ratings research_ratings_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.research_ratings
@@ -13574,7 +13574,7 @@ CREATE UNIQUE INDEX "ImageResource_modelVersionId_name_imageId_key" ON public."I
 
 
 --
--- Name: ImageTechnique_techniqueId_idx; Type: INDEX; Schema: public; Owner: doadmin
+-- Name: ImageTechnique_techniqueId_idx; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX "ImageTechnique_techniqueId_idx" ON public."ImageTechnique" USING btree ("techniqueId");
@@ -13798,7 +13798,7 @@ CREATE INDEX "ModelFile_type" ON public."ModelFile" USING hash (type);
 
 
 --
--- Name: ModelFlag_status_idx; Type: INDEX; Schema: public; Owner: doadmin
+-- Name: ModelFlag_status_idx; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX "ModelFlag_status_idx" ON public."ModelFlag" USING btree (status);
@@ -14134,14 +14134,14 @@ CREATE INDEX "Post_userId_idx" ON public."Post" USING btree ("userId");
 
 
 --
--- Name: QueryParamsLog_sqlId_hash_key; Type: INDEX; Schema: public; Owner: doadmin
+-- Name: QueryParamsLog_sqlId_hash_key; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE UNIQUE INDEX "QueryParamsLog_sqlId_hash_key" ON public."QueryParamsLog" USING btree ("sqlId", hash);
 
 
 --
--- Name: QuerySqlLog_hash_key; Type: INDEX; Schema: public; Owner: doadmin
+-- Name: QuerySqlLog_hash_key; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE UNIQUE INDEX "QuerySqlLog_hash_key" ON public."QuerySqlLog" USING btree (hash);
@@ -15304,7 +15304,7 @@ ALTER TABLE ONLY public."Bounty"
 
 
 --
--- Name: BuildGuide BuildGuide_userId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: doadmin
+-- Name: BuildGuide BuildGuide_userId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public."BuildGuide"
@@ -15832,7 +15832,7 @@ ALTER TABLE ONLY public."CustomerSubscription"
 
 
 --
--- Name: DonationGoal DonationGoal_modelVersionId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: doadmin
+-- Name: DonationGoal DonationGoal_modelVersionId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public."DonationGoal"
@@ -15840,7 +15840,7 @@ ALTER TABLE ONLY public."DonationGoal"
 
 
 --
--- Name: DonationGoal DonationGoal_userId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: doadmin
+-- Name: DonationGoal DonationGoal_userId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public."DonationGoal"
@@ -15848,7 +15848,7 @@ ALTER TABLE ONLY public."DonationGoal"
 
 
 --
--- Name: Donation Donation_donationGoalId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: doadmin
+-- Name: Donation Donation_donationGoalId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public."Donation"
@@ -15856,7 +15856,7 @@ ALTER TABLE ONLY public."Donation"
 
 
 --
--- Name: Donation Donation_userId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: doadmin
+-- Name: Donation Donation_userId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public."Donation"
@@ -15928,7 +15928,7 @@ ALTER TABLE ONLY public."ImageEngagement"
 
 
 --
--- Name: ImageFlag ImageFlag_imageId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: doadmin
+-- Name: ImageFlag ImageFlag_imageId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public."ImageFlag"
@@ -15992,7 +15992,7 @@ ALTER TABLE ONLY public."ImageResource"
 
 
 --
--- Name: ImageTechnique ImageTechnique_imageId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: doadmin
+-- Name: ImageTechnique ImageTechnique_imageId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public."ImageTechnique"
@@ -16000,7 +16000,7 @@ ALTER TABLE ONLY public."ImageTechnique"
 
 
 --
--- Name: ImageTechnique ImageTechnique_techniqueId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: doadmin
+-- Name: ImageTechnique ImageTechnique_techniqueId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public."ImageTechnique"
@@ -16144,7 +16144,7 @@ ALTER TABLE ONLY public."ModelFile"
 
 
 --
--- Name: ModelFlag ModelFlag_modelId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: doadmin
+-- Name: ModelFlag ModelFlag_modelId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public."ModelFlag"
@@ -16304,7 +16304,7 @@ ALTER TABLE ONLY public."Model"
 
 
 --
--- Name: OauthClient OauthClient_userId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: doadmin
+-- Name: OauthClient OauthClient_userId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public."OauthClient"
@@ -16312,7 +16312,7 @@ ALTER TABLE ONLY public."OauthClient"
 
 
 --
--- Name: OauthToken OauthToken_clientId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: doadmin
+-- Name: OauthToken OauthToken_clientId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public."OauthToken"
@@ -16320,7 +16320,7 @@ ALTER TABLE ONLY public."OauthToken"
 
 
 --
--- Name: OauthToken OauthToken_userId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: doadmin
+-- Name: OauthToken OauthToken_userId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public."OauthToken"
@@ -16440,7 +16440,7 @@ ALTER TABLE ONLY public."Purchase"
 
 
 --
--- Name: QueryDurationLog QueryDurationLog_paramsId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: doadmin
+-- Name: QueryDurationLog QueryDurationLog_paramsId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public."QueryDurationLog"
@@ -16448,7 +16448,7 @@ ALTER TABLE ONLY public."QueryDurationLog"
 
 
 --
--- Name: QueryDurationLog QueryDurationLog_sqlId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: doadmin
+-- Name: QueryDurationLog QueryDurationLog_sqlId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public."QueryDurationLog"
@@ -16456,7 +16456,7 @@ ALTER TABLE ONLY public."QueryDurationLog"
 
 
 --
--- Name: QueryParamsLog QueryParamsLog_sqlId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: doadmin
+-- Name: QueryParamsLog QueryParamsLog_sqlId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public."QueryParamsLog"
@@ -16520,7 +16520,7 @@ ALTER TABLE ONLY public."RecommendedResource"
 
 
 --
--- Name: RedeemableCode RedeemableCode_userId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: doadmin
+-- Name: RedeemableCode RedeemableCode_userId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public."RedeemableCode"
@@ -17184,555 +17184,555 @@ ALTER TABLE ONLY public."_LicenseToModel"
 
 
 --
--- Name: civitai_pg_ch_publication; Type: PUBLICATION; Schema: -; Owner: doadmin
+-- Name: civitai_pg_ch_publication; Type: PUBLICATION; Schema: -; Owner: postgres
 --
 
 CREATE PUBLICATION civitai_pg_ch_publication WITH (publish = 'insert, update, delete, truncate');
 
 
-ALTER PUBLICATION civitai_pg_ch_publication OWNER TO doadmin;
+ALTER PUBLICATION civitai_pg_ch_publication OWNER TO postgres;
 
 --
--- Name: civitai_pg_ch_publication Account; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication Account; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."Account";
 
 
 --
--- Name: civitai_pg_ch_publication Announcement; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication Announcement; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."Announcement";
 
 
 --
--- Name: civitai_pg_ch_publication Answer; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication Answer; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."Answer";
 
 
 --
--- Name: civitai_pg_ch_publication AnswerMetric; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication AnswerMetric; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."AnswerMetric";
 
 
 --
--- Name: civitai_pg_ch_publication AnswerReaction; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication AnswerReaction; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."AnswerReaction";
 
 
 --
--- Name: civitai_pg_ch_publication AnswerVote; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication AnswerVote; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."AnswerVote";
 
 
 --
--- Name: civitai_pg_ch_publication ApiKey; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication ApiKey; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."ApiKey";
 
 
 --
--- Name: civitai_pg_ch_publication Comment; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication Comment; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."Comment";
 
 
 --
--- Name: civitai_pg_ch_publication CommentReaction; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication CommentReaction; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."CommentReaction";
 
 
 --
--- Name: civitai_pg_ch_publication CommentReport; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication CommentReport; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."CommentReport";
 
 
 --
--- Name: civitai_pg_ch_publication CommentV2; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication CommentV2; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."CommentV2";
 
 
 --
--- Name: civitai_pg_ch_publication CommentV2Reaction; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication CommentV2Reaction; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."CommentV2Reaction";
 
 
 --
--- Name: civitai_pg_ch_publication CommentV2Report; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication CommentV2Report; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."CommentV2Report";
 
 
 --
--- Name: civitai_pg_ch_publication Cosmetic; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication Cosmetic; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."Cosmetic";
 
 
 --
--- Name: civitai_pg_ch_publication CustomerSubscription; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication CustomerSubscription; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."CustomerSubscription";
 
 
 --
--- Name: civitai_pg_ch_publication Image; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication Image; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."Image";
 
 
 --
--- Name: civitai_pg_ch_publication ImageMetric; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication ImageMetric; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."ImageMetric";
 
 
 --
--- Name: civitai_pg_ch_publication ImageReaction; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication ImageReaction; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."ImageReaction";
 
 
 --
--- Name: civitai_pg_ch_publication ImageReport; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication ImageReport; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."ImageReport";
 
 
 --
--- Name: civitai_pg_ch_publication ImageResource; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication ImageResource; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."ImageResource";
 
 
 --
--- Name: civitai_pg_ch_publication ImagesOnModels; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication ImagesOnModels; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."ImagesOnModels";
 
 
 --
--- Name: civitai_pg_ch_publication Import; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication Import; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."Import";
 
 
 --
--- Name: civitai_pg_ch_publication KeyValue; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication KeyValue; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."KeyValue";
 
 
 --
--- Name: civitai_pg_ch_publication License; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication License; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."License";
 
 
 --
--- Name: civitai_pg_ch_publication Log; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication Log; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."Log";
 
 
 --
--- Name: civitai_pg_ch_publication MetricUpdateQueue; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication MetricUpdateQueue; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."MetricUpdateQueue";
 
 
 --
--- Name: civitai_pg_ch_publication Model; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication Model; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."Model";
 
 
 --
--- Name: civitai_pg_ch_publication ModelEngagement; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication ModelEngagement; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."ModelEngagement";
 
 
 --
--- Name: civitai_pg_ch_publication ModelFile; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication ModelFile; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."ModelFile";
 
 
 --
--- Name: civitai_pg_ch_publication ModelFileHash; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication ModelFileHash; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."ModelFileHash";
 
 
 --
--- Name: civitai_pg_ch_publication ModelInterest; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication ModelInterest; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."ModelInterest";
 
 
 --
--- Name: civitai_pg_ch_publication ModelMetric; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication ModelMetric; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."ModelMetric";
 
 
 --
--- Name: civitai_pg_ch_publication ModelMetricDaily; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication ModelMetricDaily; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."ModelMetricDaily";
 
 
 --
--- Name: civitai_pg_ch_publication ModelReport; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication ModelReport; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."ModelReport";
 
 
 --
--- Name: civitai_pg_ch_publication ModelVersion; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication ModelVersion; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."ModelVersion";
 
 
 --
--- Name: civitai_pg_ch_publication ModelVersionEngagement; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication ModelVersionEngagement; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."ModelVersionEngagement";
 
 
 --
--- Name: civitai_pg_ch_publication ModelVersionMetric; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication ModelVersionMetric; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."ModelVersionMetric";
 
 
 --
--- Name: civitai_pg_ch_publication Partner; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication Partner; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."Partner";
 
 
 --
--- Name: civitai_pg_ch_publication Post; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication Post; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."Post";
 
 
 --
--- Name: civitai_pg_ch_publication PostMetric; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication PostMetric; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."PostMetric";
 
 
 --
--- Name: civitai_pg_ch_publication PostReaction; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication PostReaction; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."PostReaction";
 
 
 --
--- Name: civitai_pg_ch_publication Price; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication Price; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."Price";
 
 
 --
--- Name: civitai_pg_ch_publication Product; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication Product; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."Product";
 
 
 --
--- Name: civitai_pg_ch_publication Purchase; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication Purchase; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."Purchase";
 
 
 --
--- Name: civitai_pg_ch_publication Question; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication Question; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."Question";
 
 
 --
--- Name: civitai_pg_ch_publication QuestionMetric; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication QuestionMetric; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."QuestionMetric";
 
 
 --
--- Name: civitai_pg_ch_publication QuestionReaction; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication QuestionReaction; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."QuestionReaction";
 
 
 --
--- Name: civitai_pg_ch_publication Report; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication Report; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."Report";
 
 
 --
--- Name: civitai_pg_ch_publication ResourceReview; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication ResourceReview; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."ResourceReview";
 
 
 --
--- Name: civitai_pg_ch_publication ResourceReviewReaction; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication ResourceReviewReaction; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."ResourceReviewReaction";
 
 
 --
--- Name: civitai_pg_ch_publication ResourceReviewReport; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication ResourceReviewReport; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."ResourceReviewReport";
 
 
 --
--- Name: civitai_pg_ch_publication RunStrategy; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication RunStrategy; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."RunStrategy";
 
 
 --
--- Name: civitai_pg_ch_publication SavedModel; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication SavedModel; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."SavedModel";
 
 
 --
--- Name: civitai_pg_ch_publication Session; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication Session; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."Session";
 
 
 --
--- Name: civitai_pg_ch_publication SessionInvalidation; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication SessionInvalidation; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."SessionInvalidation";
 
 
 --
--- Name: civitai_pg_ch_publication Tag; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication Tag; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."Tag";
 
 
 --
--- Name: civitai_pg_ch_publication TagEngagement; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication TagEngagement; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."TagEngagement";
 
 
 --
--- Name: civitai_pg_ch_publication TagMetric; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication TagMetric; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."TagMetric";
 
 
 --
--- Name: civitai_pg_ch_publication TagsOnImage; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication TagsOnImage; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."TagsOnImage";
 
 
 --
--- Name: civitai_pg_ch_publication TagsOnImageVote; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication TagsOnImageVote; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."TagsOnImageVote";
 
 
 --
--- Name: civitai_pg_ch_publication TagsOnModels; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication TagsOnModels; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."TagsOnModels";
 
 
 --
--- Name: civitai_pg_ch_publication TagsOnModelsVote; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication TagsOnModelsVote; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."TagsOnModelsVote";
 
 
 --
--- Name: civitai_pg_ch_publication TagsOnPost; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication TagsOnPost; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."TagsOnPost";
 
 
 --
--- Name: civitai_pg_ch_publication TagsOnPostVote; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication TagsOnPostVote; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."TagsOnPostVote";
 
 
 --
--- Name: civitai_pg_ch_publication TagsOnQuestions; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication TagsOnQuestions; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."TagsOnQuestions";
 
 
 --
--- Name: civitai_pg_ch_publication TagsOnTags; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication TagsOnTags; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."TagsOnTags";
 
 
 --
--- Name: civitai_pg_ch_publication Thread; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication Thread; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."Thread";
 
 
 --
--- Name: civitai_pg_ch_publication User; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication User; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."User";
 
 
 --
--- Name: civitai_pg_ch_publication UserCosmetic; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication UserCosmetic; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."UserCosmetic";
 
 
 --
--- Name: civitai_pg_ch_publication UserEngagement; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication UserEngagement; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."UserEngagement";
 
 
 --
--- Name: civitai_pg_ch_publication UserLink; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication UserLink; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."UserLink";
 
 
 --
--- Name: civitai_pg_ch_publication UserMetric; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication UserMetric; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."UserMetric";
 
 
 --
--- Name: civitai_pg_ch_publication UserNotificationSettings; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication UserNotificationSettings; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."UserNotificationSettings";
 
 
 --
--- Name: civitai_pg_ch_publication VerificationToken; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication VerificationToken; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."VerificationToken";
 
 
 --
--- Name: civitai_pg_ch_publication Webhook; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication Webhook; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."Webhook";
 
 
 --
--- Name: civitai_pg_ch_publication _LicenseToModel; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication _LicenseToModel; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public."_LicenseToModel";
 
 
 --
--- Name: civitai_pg_ch_publication _prisma_migrations; Type: PUBLICATION TABLE; Schema: public; Owner: doadmin
+-- Name: civitai_pg_ch_publication _prisma_migrations; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
 --
 
 ALTER PUBLICATION civitai_pg_ch_publication ADD TABLE ONLY public._prisma_migrations;
 
 
 --
--- Name: SCHEMA pganalyze; Type: ACL; Schema: -; Owner: doadmin
+-- Name: SCHEMA pganalyze; Type: ACL; Schema: -; Owner: postgres
 --
 
 GRANT USAGE ON SCHEMA pganalyze TO pganalyze;
@@ -17741,7 +17741,7 @@ GRANT ALL ON SCHEMA pganalyze TO "civitai-read";
 
 
 --
--- Name: SCHEMA pghero; Type: ACL; Schema: -; Owner: doadmin
+-- Name: SCHEMA pghero; Type: ACL; Schema: -; Owner: postgres
 --
 
 GRANT USAGE ON SCHEMA pghero TO pghero;
@@ -17767,7 +17767,7 @@ GRANT ALL ON FUNCTION public.add_image_metrics() TO "civitai-jobs";
 
 
 --
--- Name: FUNCTION add_model_metrics(); Type: ACL; Schema: public; Owner: doadmin
+-- Name: FUNCTION add_model_metrics(); Type: ACL; Schema: public; Owner: postgres
 --
 
 GRANT ALL ON FUNCTION public.add_model_metrics() TO "civitai-jobs";
@@ -17788,14 +17788,14 @@ GRANT ALL ON FUNCTION public.create_job_queue_record(entityid integer, entitytyp
 
 
 --
--- Name: FUNCTION create_redeemable_codes(prefix text, unit_value integer, quantity integer, code_type public."RedeemableCodeType", expires_at timestamp without time zone); Type: ACL; Schema: public; Owner: doadmin
+-- Name: FUNCTION create_redeemable_codes(prefix text, unit_value integer, quantity integer, code_type public."RedeemableCodeType", expires_at timestamp without time zone); Type: ACL; Schema: public; Owner: postgres
 --
 
 GRANT ALL ON FUNCTION public.create_redeemable_codes(prefix text, unit_value integer, quantity integer, code_type public."RedeemableCodeType", expires_at timestamp without time zone) TO "civitai-jobs";
 
 
 --
--- Name: FUNCTION early_access_ends_at(); Type: ACL; Schema: public; Owner: doadmin
+-- Name: FUNCTION early_access_ends_at(); Type: ACL; Schema: public; Owner: postgres
 --
 
 GRANT ALL ON FUNCTION public.early_access_ends_at() TO "civitai-jobs";
@@ -17816,21 +17816,21 @@ GRANT ALL ON FUNCTION public.feature_images(tags_to_exclude text, num_images_per
 
 
 --
--- Name: FUNCTION generate_redeemable_code(prefix text); Type: ACL; Schema: public; Owner: doadmin
+-- Name: FUNCTION generate_redeemable_code(prefix text); Type: ACL; Schema: public; Owner: postgres
 --
 
 GRANT ALL ON FUNCTION public.generate_redeemable_code(prefix text) TO "civitai-jobs";
 
 
 --
--- Name: FUNCTION generate_token(length integer); Type: ACL; Schema: public; Owner: doadmin
+-- Name: FUNCTION generate_token(length integer); Type: ACL; Schema: public; Owner: postgres
 --
 
 GRANT ALL ON FUNCTION public.generate_token(length integer) TO "civitai-jobs";
 
 
 --
--- Name: FUNCTION get_image_resources(image_id integer); Type: ACL; Schema: public; Owner: doadmin
+-- Name: FUNCTION get_image_resources(image_id integer); Type: ACL; Schema: public; Owner: postgres
 --
 
 GRANT ALL ON FUNCTION public.get_image_resources(image_id integer) TO "civitai-jobs";
@@ -17844,7 +17844,7 @@ GRANT ALL ON FUNCTION public.get_image_resources2(image_id integer) TO "civitai-
 
 
 --
--- Name: FUNCTION get_nsfw_level_name(nsfw_level_id integer); Type: ACL; Schema: public; Owner: doadmin
+-- Name: FUNCTION get_nsfw_level_name(nsfw_level_id integer); Type: ACL; Schema: public; Owner: postgres
 --
 
 GRANT ALL ON FUNCTION public.get_nsfw_level_name(nsfw_level_id integer) TO "civitai-jobs";
@@ -17879,7 +17879,7 @@ GRANT ALL ON FUNCTION public.insert_image_resource(image_id integer) TO "civitai
 
 
 --
--- Name: FUNCTION is_new_user(userid integer); Type: ACL; Schema: public; Owner: doadmin
+-- Name: FUNCTION is_new_user(userid integer); Type: ACL; Schema: public; Owner: postgres
 --
 
 GRANT ALL ON FUNCTION public.is_new_user(userid integer) TO "civitai-jobs";
@@ -17914,7 +17914,7 @@ GRANT ALL ON FUNCTION public.slugify(input_string text) TO "civitai-jobs";
 
 
 --
--- Name: FUNCTION truncate_autov3_hash(); Type: ACL; Schema: public; Owner: doadmin
+-- Name: FUNCTION truncate_autov3_hash(); Type: ACL; Schema: public; Owner: postgres
 --
 
 GRANT ALL ON FUNCTION public.truncate_autov3_hash() TO "civitai-jobs";
@@ -18026,14 +18026,14 @@ GRANT ALL ON FUNCTION public.update_post_nsfw_levels(post_ids integer[]) TO "civ
 
 
 --
--- Name: TABLE pg_stat_activity; Type: ACL; Schema: pghero; Owner: doadmin
+-- Name: TABLE pg_stat_activity; Type: ACL; Schema: pghero; Owner: postgres
 --
 
 GRANT SELECT ON TABLE pghero.pg_stat_activity TO pghero;
 
 
 --
--- Name: TABLE pg_stats; Type: ACL; Schema: pghero; Owner: doadmin
+-- Name: TABLE pg_stats; Type: ACL; Schema: pghero; Owner: postgres
 --
 
 GRANT SELECT ON TABLE pghero.pg_stats TO pghero;
@@ -18431,7 +18431,7 @@ GRANT ALL ON SEQUENCE public."Bounty_id_seq" TO "civitai-jobs";
 
 
 --
--- Name: TABLE "BuildGuide"; Type: ACL; Schema: public; Owner: doadmin
+-- Name: TABLE "BuildGuide"; Type: ACL; Schema: public; Owner: postgres
 --
 
 GRANT ALL ON TABLE public."BuildGuide" TO civitai;
@@ -18442,7 +18442,7 @@ GRANT ALL ON TABLE public."BuildGuide" TO "civitai-jobs";
 
 
 --
--- Name: SEQUENCE "BuildGuide_id_seq"; Type: ACL; Schema: public; Owner: doadmin
+-- Name: SEQUENCE "BuildGuide_id_seq"; Type: ACL; Schema: public; Owner: postgres
 --
 
 GRANT ALL ON SEQUENCE public."BuildGuide_id_seq" TO civitai;
@@ -19059,7 +19059,7 @@ GRANT ALL ON TABLE public."CustomerSubscription" TO "civitai-jobs";
 
 
 --
--- Name: TABLE "Donation"; Type: ACL; Schema: public; Owner: doadmin
+-- Name: TABLE "Donation"; Type: ACL; Schema: public; Owner: postgres
 --
 
 GRANT ALL ON TABLE public."Donation" TO civitai;
@@ -19069,7 +19069,7 @@ GRANT ALL ON TABLE public."Donation" TO "civitai-jobs";
 
 
 --
--- Name: TABLE "DonationGoal"; Type: ACL; Schema: public; Owner: doadmin
+-- Name: TABLE "DonationGoal"; Type: ACL; Schema: public; Owner: postgres
 --
 
 GRANT ALL ON TABLE public."DonationGoal" TO civitai;
@@ -19079,7 +19079,7 @@ GRANT ALL ON TABLE public."DonationGoal" TO "civitai-jobs";
 
 
 --
--- Name: SEQUENCE "DonationGoal_id_seq"; Type: ACL; Schema: public; Owner: doadmin
+-- Name: SEQUENCE "DonationGoal_id_seq"; Type: ACL; Schema: public; Owner: postgres
 --
 
 GRANT ALL ON SEQUENCE public."DonationGoal_id_seq" TO civitai;
@@ -19090,7 +19090,7 @@ GRANT ALL ON SEQUENCE public."DonationGoal_id_seq" TO "civitai-jobs";
 
 
 --
--- Name: SEQUENCE "Donation_id_seq"; Type: ACL; Schema: public; Owner: doadmin
+-- Name: SEQUENCE "Donation_id_seq"; Type: ACL; Schema: public; Owner: postgres
 --
 
 GRANT ALL ON SEQUENCE public."Donation_id_seq" TO civitai;
@@ -19239,7 +19239,7 @@ GRANT ALL ON TABLE public."ImageEngagement" TO "civitai-jobs";
 
 
 --
--- Name: TABLE "ImageFlag"; Type: ACL; Schema: public; Owner: doadmin
+-- Name: TABLE "ImageFlag"; Type: ACL; Schema: public; Owner: postgres
 --
 
 GRANT ALL ON TABLE public."ImageFlag" TO civitai;
@@ -19369,7 +19369,7 @@ GRANT ALL ON TABLE public."ResourceReview" TO "civitai-jobs";
 
 
 --
--- Name: TABLE "ImageResourceHelper"; Type: ACL; Schema: public; Owner: doadmin
+-- Name: TABLE "ImageResourceHelper"; Type: ACL; Schema: public; Owner: postgres
 --
 
 GRANT ALL ON TABLE public."ImageResourceHelper" TO civitai;
@@ -19442,7 +19442,7 @@ GRANT ALL ON TABLE public."ImageTag" TO "civitai-jobs";
 
 
 --
--- Name: TABLE "ImageTechnique"; Type: ACL; Schema: public; Owner: doadmin
+-- Name: TABLE "ImageTechnique"; Type: ACL; Schema: public; Owner: postgres
 --
 
 GRANT ALL ON TABLE public."ImageTechnique" TO civitai;
@@ -19678,7 +19678,7 @@ GRANT ALL ON SEQUENCE public."ModelFile_id_seq" TO "civitai-jobs";
 
 
 --
--- Name: TABLE "ModelFlag"; Type: ACL; Schema: public; Owner: doadmin
+-- Name: TABLE "ModelFlag"; Type: ACL; Schema: public; Owner: postgres
 --
 
 GRANT ALL ON TABLE public."ModelFlag" TO civitai;
@@ -19898,7 +19898,7 @@ GRANT ALL ON SEQUENCE public."Model_id_seq" TO "civitai-jobs";
 
 
 --
--- Name: TABLE "OauthClient"; Type: ACL; Schema: public; Owner: doadmin
+-- Name: TABLE "OauthClient"; Type: ACL; Schema: public; Owner: postgres
 --
 
 GRANT ALL ON TABLE public."OauthClient" TO civitai;
@@ -19908,7 +19908,7 @@ GRANT ALL ON TABLE public."OauthClient" TO "civitai-jobs";
 
 
 --
--- Name: TABLE "OauthToken"; Type: ACL; Schema: public; Owner: doadmin
+-- Name: TABLE "OauthToken"; Type: ACL; Schema: public; Owner: postgres
 --
 
 GRANT ALL ON TABLE public."OauthToken" TO civitai;
@@ -19928,7 +19928,7 @@ GRANT ALL ON TABLE public."Partner" TO "civitai-jobs";
 
 
 --
--- Name: TABLE "OnDemandRunStrategy"; Type: ACL; Schema: public; Owner: doadmin
+-- Name: TABLE "OnDemandRunStrategy"; Type: ACL; Schema: public; Owner: postgres
 --
 
 GRANT ALL ON TABLE public."OnDemandRunStrategy" TO civitai;
@@ -20038,7 +20038,7 @@ GRANT ALL ON TABLE public."PostReport" TO "civitai-jobs";
 
 
 --
--- Name: TABLE "PostResourceHelper"; Type: ACL; Schema: public; Owner: doadmin
+-- Name: TABLE "PostResourceHelper"; Type: ACL; Schema: public; Owner: postgres
 --
 
 GRANT ALL ON TABLE public."PostResourceHelper" TO civitai;
@@ -20179,7 +20179,7 @@ GRANT ALL ON SEQUENCE public."Purchase_id_seq" TO "civitai-jobs";
 
 
 --
--- Name: TABLE "QueryDurationLog"; Type: ACL; Schema: public; Owner: doadmin
+-- Name: TABLE "QueryDurationLog"; Type: ACL; Schema: public; Owner: postgres
 --
 
 GRANT ALL ON TABLE public."QueryDurationLog" TO civitai;
@@ -20189,7 +20189,7 @@ GRANT ALL ON TABLE public."QueryDurationLog" TO "civitai-jobs";
 
 
 --
--- Name: SEQUENCE "QueryDurationLog_id_seq"; Type: ACL; Schema: public; Owner: doadmin
+-- Name: SEQUENCE "QueryDurationLog_id_seq"; Type: ACL; Schema: public; Owner: postgres
 --
 
 GRANT ALL ON SEQUENCE public."QueryDurationLog_id_seq" TO civitai;
@@ -20200,7 +20200,7 @@ GRANT ALL ON SEQUENCE public."QueryDurationLog_id_seq" TO "civitai-jobs";
 
 
 --
--- Name: TABLE "QueryParamsLog"; Type: ACL; Schema: public; Owner: doadmin
+-- Name: TABLE "QueryParamsLog"; Type: ACL; Schema: public; Owner: postgres
 --
 
 GRANT ALL ON TABLE public."QueryParamsLog" TO civitai;
@@ -20210,7 +20210,7 @@ GRANT ALL ON TABLE public."QueryParamsLog" TO "civitai-jobs";
 
 
 --
--- Name: SEQUENCE "QueryParamsLog_id_seq"; Type: ACL; Schema: public; Owner: doadmin
+-- Name: SEQUENCE "QueryParamsLog_id_seq"; Type: ACL; Schema: public; Owner: postgres
 --
 
 GRANT ALL ON SEQUENCE public."QueryParamsLog_id_seq" TO civitai;
@@ -20221,7 +20221,7 @@ GRANT ALL ON SEQUENCE public."QueryParamsLog_id_seq" TO "civitai-jobs";
 
 
 --
--- Name: TABLE "QuerySqlLog"; Type: ACL; Schema: public; Owner: doadmin
+-- Name: TABLE "QuerySqlLog"; Type: ACL; Schema: public; Owner: postgres
 --
 
 GRANT ALL ON TABLE public."QuerySqlLog" TO civitai;
@@ -20231,7 +20231,7 @@ GRANT ALL ON TABLE public."QuerySqlLog" TO "civitai-jobs";
 
 
 --
--- Name: SEQUENCE "QuerySqlLog_id_seq"; Type: ACL; Schema: public; Owner: doadmin
+-- Name: SEQUENCE "QuerySqlLog_id_seq"; Type: ACL; Schema: public; Owner: postgres
 --
 
 GRANT ALL ON SEQUENCE public."QuerySqlLog_id_seq" TO civitai;
@@ -20322,7 +20322,7 @@ GRANT ALL ON SEQUENCE public."RecommendedResource_id_seq" TO "civitai-jobs";
 
 
 --
--- Name: TABLE "RedeemableCode"; Type: ACL; Schema: public; Owner: doadmin
+-- Name: TABLE "RedeemableCode"; Type: ACL; Schema: public; Owner: postgres
 --
 
 GRANT ALL ON TABLE public."RedeemableCode" TO civitai;
@@ -20560,7 +20560,7 @@ GRANT ALL ON TABLE public."TagsOnTags" TO "civitai-jobs";
 
 
 --
--- Name: TABLE "Technique"; Type: ACL; Schema: public; Owner: doadmin
+-- Name: TABLE "Technique"; Type: ACL; Schema: public; Owner: postgres
 --
 
 GRANT ALL ON TABLE public."Technique" TO civitai;
@@ -20570,7 +20570,7 @@ GRANT ALL ON TABLE public."Technique" TO "civitai-jobs";
 
 
 --
--- Name: SEQUENCE "Technique_id_seq"; Type: ACL; Schema: public; Owner: doadmin
+-- Name: SEQUENCE "Technique_id_seq"; Type: ACL; Schema: public; Owner: postgres
 --
 
 GRANT ALL ON SEQUENCE public."Technique_id_seq" TO civitai;
@@ -20746,7 +20746,7 @@ GRANT SELECT ON TABLE public."UserRank" TO "civitai-read";
 
 
 --
--- Name: TABLE "UserStat"; Type: ACL; Schema: public; Owner: doadmin
+-- Name: TABLE "UserStat"; Type: ACL; Schema: public; Owner: postgres
 --
 
 GRANT ALL ON TABLE public."UserStat" TO civitai;
@@ -20757,7 +20757,7 @@ GRANT ALL ON TABLE public."UserStat" TO "civitai-jobs";
 
 
 --
--- Name: TABLE "UserRank_Live"; Type: ACL; Schema: public; Owner: doadmin
+-- Name: TABLE "UserRank_Live"; Type: ACL; Schema: public; Owner: postgres
 --
 
 GRANT ALL ON TABLE public."UserRank_Live" TO civitai;
@@ -20958,7 +20958,7 @@ GRANT ALL ON SEQUENCE public.homeblock_id_seq TO "civitai-jobs";
 
 
 --
--- Name: TABLE internal_leaderboard_models; Type: ACL; Schema: public; Owner: doadmin
+-- Name: TABLE internal_leaderboard_models; Type: ACL; Schema: public; Owner: postgres
 --
 
 GRANT ALL ON TABLE public.internal_leaderboard_models TO civitai;
@@ -20969,7 +20969,7 @@ GRANT ALL ON TABLE public.internal_leaderboard_models TO "civitai-jobs";
 
 
 --
--- Name: TABLE research_ratings; Type: ACL; Schema: public; Owner: doadmin
+-- Name: TABLE research_ratings; Type: ACL; Schema: public; Owner: postgres
 --
 
 GRANT ALL ON TABLE public.research_ratings TO civitai;
@@ -20980,7 +20980,7 @@ GRANT ALL ON TABLE public.research_ratings TO "civitai-jobs";
 
 
 --
--- Name: TABLE research_ratings_resets; Type: ACL; Schema: public; Owner: doadmin
+-- Name: TABLE research_ratings_resets; Type: ACL; Schema: public; Owner: postgres
 --
 
 GRANT ALL ON TABLE public.research_ratings_resets TO civitai;
@@ -21000,7 +21000,7 @@ GRANT ALL ON TABLE public.subscriptions TO "civitai-jobs";
 
 
 --
--- Name: TABLE temp_deleted_user_posts; Type: ACL; Schema: public; Owner: doadmin
+-- Name: TABLE temp_deleted_user_posts; Type: ACL; Schema: public; Owner: postgres
 --
 
 GRANT ALL ON TABLE public.temp_deleted_user_posts TO civitai;
@@ -21009,7 +21009,7 @@ GRANT ALL ON TABLE public.temp_deleted_user_posts TO "civitai-jobs";
 
 
 --
--- Name: TABLE temp_goals; Type: ACL; Schema: public; Owner: doadmin
+-- Name: TABLE temp_goals; Type: ACL; Schema: public; Owner: postgres
 --
 
 GRANT ALL ON TABLE public.temp_goals TO civitai;
@@ -21019,7 +21019,7 @@ GRANT ALL ON TABLE public.temp_goals TO "civitai-jobs";
 
 
 --
--- Name: TABLE temp_model_files; Type: ACL; Schema: public; Owner: doadmin
+-- Name: TABLE temp_model_files; Type: ACL; Schema: public; Owner: postgres
 --
 
 GRANT ALL ON TABLE public.temp_model_files TO civitai;
@@ -21029,7 +21029,7 @@ GRANT ALL ON TABLE public.temp_model_files TO "civitai-jobs";
 
 
 --
--- Name: TABLE temp_paddle_import; Type: ACL; Schema: public; Owner: doadmin
+-- Name: TABLE temp_paddle_import; Type: ACL; Schema: public; Owner: postgres
 --
 
 GRANT ALL ON TABLE public.temp_paddle_import TO civitai;
@@ -21086,7 +21086,7 @@ GRANT ALL ON SEQUENCE public.untitled_table_420_id_seq TO "civitai-jobs";
 
 
 --
--- Name: TABLE username_bak; Type: ACL; Schema: public; Owner: doadmin
+-- Name: TABLE username_bak; Type: ACL; Schema: public; Owner: postgres
 --
 
 GRANT ALL ON TABLE public.username_bak TO civitai;
@@ -21097,7 +21097,7 @@ GRANT ALL ON TABLE public.username_bak TO "civitai-jobs";
 
 
 --
--- Name: SEQUENCE username_bak_id_seq; Type: ACL; Schema: public; Owner: doadmin
+-- Name: SEQUENCE username_bak_id_seq; Type: ACL; Schema: public; Owner: postgres
 --
 
 GRANT ALL ON SEQUENCE public.username_bak_id_seq TO civitai;
@@ -21108,13 +21108,13 @@ GRANT ALL ON SEQUENCE public.username_bak_id_seq TO "civitai-jobs";
 
 
 --
--- Name: DEFAULT PRIVILEGES FOR SEQUENCES; Type: DEFAULT ACL; Schema: public; Owner: doadmin
+-- Name: DEFAULT PRIVILEGES FOR SEQUENCES; Type: DEFAULT ACL; Schema: public; Owner: postgres
 --
 
-ALTER DEFAULT PRIVILEGES FOR ROLE doadmin IN SCHEMA public GRANT ALL ON SEQUENCES  TO civitai;
-ALTER DEFAULT PRIVILEGES FOR ROLE doadmin IN SCHEMA public GRANT SELECT ON SEQUENCES  TO pghero;
-ALTER DEFAULT PRIVILEGES FOR ROLE doadmin IN SCHEMA public GRANT SELECT,USAGE ON SEQUENCES  TO "civitai-read";
-ALTER DEFAULT PRIVILEGES FOR ROLE doadmin IN SCHEMA public GRANT ALL ON SEQUENCES  TO "civitai-jobs";
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT ALL ON SEQUENCES  TO civitai;
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT SELECT ON SEQUENCES  TO pghero;
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT SELECT,USAGE ON SEQUENCES  TO "civitai-read";
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT ALL ON SEQUENCES  TO "civitai-jobs";
 
 
 --
@@ -21125,19 +21125,19 @@ ALTER DEFAULT PRIVILEGES FOR ROLE civitai IN SCHEMA public GRANT SELECT ON SEQUE
 
 
 --
--- Name: DEFAULT PRIVILEGES FOR FUNCTIONS; Type: DEFAULT ACL; Schema: public; Owner: doadmin
+-- Name: DEFAULT PRIVILEGES FOR FUNCTIONS; Type: DEFAULT ACL; Schema: public; Owner: postgres
 --
 
-ALTER DEFAULT PRIVILEGES FOR ROLE doadmin IN SCHEMA public GRANT ALL ON FUNCTIONS  TO "civitai-jobs";
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT ALL ON FUNCTIONS  TO "civitai-jobs";
 
 
 --
--- Name: DEFAULT PRIVILEGES FOR TABLES; Type: DEFAULT ACL; Schema: public; Owner: doadmin
+-- Name: DEFAULT PRIVILEGES FOR TABLES; Type: DEFAULT ACL; Schema: public; Owner: postgres
 --
 
-ALTER DEFAULT PRIVILEGES FOR ROLE doadmin IN SCHEMA public GRANT ALL ON TABLES  TO civitai;
-ALTER DEFAULT PRIVILEGES FOR ROLE doadmin IN SCHEMA public GRANT SELECT ON TABLES  TO "civitai-read";
-ALTER DEFAULT PRIVILEGES FOR ROLE doadmin IN SCHEMA public GRANT ALL ON TABLES  TO "civitai-jobs";
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT ALL ON TABLES  TO civitai;
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT SELECT ON TABLES  TO "civitai-read";
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT ALL ON TABLES  TO "civitai-jobs";
 
 
 --

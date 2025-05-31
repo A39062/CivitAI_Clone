@@ -1,9 +1,0 @@
-CREATE EXTENSION IF NOT EXISTS citext;
-
--- AlterTable
-ALTER TABLE
-  "User"
-ALTER COLUMN
-  "username"
-SET
-  DATA TYPE CITEXT;

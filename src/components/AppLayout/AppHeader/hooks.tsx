@@ -33,6 +33,7 @@ import { useCurrentUser } from '~/hooks/useCurrentUser';
 import { useFeatureFlags } from '~/providers/FeatureFlagsProvider';
 import { LoginRedirectReason } from '~/utils/login-helpers';
 import { trpc } from '~/utils/trpc';
+import { useTranslation } from 'next-i18next';
 
 export type UserMenuItem = {
   label: string;
@@ -62,7 +63,7 @@ export function useGetMenuItems(): UserMenuItemGroup[] {
   const features = useFeatureFlags();
   const currentUser = useCurrentUser();
   const theme = useMantineTheme();
-
+  const { t } = useTranslation();
   const {
     groupedCollections: {
       Article: bookmarkedArticlesCollection,
@@ -78,33 +79,33 @@ export function useGetMenuItems(): UserMenuItemGroup[] {
           href: `/user/${currentUser?.username}`,
           icon: IconUser,
           color: theme.colors.blue[theme.fn.primaryShade()],
-          label: 'Your Profile',
+          label: t('menu.yourProfile'),
         },
         {
           href: `/user/${currentUser?.username}/models?section=training`,
           visible: !!currentUser && features.imageTrainingResults,
           icon: IconBarbell,
           color: theme.colors.green[theme.fn.primaryShade()],
-          label: 'Training',
+          label: t('menu.training'),
         },
         {
           href: `/collections`,
           icon: IconBookmark,
           color: theme.colors.green[theme.fn.primaryShade()],
-          label: 'My Collections',
+          label: t('menu.myCollections'),
         },
         {
           href: `/collections/${bookmarkedModelsCollection?.id}`,
           icon: IconThumbUp,
           color: theme.colors.green[theme.fn.primaryShade()],
-          label: 'Liked Models',
+          label: t('menu.likedModels'),
         },
         {
           href: `/collections/${bookmarkedArticlesCollection?.id}`,
           visible: !!bookmarkedArticlesCollection,
           icon: IconBookmarkEdit,
           color: theme.colors.pink[theme.fn.primaryShade()],
-          label: 'Bookmarked Articles',
+          label: t('menu.bookmarkedArticles'),
         },
         {
           href: '/bounties?engagement=favorite',
@@ -112,7 +113,7 @@ export function useGetMenuItems(): UserMenuItemGroup[] {
           visible: features.bounties,
           icon: IconMoneybag,
           color: theme.colors.pink[theme.fn.primaryShade()],
-          label: 'My Bounties',
+          label: t('menu.myBounties'),
         },
         {
           href: '/clubs?engagement=engaged',
@@ -120,21 +121,21 @@ export function useGetMenuItems(): UserMenuItemGroup[] {
           visible: features.clubs,
           icon: IconClubs,
           color: theme.colors.pink[theme.fn.primaryShade()],
-          label: 'My Clubs',
+          label: t('menu.myClubs'),
         },
         {
           href: '/user/buzz-dashboard',
           visible: features.buzz,
           icon: IconProgressBolt,
           color: theme.colors.yellow[theme.fn.primaryShade()],
-          label: 'Buzz Dashboard',
+          label: t('menu.buzzDashboard'),
         },
         {
           href: '/user/vault',
           visible: features.vault,
           icon: IconCloudLock,
           color: theme.colors.yellow[theme.fn.primaryShade()],
-          label: 'My Vault',
+          label: t('menu.myVault'),
         },
       ],
     },
@@ -145,14 +146,14 @@ export function useGetMenuItems(): UserMenuItemGroup[] {
           href: '/leaderboard/overall',
           icon: IconCrown,
           color: theme.colors.yellow[theme.fn.primaryShade()],
-          label: 'Leaderboard',
+          label: t('menu.leaderboard'),
         },
         {
           href: '/auctions',
           visible: features.auctions,
           icon: IconGavel,
           color: theme.colors.yellow[theme.fn.primaryShade()],
-          label: 'Auctions',
+          label: t('menu.auctions'),
           newUntil: new Date('2025-04-07'),
         },
         {
@@ -160,27 +161,27 @@ export function useGetMenuItems(): UserMenuItemGroup[] {
           visible: features.newOrderGame,
           icon: IconSword,
           color: theme.colors.yellow[theme.fn.primaryShade()],
-          label: 'Knights of New',
+          label: t('menu.knightsOfNew'),
           newUntil: new Date('2025-05-18'),
         },
         {
           href: '/product/link',
           icon: IconLink,
-          label: 'Download Link App',
+          label: t('menu.downloadApp'),
         },
         {
           href: `/user/${currentUser?.username}/following`,
           icon: IconUsers,
-          label: 'Creators You Follow',
+          label: t('menu.creatorsYouFollow'),
         },
         {
           href: '/user/downloads',
           icon: IconHistory,
-          label: 'Download History',
+          label: t('menu.downloadHistory'),
         },
         {
           icon: IconPlayerPlayFilled,
-          label: 'Getting Started',
+          label: t('menu.gettingStarted'),
           onClick: () => {
             dialogStore.trigger({
               component: FeatureIntroductionModal,
@@ -200,26 +201,26 @@ export function useGetMenuItems(): UserMenuItemGroup[] {
           href: '/leaderboard/overall',
           icon: IconCrown,
           color: theme.colors.yellow[theme.fn.primaryShade()],
-          label: 'Leaderboard',
+          label: t('menu.leaderboard'),
         },
         {
           href: '/auctions',
           visible: features.auctions,
           icon: IconGavel,
           color: theme.colors.yellow[theme.fn.primaryShade()],
-          label: 'Auctions',
+          label: t('menu.auctions'),
           newUntil: new Date('2025-04-07'),
         },
         {
           href: '/product/link',
           icon: IconLink,
-          label: 'Download Link App',
+          label: t('menu.downloadApp'),
         },
         {
           href: `/login?returnUrl=${router.asPath}`,
           rel: 'nofollow',
           icon: IconUserCircle,
-          label: 'Sign In/Sign up',
+          label: t('menu.signInSignUp'),
         },
       ],
     },
@@ -232,6 +233,7 @@ export function useGetActionMenuItems(): Array<Omit<UserMenuItem, 'href'> & { hr
   const theme = useMantineTheme();
   const isMuted = currentUser?.muted ?? false;
   const canCreate = features.canWrite;
+  const { t } = useTranslation();
 
   return [
     {
@@ -240,7 +242,7 @@ export function useGetActionMenuItems(): Array<Omit<UserMenuItem, 'href'> & { hr
       rel: 'nofollow',
       icon: IconBrush,
       color: theme.colors.blue[theme.fn.primaryShade()],
-      label: 'Generate',
+      label: t('menu.generate'),
     },
     {
       href: '/posts/create',
@@ -249,7 +251,7 @@ export function useGetActionMenuItems(): Array<Omit<UserMenuItem, 'href'> & { hr
       rel: 'nofollow',
       icon: IconPhotoUp,
       color: theme.colors.blue[theme.fn.primaryShade()],
-      label: 'Post Images',
+      label: t('menu.postImages'),
     },
     {
       href: '/posts/create?video=true',
@@ -258,7 +260,7 @@ export function useGetActionMenuItems(): Array<Omit<UserMenuItem, 'href'> & { hr
       rel: 'nofollow',
       icon: IconVideoPlus,
       color: theme.colors.blue[theme.fn.primaryShade()],
-      label: 'Post Videos',
+      label: t('menu.postVideos'),
     },
     {
       href: '/models/create',
@@ -267,7 +269,7 @@ export function useGetActionMenuItems(): Array<Omit<UserMenuItem, 'href'> & { hr
       rel: 'nofollow',
       icon: IconUpload,
       color: theme.colors.blue[theme.fn.primaryShade()],
-      label: ' Upload a Model',
+      label: t('menu.uploadModel'),
     },
     {
       href: '/models/train',
@@ -276,7 +278,7 @@ export function useGetActionMenuItems(): Array<Omit<UserMenuItem, 'href'> & { hr
       rel: 'nofollow',
       icon: IconBarbell,
       color: theme.colors.blue[theme.fn.primaryShade()],
-      label: 'Train a LoRA',
+      label: t('menu.trainLora'),
       currency: true,
     },
     {
@@ -286,7 +288,7 @@ export function useGetActionMenuItems(): Array<Omit<UserMenuItem, 'href'> & { hr
       rel: 'nofollow',
       icon: IconWriting,
       color: theme.colors.blue[theme.fn.primaryShade()],
-      label: 'Write an Article',
+      label: t('menu.writeArticle'),
     },
     {
       href: '/bounties/create',
@@ -295,7 +297,7 @@ export function useGetActionMenuItems(): Array<Omit<UserMenuItem, 'href'> & { hr
       rel: 'nofollow',
       icon: IconMoneybag,
       color: theme.colors.blue[theme.fn.primaryShade()],
-      label: 'Create a Bounty',
+      label: t('menu.createBounty'),
       currency: true,
     },
     {
@@ -305,7 +307,7 @@ export function useGetActionMenuItems(): Array<Omit<UserMenuItem, 'href'> & { hr
       rel: 'nofollow',
       icon: IconClubs,
       color: theme.colors.blue[theme.fn.primaryShade()],
-      label: 'Create a Club',
+      label: t('menu.createClub'),
     },
   ];
 }

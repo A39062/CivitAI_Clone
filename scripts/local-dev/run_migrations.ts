@@ -429,7 +429,7 @@ const initialMigrations = [
 async function main() {
   checkLocalDb();
 
-  await pgDbWrite.query('REASSIGN OWNED BY doadmin, civitai, "civitai-jobs" TO postgres');
+  //await pgDbWrite.query('REASSIGN OWNED BY civitai, "civitai-jobs" TO postgres');
   await pgDbWrite.query(
     'ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO "postgres"'
   );

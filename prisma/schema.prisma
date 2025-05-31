@@ -661,6 +661,7 @@ model Model {
   flags              ModelFlag[]
   coveredCheckpoints CoveredCheckpoint[]
 
+  reviews             Review[]            @relation("ModelToReviews")
   @@index([name])
   @@index([status, nsfw])
 }
@@ -811,6 +812,10 @@ model ModelVersion {
   ImageResourceNew        ImageResourceNew[]
   coveredCheckpoints      CoveredCheckpoint[]
 
+
+  reviews                 Review[]                  @relation("ModelVersionToReviews")
+  imagesOnReviews         ImagesOnReviews[]
+  imagesOnModels          ImagesOnModels[]
   @@index([modelId], type: Hash)
 }
 
@@ -1224,8 +1229,8 @@ model ResourceReviewReaction {
   reaction  ReviewReactions
   createdAt DateTime        @default(now())
   updatedAt DateTime        @updatedAt
-
-  @@unique([reviewId, userId, reaction])
+  
+  @@unique([reviewId, userId, reaction], name: "reviewId_userId_reaction")
 }
 
 enum ReviewReactions {
@@ -1392,11 +1397,52 @@ model Image {
   ratingRequests      ImageRatingRequest[]
   tagsNew             TagsOnImageNew[]
   ImageResourceNew    ImageResourceNew[]
+  imagesOnReviews     ImagesOnReviews[]
+  imagesOnModels      ImagesOnModels[]
 
   @@index([featuredAt])
   @@index([postId], type: Hash)
   @@index([userId, postId])
   @@index([sortAt])
+}
+
+model ImagesOnReviews {
+  imageId           Int
+  reviewId          Int
+  modelVersionId    Int
+  image             Image              @relation(fields: [imageId], references: [id])
+  review            Review             @relation(fields: [reviewId], references: [id])
+  modelVersion      ModelVersion       @relation(fields: [modelVersionId], references: [id])
+
+  @@id([imageId, reviewId]) // composite primary key
+}
+
+model Review {
+  id                Int                @id @default(autoincrement())
+  modelId           Int
+  modelVersionId    Int
+  userId            Int
+  text              String
+  rating            Int
+  imagesOnReviews   ImagesOnReviews[]
+  model            Model             @relation("ModelToReviews", fields: [modelId], references: [id])
+  modelVersion      ModelVersion      @relation("ModelVersionToReviews", fields: [modelVersionId], references: [id])
+}
+
+model ImagesOnModels {
+  imageId        Int
+  modelVersionId Int
+  index          Int?
+
+  image          Image         @relation(fields: [imageId], references: [id])
+  modelVersion   ModelVersion  @relation(fields: [modelVersionId], references: [id])
+
+  @@id([imageId, modelVersionId])
+}
+
+enum ModelFileType {
+  Model
+  TrainingData
 }
 
 model ImageFlag {

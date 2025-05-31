@@ -10,7 +10,7 @@ import { ManageHomepageButton } from '~/components/HomeBlocks/ManageHomepageButt
 import { HomeTabs } from '~/components/HomeContentToggle/HomeContentToggle';
 import { ToolImageFeedFilters } from '~/components/Filters/FeedFilters/ToolImageFeedFilters';
 import clsx from 'clsx';
-
+import { SocialLinks } from '~/components/SocialLinks/SocialLinks';
 const filterSections = [
   { pathname: '/', component: <ManageHomepageButton ml="auto" /> },
   { pathname: '/models', component: <ModelFeedFilters ml="auto" /> },
@@ -23,18 +23,26 @@ const filterSections = [
   { pathname: '/tools/[slug]', component: <ToolImageFeedFilters ml="auto" /> },
 ];
 
-export function SubNav2() {
+export function SubNav2({ isVisible = false }: { isVisible?: boolean }) {
   const router = useRouter();
   const section = filterSections.find((x) => x.pathname === router.pathname);
 
+  if (!isVisible) return null;
+
   return (
-    <div
-      className={clsx('flex justify-between gap-2 px-2 py-1', {
-        ['flex-wrap']: router.pathname !== '/',
-      })}
-    >
-      <HomeTabs />
-      {section?.component}
+    <div className="flex flex-col gap-4 bg-dark-6 px-4 py-3">
+      {/* Menu chính */}
+      <div className="flex flex-col gap-2">
+        <HomeTabs />
+      </div>
+
+      {/* Bộ lọc */}
+      {section?.component && <div className="flex flex-col gap-2">{section.component}</div>}
+
+      {/* Social icons below */}
+      <div className="mt-3 flex flex-wrap items-center justify-start gap-2">
+        <SocialLinks />
+      </div>
     </div>
   );
 }

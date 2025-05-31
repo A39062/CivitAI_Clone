@@ -339,6 +339,13 @@ export const MediaType = {
 
 export type MediaType = (typeof MediaType)[keyof typeof MediaType];
 
+export const ModelFileType = {
+  Model: 'Model',
+  TrainingData: 'TrainingData',
+} as const;
+
+export type ModelFileType = (typeof ModelFileType)[keyof typeof ModelFileType];
+
 export const BlockImageReason = {
   Ownership: 'Ownership',
   CSAM: 'CSAM',

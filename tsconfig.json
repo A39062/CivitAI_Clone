@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "ES2018",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     // "types": ["offscreencanvas"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -15,13 +19,22 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
+    "types": [
+      "react",
+      "react-dom"
+    ],
     "incremental": true,
     "noUncheckedIndexedAccess": false, // TODO swap to true
     "baseUrl": "src",
     "paths": {
-      "~/*": ["./*"]
+      "~/*": [
+        "./*"
+      ]
     },
-    "typeRoots": ["./types"],
+    "typeRoots": [
+      "./types",
+      "./node_modules/@types"
+    ],
     "noErrorTruncation": true,
     "plugins": [
       {
@@ -30,7 +43,7 @@
     ]
   },
   "include": [
-    // "next-env.d.ts",
+    "next-env.d.ts",
     // "**/*.ts",
     // "**/*.tsx",
     // "**/*.cjs",
@@ -40,5 +53,7 @@
     // ".next/types/**/*.ts"
     ".next/types/**/*.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }

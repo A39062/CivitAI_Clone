@@ -70,6 +70,8 @@ export type ImageIngestionStatus = "Pending" | "Scanned" | "Error" | "Blocked" |
 
 export type MediaType = "image" | "video" | "audio";
 
+export type ModelFileType = "Model" | "TrainingData";
+
 export type BlockImageReason = "Ownership" | "CSAM" | "TOS";
 
 export type ImageEngagementType = "Favorite" | "Hide";
@@ -594,6 +596,7 @@ export interface Model {
   generationCoverage?: GenerationCoverage[];
   flags?: ModelFlag[];
   coveredCheckpoints?: CoveredCheckpoint[];
+  reviews?: Review[];
 }
 
 export interface ModelFlag {
@@ -707,6 +710,9 @@ export interface ModelVersion {
   featuredInfo?: FeaturedModelVersion[];
   ImageResourceNew?: ImageResourceNew[];
   coveredCheckpoints?: CoveredCheckpoint[];
+  reviews?: Review[];
+  imagesOnReviews?: ImagesOnReviews[];
+  imagesOnModels?: ImagesOnModels[];
 }
 
 export interface ModelVersionEngagement {
@@ -1116,6 +1122,37 @@ export interface Image {
   ratingRequests?: ImageRatingRequest[];
   tagsNew?: TagsOnImageNew[];
   ImageResourceNew?: ImageResourceNew[];
+  imagesOnReviews?: ImagesOnReviews[];
+  imagesOnModels?: ImagesOnModels[];
+}
+
+export interface ImagesOnReviews {
+  imageId: number;
+  reviewId: number;
+  modelVersionId: number;
+  image?: Image;
+  review?: Review;
+  modelVersion?: ModelVersion;
+}
+
+export interface Review {
+  id: number;
+  modelId: number;
+  modelVersionId: number;
+  userId: number;
+  text: string;
+  rating: number;
+  imagesOnReviews?: ImagesOnReviews[];
+  model?: Model;
+  modelVersion?: ModelVersion;
+}
+
+export interface ImagesOnModels {
+  imageId: number;
+  modelVersionId: number;
+  index: number | null;
+  image?: Image;
+  modelVersion?: ModelVersion;
 }
 
 export interface ImageFlag {

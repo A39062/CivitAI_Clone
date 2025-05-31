@@ -5,6 +5,8 @@ import { env } from '~/env/client';
 import { BanReasonCode, ModelSort, NsfwLevel } from '~/server/common/enums';
 import { IMAGE_MIME_TYPE } from '~/server/common/mime-types';
 import type { GenerationResource } from '~/server/services/generation/generation.service';
+import type { ModelFileFormat } from '~/types/model-file-format';
+import type { StringLiteral } from '~/types/utils.types';
 import {
   BountyType,
   Currency,

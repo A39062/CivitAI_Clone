@@ -23,5 +23,5 @@
 		}
 	},
 	"remoteUser": "root",
-	"postCreateCommand": "make init-devcontainer"
+	"postCreateCommand": "npm install"
 }

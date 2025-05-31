@@ -4,7 +4,7 @@ create user retool with password 'retool';
 create user mleng with password 'mleng';
 create user hasura with password 'hasura';
 create user "civitai-read" with password 'civitai-read';
-create user doadmin with password 'doadmin';
+create user postgres with password 'postgres';
 create user "civitai-jobs" with password 'civitai-jobs';
 
 CREATE EXTENSION citext;

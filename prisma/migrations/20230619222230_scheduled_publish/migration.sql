@@ -1,1 +1,0 @@
-ALTER TYPE "ModelStatus" ADD VALUE 'Scheduled';

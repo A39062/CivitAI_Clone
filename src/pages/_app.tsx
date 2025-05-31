@@ -71,6 +71,8 @@ import { ClientHistoryStore } from '~/store/ClientHistoryStore';
 import { trpc } from '~/utils/trpc';
 import '~/styles/globals.css';
 import { BrowsingSettingsAddonsProvider } from '~/providers/BrowsingSettingsAddonsProvider';
+import { appWithTranslation } from 'next-i18next';
+import i18nConfig from '../../next-i18next.config.js';
 
 dayjs.extend(duration);
 dayjs.extend(isBetween);
@@ -308,4 +310,4 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
   };
 };
 
-export default trpc.withTRPC(MyApp);
+export default appWithTranslation(trpc.withTRPC(MyApp), i18nConfig);

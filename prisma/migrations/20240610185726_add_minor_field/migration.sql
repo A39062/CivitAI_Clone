@@ -1,2 +1,0 @@
--- AlterTable
-ALTER TABLE "Model" ADD COLUMN "minor" BOOLEAN NOT NULL DEFAULT false;

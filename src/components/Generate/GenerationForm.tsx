@@ -8,7 +8,7 @@ import { GenerationFormProvider } from '~/components/ImageGeneration/GenerationF
 import { TextToImageWhatIfProvider } from '~/components/ImageGeneration/GenerationForm/TextToImageWhatIfProvider';
 import { GenerationProvider } from '~/components/ImageGeneration/GenerationProvider';
 import { ScrollArea } from '~/components/ScrollArea/ScrollArea';
-
+import { useTranslation } from 'next-i18next';
 import { useIsClient } from '~/providers/IsClientProvider';
 import {
   generationFormStore,
@@ -21,7 +21,7 @@ export function GenerationForm() {
   const loading = useGenerationStore((state) => state.loading);
   const counter = useGenerationStore((state) => state.counter);
   const isClient = useIsClient();
-
+  const { t } = useTranslation();
   // !important - this is to move the 'tip' values to its own local storage bucket
   useEffect(() => {
     const stored = localStorage.getItem('generation-form-2');
@@ -56,8 +56,9 @@ export function GenerationForm() {
                 className="overflow-visible"
                 color="blue"
                 data={[
-                  { label: 'Image', value: 'image' },
-                  { label: 'Video', value: 'video' },
+                  { label: t('images'), value: 'image' },
+                  { label: t('videos'), value: 'video' },
+                  { label: t('Texts'), value: 'text' },
                 ]}
                 suppressHydrationWarning
               />

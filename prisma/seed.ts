@@ -1,8 +1,8 @@
-import { ModelType, ReviewReactions, PrismaClient, ScanResultCode, ModelFileType, ModelStatus } from '@prisma/client';
+import { ModelType, ReviewReactions, PrismaClient, ScanResultCode, ModelStatus, ModelFileType } from '@prisma/client';
 import { getRandomInt } from '../src/utils/number-helpers';
 
 const prisma = new PrismaClient({
-  log: ['warn','error']
+  log: ['warn', 'error']
 });
 
 const getRandomItem = <T>(array: T[]) => array[Math.floor(Math.random() * array.length)];
@@ -137,6 +137,7 @@ async function seed() {
           description: getRandomItem(descriptions),
           type: getRandomItem(modelTypes),
           status,
+          publishedAt: new Date(),
           modelVersions: {
             create: [...Array(getRandomInt(1, 3))].map((y, j) => ({
               name: `Version ${j}`,
@@ -145,6 +146,7 @@ async function seed() {
               steps: getRandomInt(1, 10),
               epochs: getRandomInt(1000, 3000),
               status,
+              baseModel: 'SD 1.5',
               files: {
                 create: [...Array(getRandomInt(1, 2))].map((z, k) => ({
                   name: `File ${k}`,
@@ -191,21 +193,32 @@ async function seed() {
   /************
    * REVIEWS
    ************/
+  const allReviewMap: { [modelId: number]: { id: number; modelVersionId: number }[] } = {};
+
   await Promise.all(
     modelResults.map(async (result) => {
       const { id: modelId, modelVersions } = result;
       const { id: modelVersionId } = getRandomItem(modelVersions);
-      await prisma.review.createMany({
-        data: [...Array(getRandomInt(1, 5))].map((x) => ({
-          modelId,
-          modelVersionId,
-          userId: getRandomItem(userIds),
-          text: getRandomItem(reviewText),
-          rating: getRandomItem(rating),
-        })),
-      });
+
+      const reviews = await Promise.all(
+        [...Array(getRandomInt(1, 5))].map(() =>
+          prisma.review.create({
+            data: {
+              modelId,
+              modelVersionId,
+              userId: getRandomItem(userIds),
+              text: getRandomItem(reviewText),
+              rating: getRandomItem(rating),
+            },
+            select: { id: true, modelVersionId: true },
+          })
+        )
+      );
+
+      allReviewMap[modelId] = reviews;
     })
   );
+
 
   await Promise.all(
     modelResults.map(async ({ id: modelId, userId, modelVersions }) => {
@@ -233,33 +246,75 @@ async function seed() {
        * REVIEW IMAGES
        ************/
       await Promise.all(
-        reviewIds.map(async ({ id: reviewId }) =>
-          prisma.image.create({
+        reviewIds.map(async ({ id: reviewId }) => {
+          // ✅ Đảm bảo đây là hàm async
+          const review = await prisma.review.findUnique({
+            where: { id: reviewId },
+            select: { modelVersionId: true },
+          });
+
+          if (!review?.modelVersionId) {
+            console.warn(`Review ${reviewId} has no modelVersionId`);
+            return;
+          }
+
+          return prisma.image.create({
             data: {
               userId,
               ...getRandomItem(images),
               imagesOnReviews: {
                 create: {
                   reviewId,
+                  modelVersionId: review.modelVersionId,
                 },
               },
             },
-          })
-        )
+          });
+        })
       );
 
       /************
-       * REACTIONS
-       ************/
+  * REACTIONS
+  ************/
+      const allReviewMap: { [modelId: number]: { id: number; modelVersionId: number }[] } = {};
       await Promise.all(
-        reviewIds.map(async ({ id: reviewId }) => {
-          await prisma.reviewReaction.createMany({
-            data: [...Array(6)].map((x) => ({
-              reviewId,
-              userId: getRandomItem(userIds),
-              reaction: getRandomItem(reactions),
-            })),
-          });
+        modelResults.map(async ({ id: modelId }) => {
+          const reviewIds = allReviewMap[modelId] ?? [];
+          const usedCombinations = new Set<string>();
+
+          await Promise.all(
+            reviewIds.map(async ({ id: reviewId }) => {
+              for (let i = 0; i < 6; i++) {
+                let userId: number;
+                let reaction: ReviewReactions;
+                let key: string;
+
+                do {
+                  userId = getRandomItem(userIds);
+                  reaction = getRandomItem(reactions);
+                  key = `${reviewId}_${userId}_${reaction}`;
+                } while (usedCombinations.has(key));
+
+                usedCombinations.add(key);
+
+                await prisma.resourceReviewReaction.upsert({
+                  where: {
+                    reviewId_userId_reaction: {
+                      reviewId,
+                      userId,
+                      reaction,
+                    },
+                  },
+                  update: {},
+                  create: {
+                    reviewId,
+                    userId,
+                    reaction,
+                  },
+                });
+              }
+            })
+          );
         })
       );
     })

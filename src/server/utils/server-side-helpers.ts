@@ -7,6 +7,7 @@ import { Tracker } from '~/server/clickhouse/client';
 import { appRouter } from '~/server/routers';
 import { FeatureAccess, getFeatureFlagsLazy } from '~/server/services/feature-flags.service';
 import { getServerAuthSession } from '~/server/utils/get-server-auth-session';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 export const getServerProxySSGHelpers = async (
   ctx: GetServerSidePropsContext,
@@ -70,9 +71,13 @@ export function createServerSideProps<P>({
         ? await result.props
         : result.props;
 
+    const locale = context.locale ?? 'en';
+    const translations = await serverSideTranslations(locale, ['common']); // 👈 load bản dịch
+
     return {
       props: {
         ...(props ?? {}),
+        ...(translations ?? {}),
         ...(ssg ? { trpcState: ssg.dehydrate() } : {}),
         session,
       } as NonNullable<P>,

@@ -18,7 +18,7 @@ services:
     ports:
       - "15432:5432"
     environment:
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_PASSWORD=civitai
       - POSTGRES_DB=civitai
     volumes:
       - db:/var/lib/postgresql/data

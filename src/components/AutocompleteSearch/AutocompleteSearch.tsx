@@ -61,7 +61,8 @@ import { Availability } from '~/shared/utils/prisma/enums';
 import { useCurrentUser } from '~/hooks/useCurrentUser';
 import { useBrowsingSettingsAddons } from '~/providers/BrowsingSettingsAddonsProvider';
 import { getBlockedNsfwWords, includesPoi } from '~/utils/metadata/audit';
-
+import { useTranslation } from 'next-i18next';
+import { T } from '@faker-js/faker/dist/airline-C5Qwd7_q';
 const meilisearch = instantMeiliSearch(
   env.NEXT_PUBLIC_SEARCH_HOST as string,
   env.NEXT_PUBLIC_SEARCH_CLIENT_KEY,
@@ -180,17 +181,19 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const targetData = [
-  { value: 'models', label: 'Models' },
-  { value: 'images', label: 'Images' },
-  { value: 'articles', label: 'Articles' },
-  { value: 'users', label: 'Users' },
-  { value: 'collections', label: 'Collections' },
-  { value: 'bounties', label: 'Bounties' },
-  { value: 'tools', label: 'Tools' },
-] as const;
+const targetData = (t: any) => [
+  { value: 'models', label: t('search.models') },
+  { value: 'images', label: t('search.images') },
+  { value: 'articles', label: t('search.articles') },
+  { value: 'users', label: t('search.users') },
+  { value: 'collections', label: t('search.collections') },
+  { value: 'bounties', label: t('search.bounties') },
+  { value: 'tools', label: t('search.tools') },
+];
 
 export const AutocompleteSearch = forwardRef<{ focus: () => void }, Props>(({ ...props }, ref) => {
+  const { t } = useTranslation();
+  const targets = targetData(t);
   const browsingSettingsAddons = useBrowsingSettingsAddons();
   const [targetIndex, setTargetIndex] = useState<SearchIndexKey>('models');
   const handleTargetChange = (value: SearchIndexKey) => {
@@ -272,7 +275,8 @@ function AutocompleteSearchContentInner<TKey extends SearchIndexKey>(
   const isMobile = useIsMobile();
   const features = useFeatureFlags();
   const inputRef = useRef<HTMLInputElement>(null);
-
+  const { t } = useTranslation();
+  const targets = targetData(t);
   const { status } = useInstantSearch({
     catchError: true,
   });
@@ -424,9 +428,9 @@ function AutocompleteSearchContentInner<TKey extends SearchIndexKey>(
             rightSection: classes.targetSelectorRightSection,
           }}
           maxDropdownHeight={280}
-          defaultValue={targetData[0].value}
+          defaultValue={targets[0].value}
           // Ensure we disable search targets if they are not enabled
-          data={targetData.filter(
+          data={targets.filter(
             ({ value }) =>
               (features.imageSearch ? true : value !== 'images') &&
               (features.bounties ? true : value !== 'bounties') &&

@@ -36,18 +36,17 @@ if (process.env.NODE_ENV === 'development') {
       console.log('Unknown database connection');
     } else {
       console.log(
-        `Using ${
-          dbUser[1] === 'postgres'
-            ? 'LOCAL'
-            : dbUser[1] === 'doadmin'
+        `Using ${dbUser[1] === 'civitai'
+          ? 'LOCAL'
+          : dbUser[1] === 'civitai'
             ? 'DEV'
-            : dbUser[1] === 'civitai'
-            ? 'PROD'
-            : 'UNKNOWN'
+            : dbUser[1] === 'postgres'
+              ? 'PROD'
+              : 'UNKNOWN'
         } database.`
       );
     }
-  } catch {}
+  } catch { }
 }
 
 export const env = { ..._serverEnv.data, ...clientEnv };

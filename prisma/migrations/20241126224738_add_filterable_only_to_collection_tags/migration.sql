@@ -1,1 +1,0 @@
-ALTER TABLE "TagsOnCollection" ADD COLUMN     "filterableOnly" BOOLEAN NOT NULL DEFAULT false;

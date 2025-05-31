@@ -52,6 +52,7 @@ import { Currency } from '~/shared/utils/prisma/enums';
 import { getLoginLink } from '~/utils/login-helpers';
 import { showErrorNotification } from '~/utils/notifications';
 import { getInitials } from '~/utils/string-helpers';
+import { useTranslation } from 'next-i18next';
 
 const UserMenuCtx = createContext<{ handleClose: () => void }>({ handleClose: () => undefined });
 function useUserMenuContext() {
@@ -93,14 +94,14 @@ export function UserMenu() {
   );
 }
 
-function useOutsideClick<T extends HTMLElement>(callback: (event: Event) => void) {
+export function useOutsideClick<T extends HTMLElement>(callback: (event: Event) => void) {
   const ref = useRef<T | null>(null);
   const callbackRef = useRef<((event: Event) => void) | null>(null);
   callbackRef.current = callback;
 
   useEffect(() => {
-    const handleClick = (event: Event) => {
-      if (ref.current && !ref.current.contains(event.target as any)) {
+    const handleClick = (event: Event): void => {
+      if (ref.current && !ref.current.contains(event.target as Node)) {
         callbackRef.current?.(event);
       }
     };
@@ -148,6 +149,13 @@ function UserMenuContent({ onAccountClick }: { onAccountClick: () => void }) {
   const menuItems = useGetMenuItems();
   const actionItems = useGetActionMenuItems();
 
+  const { i18n } = useTranslation();
+  const router = useRouter();
+  const changeLanguage = (lang: string) => {
+    i18n.changeLanguage(lang);
+    router.push(router.pathname, router.asPath, { locale: lang });
+  };
+
   const groups = menuItems.filter((x) => x.visible);
 
   return (
@@ -182,6 +190,17 @@ function UserMenuContent({ onAccountClick }: { onAccountClick: () => void }) {
         )}
       </div>
       <div className="flex gap-3 border-t border-gray-3 px-3 py-2 dark:border-dark-4">
+        <div className="flex items-center gap-2">
+          <span className="text-sm text-gray-700 dark:text-gray-300">Language</span>
+          <select
+            className="rounded border border-gray-3 bg-white px-2 py-1 text-sm dark:border-dark-4 dark:bg-dark-6"
+            value={i18n.language}
+            onChange={(e) => changeLanguage(e.target.value)}
+          >
+            <option value="en">English</option>
+            <option value="vi">Tiếng Việt</option>
+          </select>
+        </div>
         <Tooltip label="Color scheme">
           <ActionIcon
             variant="default"

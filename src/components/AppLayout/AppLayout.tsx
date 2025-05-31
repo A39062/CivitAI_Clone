@@ -1,7 +1,6 @@
 import clsx from 'clsx';
 import React, { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
-import { AppFooter } from '~/components/AppLayout/AppFooter';
 import { AppHeader, RenderSearchComponentProps } from '~/components/AppLayout/AppHeader/AppHeader';
 import { NotFound } from '~/components/AppLayout/NotFound';
 import { SubNav2 } from '~/components/AppLayout/SubNav';
@@ -16,35 +15,31 @@ import { openReadOnlyModal } from '~/components/Dialog/dialog-registry';
 import { useFeatureFlags } from '~/providers/FeatureFlagsProvider';
 import { useIsMounted } from '~/hooks/useIsMounted';
 import { ChatPortal } from '~/components/Chat/ChatProvider';
+import { SidebarFooterContent } from '~/components/AppLayout/AppFooter';
 
 let shownReadonly = false;
-const readonlyAlertCutoff = Date.now() - 1000 * 60 * 30; // 30 minutes
+const readonlyAlertCutoff = Date.now() - 1000 * 60 * 30;
+
 export function AppLayout({
   children,
   renderSearchComponent,
-  subNav = <SubNav2 />,
-  left,
   right,
   scrollable = true,
-  footer = <AppFooter />,
   loading,
   notFound,
   announcements,
 }: {
   children: React.ReactNode;
   renderSearchComponent?: (opts: RenderSearchComponentProps) => React.ReactElement;
-  subNav?: React.ReactNode | null;
-  left?: React.ReactNode;
   right?: React.ReactNode;
-
   scrollable?: boolean;
-  footer?: React.ReactNode | null;
   loading?: boolean;
   notFound?: boolean;
   announcements?: boolean;
 }) {
   const isMounted = useIsMounted();
   const features = useFeatureFlags();
+  const [menuOpen, setMenuOpen] = useState<boolean>(false);
 
   useEffect(() => {
     if (isMounted() && !features.canWrite && !shownReadonly) {
@@ -58,24 +53,38 @@ export function AppLayout({
   }, []);
 
   return (
-    <div className="flex h-full flex-1 flex-col">
-      <AppHeader fixed={false} renderSearchComponent={renderSearchComponent} />
+    <div className="flex min-h-screen flex-col">
+      <AppHeader
+        fixed={false}
+        renderSearchComponent={renderSearchComponent}
+        onMenuToggle={setMenuOpen}
+      />
+
       {loading ? (
         <PageLoader />
       ) : notFound ? (
         <NotFound />
       ) : (
         <div className="flex flex-1 overflow-hidden">
-          {left}
-          <MainContent
-            subNav={subNav}
-            scrollable={scrollable}
-            footer={footer}
-            announcements={announcements}
-          >
-            {children}
-            {!footer && <ChatPortal showFooter={false} />}
-          </MainContent>
+          {/* Sidebar */}
+          {menuOpen && (
+            <aside className="flex w-[240px] min-w-[180px] max-w-[260px] flex-col justify-between border-r border-gray-3 bg-dark-6 dark:border-dark-4">
+              <div className="flex-1 overflow-y-auto">
+                <SubNav2 isVisible={menuOpen} />
+              </div>
+              <SidebarFooterContent />
+            </aside>
+          )}
+
+          {/* Main content */}
+          <div className="flex flex-1 flex-col">
+            <MainContent scrollable={scrollable} announcements={announcements} subNav={null}>
+              {children}
+              <ChatPortal showFooter={false} />
+            </MainContent>
+          </div>
+
+          {/* Optional right sidebar */}
           {right && (
             <aside className="scroll-area relative border-l border-gray-3 dark:border-dark-4">
               {right}
@@ -83,6 +92,7 @@ export function AppLayout({
           )}
         </div>
       )}
+
       <AdhesiveFooter />
     </div>
   );
@@ -98,8 +108,7 @@ function AdhesiveFooter() {
 
 export function MainContent({
   children,
-  subNav = <SubNav2 />,
-  footer = <AppFooter />,
+  subNav,
   scrollable = true,
   announcements,
   ...props
@@ -107,25 +116,22 @@ export function MainContent({
   children: React.ReactNode;
   subNav?: React.ReactNode | null;
   scrollable?: boolean;
-  footer?: React.ReactNode | null;
   announcements?: boolean;
 } & ScrollAreaProps) {
   return scrollable ? (
     <ScrollArea {...props}>
-      <main className="flex-1">
+      <main className="flex flex-1 flex-col">
         {subNav && <SubNav>{subNav}</SubNav>}
         {announcements && <Announcements />}
-        {children}
+        <div className="flex flex-1 flex-col">{children}</div>
       </main>
-      {footer}
     </ScrollArea>
   ) : (
     <div className="no-scroll group flex flex-1 flex-col overflow-hidden">
       <main className="flex flex-1 flex-col overflow-hidden">
         {subNav && <SubNav>{subNav}</SubNav>}
-        {children}
+        <div className="flex flex-1 flex-col">{children}</div>
       </main>
-      {footer}
     </div>
   );
 }
@@ -140,12 +146,13 @@ export function SubNav({
   const lastDirectionChangeRef = useRef(0);
   const lastScrollDirectionRef = useRef('up');
   const [showNav, setShowNav] = useState(true);
+
   useScrollAreaRef({
     onScroll: (node) => {
       const diff = node.scrollTop - lastScrollRef.current;
       const scrollDirection = diff > 0 ? 'down' : 'up';
-      const lastScrollDirection = lastScrollDirectionRef.current;
-      if (scrollDirection !== lastScrollDirection) {
+
+      if (scrollDirection !== lastScrollDirectionRef.current) {
         lastScrollDirectionRef.current = scrollDirection;
         lastDirectionChangeRef.current = node.scrollTop;
       }

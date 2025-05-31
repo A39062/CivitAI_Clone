@@ -5,7 +5,7 @@ import { ImageAnalysisInput } from '~/server/schema/image.schema';
 import { TrainingResults } from '~/server/schema/model-file.schema';
 import { LabelTypes } from '~/store/training.store';
 
-export {};
+export { };
 
 declare global {
   /**
@@ -22,8 +22,8 @@ declare global {
     ? T
     : T extends object
     ? {
-        [K in keyof T]?: DeepPartial<T[K]>;
-      }
+      [K in keyof T]?: DeepPartial<T[K]>;
+    }
     : T;
 
   type Prettify<T> = {
@@ -63,8 +63,8 @@ declare global {
   type DeepRequired<T> = T extends BrowserNativeObject | Blob
     ? T
     : {
-        [K in keyof T]-?: NonNullable<DeepRequired<T[K]>>;
-      };
+      [K in keyof T]-?: NonNullable<DeepRequired<T[K]>>;
+    };
 
   type DeepNonNullable<T> = { [P in keyof T]-?: NonNullable<T[P]> } & NonNullable<T>;
 

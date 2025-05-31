@@ -1,4 +1,4 @@
-import { Badge, Button, createStyles, Group, Menu, Text } from '@mantine/core';
+import { UnstyledButton, Badge, Button, createStyles, Group, Menu, Text } from '@mantine/core';
 import { useLocalStorage } from '@mantine/hooks';
 import {
   IconCalendar,
@@ -18,6 +18,7 @@ import {
   IconVideo,
 } from '@tabler/icons-react';
 import clsx from 'clsx';
+import React from 'react';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { NextLink as Link } from '~/components/NextLink/NextLink';
@@ -26,6 +27,7 @@ import { FeatureAccess } from '~/server/services/feature-flags.service';
 import { getDisplayName } from '~/utils/string-helpers';
 import { trpc } from '~/utils/trpc';
 import { isDefined } from '~/utils/type-guards';
+import { useTranslation } from 'next-i18next';
 
 type HomeOption = {
   key: string;
@@ -216,11 +218,10 @@ const useTabsStyles = createStyles((theme) => ({
 
 export function HomeTabs() {
   const router = useRouter();
-  const features = useFeatureFlags();
   const activePath = router.pathname.split('/')[1] || 'home';
-  const { classes, cx } = useTabsStyles();
+  const features = useFeatureFlags();
+  const { t } = useTranslation(); // ✅ lấy hàm t()
 
-  const [moreOpened, setMoreOpened] = useState(false);
   const [lastSeenChangelog] = useLocalStorage<number>({
     key: 'last-seen-changelog',
     defaultValue: 0,
@@ -228,80 +229,45 @@ export function HomeTabs() {
   });
 
   const { data: latestChangelog } = trpc.changelog.getLatest.useQuery();
-
   const options = filterHomeOptions(features);
 
   return (
-    <div className="flex items-center gap-1 overflow-x-auto overflow-y-hidden">
-      {options.map(({ key, ...value }) => {
+    <div className="flex flex-col gap-1">
+      {options.map(({ key, url, icon: Icon, new: isNew, classes }, index) => {
+        const isActive = activePath === key || (activePath === 'changelog' && key === 'updates');
+
         return (
-          <Button
-            key={key}
-            variant="default"
-            component={Link}
-            href={value.url}
-            className={clsx('h-8 rounded-full border-none py-2 pl-3 pr-4', {
-              ['bg-gray-4 dark:bg-dark-4']:
-                activePath === key || (activePath === 'changelog' && key === 'updates'),
-              [classes.groupedOptions]: value.grouped,
-              [classes.tabHighlight]: key === 'shop',
-            })}
-            classNames={{ label: 'flex gap-2 items-center capitalize overflow-visible' }}
-          >
-            {value.icon({ size: 16 })}
-            <span className="text-base font-medium capitalize">{getDisplayName(key)}</span>
-            {key === 'updates' && (latestChangelog ?? 0) > lastSeenChangelog && (
-              <IconPointFilled color="green" size={20} />
+          <React.Fragment key={key}>
+            <Link href={url} passHref legacyBehavior>
+              <UnstyledButton
+                component="a"
+                className={clsx(
+                  'flex w-full items-center rounded-md px-4 py-2 transition hover:bg-gray-100 dark:hover:bg-dark-4',
+                  {
+                    'bg-gray-200 dark:bg-dark-6': isActive,
+                  },
+                  ...(classes ?? [])
+                )}
+              >
+                <Icon size={18} className="mr-2 text-gray-700 dark:text-gray-300" />
+                <span className="flex-1 text-sm font-medium capitalize text-gray-800 dark:text-gray-100">
+                  {t(key)}
+                </span>
+
+                {key === 'updates' && (latestChangelog ?? 0) > lastSeenChangelog && (
+                  <IconPointFilled color="green" size={16} />
+                )}
+                {!!isNew && isNew > new Date() && <Badge size="xs">New</Badge>}
+              </UnstyledButton>
+            </Link>
+
+            {/* Thêm dấu gạch sau mỗi 4 mục */}
+            {(index + 1) % 4 === 0 && index !== options.length - 1 && (
+              <hr className="my-1 border-gray-500 dark:border-dark-4" />
             )}
-            {!!value.new && value.new > new Date() && <Badge>New</Badge>}
-          </Button>
+          </React.Fragment>
         );
       })}
-      <Menu position="bottom-end" onChange={setMoreOpened}>
-        <Menu.Target>
-          <Button
-            radius="xl"
-            size="sm"
-            color="gray"
-            variant="subtle"
-            data-active={moreOpened}
-            className={classes.moreButton}
-          >
-            <Group spacing={4} noWrap>
-              More
-              <IconCaretDown size={16} fill="currentColor" />
-            </Group>
-          </Button>
-        </Menu.Target>
-        <Menu.Dropdown>
-          {options
-            .filter((value) => value.grouped)
-            .map((value) => (
-              <Link legacyBehavior key={value.key} href={value.url} passHref>
-                <Menu.Item
-                  component="a"
-                  icon={value.icon({ size: 16 })}
-                  className={cx(
-                    value.classes
-                      ?.map((c) => {
-                        if (classes.hasOwnProperty(c)) return classes[c as keyof typeof classes];
-                        return null;
-                      })
-                      .filter(isDefined)
-                  )}
-                >
-                  <Group spacing={8} noWrap>
-                    <Text tt="capitalize">{getDisplayName(value.key)}</Text>
-                    {value.key === 'updates' && (latestChangelog ?? 0) > lastSeenChangelog && (
-                      <IconPointFilled color="green" size={20} />
-                    )}
-                    {!!value.new && value.new > new Date() && <Badge>New</Badge>}
-                  </Group>
-                </Menu.Item>
-              </Link>
-            ))}
-        </Menu.Dropdown>
-      </Menu>
     </div>
   );
 }

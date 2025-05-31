@@ -1,1 +1,0 @@
-ALTER TYPE "ImageIngestionStatus" ADD VALUE 'PendingManualAssignment';

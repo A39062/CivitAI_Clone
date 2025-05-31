@@ -20,10 +20,11 @@ services:
       - redis
       - redis-sys
     environment:
-      DATABASE_URL: 'postgresql://postgres:postgres@db:5432/civitai'
-      DATABASE_REPLICA_URL: 'postgresql://postgres:postgres@db:5432/civitai'
-      DARKPIT_URL: 'postgresql://modelshare:postgres@db:5432/postgres'
-      DARKPIT_SHADOW_URL: 'postgresql://modelshare:postgres@db:5432/postgres'
+      DATABASE_URL: 'postgresql://civitai:civitai@civitai-db:5432/civitai'
+      DATABASE_REPLICA_URL: 'postgresql://civitai:civitai@civitai-db:5432/civitai'
+      SHADOW_DATABASE_URL: 'postgresql://civitai:civitai@civitai-db:5432/civitai_shadow'
+      DARKPIT_URL: 'postgresql://modelshare:postgres@civitai-db:5432/postgres'
+      DARKPIT_SHADOW_URL: 'postgresql://modelshare:postgres@civitai-db:5432/postgres'
       NOTIFICATION_DB_URL: 'postgresql://postgres:postgres@notification-db:5432/postgres'
       NOTIFICATION_DB_REPLICA_URL: 'postgresql://postgres:postgres@notification-db:5432/postgres'
       REDIS_URL: 'redis://:redis@redis:6379'

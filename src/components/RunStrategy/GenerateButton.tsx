@@ -8,6 +8,7 @@ import { Availability, ModelStatus } from '~/shared/utils/prisma/enums';
 import { generationPanel, useGenerationStore } from '~/store/generation.store';
 import type { ModelById } from '~/types/router';
 import { abbreviateNumber } from '~/utils/number-helpers';
+import { useTranslation } from 'next-i18next';
 
 export function GenerateButton({
   iconOnly,
@@ -26,7 +27,7 @@ export function GenerateButton({
 }: Props) {
   const theme = useMantineTheme();
   const features = useFeatureFlags();
-
+  const { t } = useTranslation();
   const vId = versionId ?? version?.id;
 
   const opened = useGenerationStore((state) => state.opened);
@@ -116,7 +117,7 @@ export function GenerateButton({
         <Group spacing={8} noWrap>
           <IconBrush size={20} />
           <Text inherit inline className="hide-mobile">
-            Create
+            {t('create')}
           </Text>
         </Group>
       )}

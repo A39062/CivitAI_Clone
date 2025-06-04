@@ -59,6 +59,8 @@ export function GenerationForm() {
                   { label: t('images'), value: 'image' },
                   { label: t('videos'), value: 'video' },
                   { label: t('Texts'), value: 'text' },
+                  { label: t('AI App'), value: 'aiapp' },
+                  { label: t('Sound'), value: 'sound' },
                 ]}
                 suppressHydrationWarning
               />

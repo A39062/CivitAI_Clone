@@ -58,7 +58,6 @@ export const TrainingImagesCaptions = ({
   const { updateImage } = trainingStore;
   const debounce = useDebouncer(1000);
 
-  // this feels stupid but without it the component doesn't update when filtering
   useEffect(() => {
     setCaptionTxt(imgData.label);
   }, [imgData.label]);
@@ -81,9 +80,6 @@ export const TrainingImagesCaptions = ({
             }
           });
         }}
-        // onBlur={(e: Event) => {
-        //   console.log(e);
-        // }}
       />
     </Paper>
   );
@@ -127,19 +123,13 @@ export const TrainingImagesCaptionViewer = ({
               onChange={(event) => setSearchCaption(event.currentTarget.value.toLowerCase())}
               style={{ flexGrow: 1 }}
               rightSection={
-                <ActionIcon
-                  onClick={() => {
-                    setSearchCaption('');
-                  }}
-                  disabled={!searchCaption.length}
-                >
+                <ActionIcon onClick={() => setSearchCaption('')} disabled={!searchCaption.length}>
                   <IconX size={16} />
                 </ActionIcon>
               }
             />
             <Divider orientation="vertical" />
             <Switch
-              // label="Find Uncaptioned"
               size="lg"
               onLabel="Missing Captions"
               offLabel="Missing Captions"

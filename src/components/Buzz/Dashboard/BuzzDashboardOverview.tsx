@@ -284,7 +284,12 @@ export const BuzzDashboardOverview = ({ accountId }: { accountId: number }) => {
               </Group>
             </Text>
             {transactions.length ? (
-              <ScrollArea.Autosize maxHeight={480} mt="md" key={transactionType}>
+              <ScrollArea
+                type="auto"
+                viewportProps={{ style: { maxHeight: 480 } }}
+                mt="md"
+                key={transactionType}
+              >
                 <Stack spacing={8} mr={14}>
                   {transactions.map((transaction, index) => {
                     const { amount, date } = transaction;
@@ -319,7 +324,7 @@ export const BuzzDashboardOverview = ({ accountId }: { accountId: number }) => {
                     );
                   })}
                 </Stack>
-              </ScrollArea.Autosize>
+              </ScrollArea>
             ) : transactionData.isLoading ? (
               <Center>
                 <Loader />

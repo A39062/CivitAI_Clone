@@ -81,7 +81,7 @@ import { CurrencyIcon } from '../Currency/CurrencyIcon';
 import { DaysFromNow } from '../Dates/DaysFromNow';
 import { InfoPopover } from '../InfoPopover/InfoPopover';
 import { getMinMaxDates, useMutateBounty } from './bounty.utils';
-import { ReadOnlyAlert }  from '~/components/ReadOnlyAlert/ReadOnlyAlert';
+import { ReadOnlyAlert } from '~/components/ReadOnlyAlert/ReadOnlyAlert';
 import { useFeatureFlags } from '~/providers/FeatureFlagsProvider';
 
 const bountyModeDescription: Record<BountyMode, string> = {
@@ -373,7 +373,11 @@ export function BountyUpsertForm({ bounty }: { bounty?: BountyGetById }) {
 
   return (
     <Form form={form} onSubmit={handleSubmit}>
-      <ReadOnlyAlert message={"Civitai is currently in read-only mode and you won't be able to publish or see changes made to this bounty."} />
+      <ReadOnlyAlert
+        message={
+          "Civitai is currently in read-only mode and you won't be able to publish or see changes made to this bounty."
+        }
+      />
       <Stack spacing={32}>
         <Group spacing="md" noWrap>
           <BackButton url="/bounties" />
@@ -469,7 +473,7 @@ export function BountyUpsertForm({ bounty }: { bounty?: BountyGetById }) {
                   label="About your bounty"
                   editorSize="xl"
                   includeControls={['heading', 'formatting', 'list', 'link', 'media', 'colors']}
-                  placeholder="What kind of entries are you looking for? Why did you make this? What's it for? Examples of the best case and worst case outputs from bounty entries"
+                  description="What kind of entries are you looking for? Why did you make this? What's it for? Examples of the best case and worst case outputs from bounty entries"
                   withAsterisk
                   stickyToolbar
                 />
@@ -509,7 +513,6 @@ export function BountyUpsertForm({ bounty }: { bounty?: BountyGetById }) {
                         withBorder
                       >
                         <EdgeMedia
-                          placeholder="empty"
                           src={image.url}
                           alt={undefined}
                           style={{ objectFit: 'cover', height: '100%' }}
@@ -553,7 +556,6 @@ export function BountyUpsertForm({ bounty }: { bounty?: BountyGetById }) {
                           {file.status === 'success' ? (
                             <>
                               <EdgeMedia
-                                placeholder="empty"
                                 src={file.url}
                                 alt={file.name ?? undefined}
                                 style={{ objectFit: 'cover', height: '100%' }}
@@ -936,7 +938,11 @@ export function BountyUpsertForm({ bounty }: { bounty?: BountyGetById }) {
               color="yellow.7"
             />
           ) : (
-            <Button loading={upserting} type="submit" disabled={poi || hasPoiInNsfw || !features.canWrite}>
+            <Button
+              loading={upserting}
+              type="submit"
+              disabled={poi || hasPoiInNsfw || !features.canWrite}
+            >
               Save
             </Button>
           )}

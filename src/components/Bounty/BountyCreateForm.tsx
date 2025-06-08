@@ -389,7 +389,6 @@ export function BountyCreateForm() {
                           {file.status === 'success' ? (
                             <>
                               <EdgeMedia
-                                placeholder="empty"
                                 src={file.url}
                                 alt={file.name ?? undefined}
                                 style={{ objectFit: 'cover', height: '100%' }}

@@ -28,6 +28,8 @@ export type EdgeMediaProps = EdgeUrlProps &
     videoProps?: React.HTMLAttributes<HTMLVideoElement> &
       React.MediaHTMLAttributes<HTMLVideoElement>;
     imageProps?: React.HTMLAttributes<HTMLImageElement>;
+    placeholder?: 'blur' | 'empty'; // Thêm prop
+    blurDataURL?: string; // Thêm prop
   };
 
 export function EdgeMedia({
@@ -63,6 +65,8 @@ export function EdgeMedia({
   disablePoster,
   videoProps,
   imageProps,
+  placeholder, // Thêm vào destructuring
+  blurDataURL,
   ...imgProps
 }: EdgeMediaProps) {
   const { classes, cx } = useStyles({ maxWidth: width ?? undefined });

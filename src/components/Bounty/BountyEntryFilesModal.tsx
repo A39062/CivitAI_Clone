@@ -63,7 +63,7 @@ function BountyEntryFiles({ bountyEntry }: Props) {
           unlock amount.
         </Text>
       )}
-      <ScrollArea.Autosize maxHeight={400}>
+      <ScrollArea type="auto" viewportProps={{ style: { maxHeight: 400 } }}>
         <Stack spacing="md">
           {files.map((file) => {
             const isLocked = !file.url;
@@ -134,7 +134,7 @@ function BountyEntryFiles({ bountyEntry }: Props) {
             );
           })}
         </Stack>
-      </ScrollArea.Autosize>
+      </ScrollArea>
     </Stack>
   );
 }

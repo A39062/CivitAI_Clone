@@ -2,7 +2,7 @@ import { Text, Title } from '@mantine/core';
 import React, { Component, ErrorInfo } from 'react';
 
 type Props = { children: React.ReactNode };
-type State = { hasError: boolean; error?: Error; stack?: string };
+type State = { hasError: boolean; error?: Error; stack?: string | null };
 
 export default class GameErrorBoundary extends Component<Props, State> {
   state: State = { hasError: false };

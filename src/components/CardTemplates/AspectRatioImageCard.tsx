@@ -129,10 +129,10 @@ export function AspectRatioImageCard<T extends DialogKey>({
                           alt={image.name ?? undefined}
                           type={image.type}
                           thumbnailUrl={image.thumbnailUrl}
-                          placeholder="empty"
                           className={clsx(styles.image, {
                             [styles.top]: originalAspectRatio < 1,
                           })}
+                          placeholder="blur"
                           wrapperProps={{ className: 'flex-1 h-full' }}
                           width={
                             originalAspectRatio > 1

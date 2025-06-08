@@ -263,9 +263,6 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
   const initialProps = await App.getInitialProps(appContext);
   const { req: request } = appContext.ctx;
   if (!request) return initialProps;
-  // Everything below this point is only serverside
-
-  // const url = appContext.ctx?.req?.url;
 
   const { pageProps, ...appProps } = initialProps;
   const colorScheme = getCookie('mantine-color-scheme', appContext.ctx) ?? 'dark';
@@ -273,8 +270,6 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
   const parsedCookies = parseCookies(cookies);
 
   const hasAuthCookie = Object.keys(cookies).some((x) => x.endsWith('civitai-token'));
-  // const session = hasAuthCookie ? await getSession(appContext.ctx) : undefined;
-  // const flags = getFeatureFlags({ user: session?.user, host: appContext.ctx.req?.headers.host });
   const canIndex = Object.values(serverDomainMap).includes(request.headers.host);
   const token = await getToken({
     req: appContext.ctx.req as any,
@@ -285,10 +280,24 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
   const session = token?.user ? { user: token.user as SessionUser } : null;
   const flags = getFeatureFlags({ user: session?.user, host: request?.headers.host });
 
-  const settings = await fetch(`${baseUrl}/api/user/settings`, {
-    headers: { ...request.headers } as HeadersInit,
-  }).then((res) => res.json() as UserSettingsSchema);
-  // Pass this via the request so we can use it in SSR
+  // ✅ Sửa phần fetch settings
+  let settings: UserSettingsSchema | null = null;
+  try {
+    const host = request.headers.host ?? 'localhost:3000';
+    const protocol = host.includes('localhost') ? 'http' : 'https';
+    const baseUrl = `${protocol}://${host}`;
+
+    const res = await fetch(`${baseUrl}/api/user/settings`, {
+      headers: { ...request.headers } as HeadersInit,
+    });
+
+    if (!res.ok) throw new Error(`Fetch failed: ${res.status}`);
+    settings = (await res.json()) as UserSettingsSchema;
+  } catch (error) {
+    console.error('❌ Error fetching user settings in _app.tsx:', error);
+    settings = null;
+  }
+
   if (session) {
     (appContext.ctx.req as any)['session'] = session;
   }
@@ -299,7 +308,6 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
       colorScheme,
       cookies: parsedCookies,
       canIndex,
-      // cookieKeys: Object.keys(cookies),
       session,
       settings,
       flags,

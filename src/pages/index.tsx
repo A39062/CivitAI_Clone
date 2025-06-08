@@ -15,7 +15,7 @@ export const getServerSideProps = createServerSideProps({
 
     return {
       props: {
-        ...(await serverSideTranslations(locale, ['common'])), // ✅ Thêm dòng này
+        ...(await serverSideTranslations(locale, ['common'])),
       },
     };
   },

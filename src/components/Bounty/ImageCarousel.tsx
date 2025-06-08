@@ -17,7 +17,7 @@ import { breakpoints } from '~/utils/tailwind';
 import { useMemo } from 'react';
 import { useContainerSmallerThan } from '~/components/ContainerProvider/useContainerSmallerThan';
 import { BrowsingSettingsAddonsProvider } from '~/providers/BrowsingSettingsAddonsProvider';
-
+import { MediaType as PrismaMediaType } from '@prisma/client';
 export function ImageCarousel(props: Props) {
   return (
     <BrowsingLevelProvider>
@@ -27,7 +27,7 @@ export function ImageCarousel(props: Props) {
     </BrowsingLevelProvider>
   );
 }
-
+type CarouselImage = Omit<ImageProps, 'type'> & { type: PrismaMediaType };
 export function ImageCarouselContent({
   images,
   connectType,
@@ -39,8 +39,9 @@ export function ImageCarouselContent({
     () =>
       images.map((image) => ({
         ...image,
+        type: ['text', 'aiapp'].includes(image.type) ? 'image' : image.type,
         tagIds: image.tags?.map((x) => (typeof x === 'number' ? x : x.id)),
-      })),
+      })) as CarouselImage[],
     [images]
   );
 

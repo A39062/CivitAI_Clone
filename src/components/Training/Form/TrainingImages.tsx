@@ -105,15 +105,20 @@ import { bytesToKB } from '~/utils/number-helpers';
 import { trpc } from '~/utils/trpc';
 import { isDefined } from '~/utils/type-guards';
 
-const TrainingImagesCaptions = dynamic(() =>
-  import('~/components/Training/Form/TrainingImagesCaptionViewer').then(
-    (x) => x.TrainingImagesCaptions
-  )
+const TrainingImagesCaptions = dynamic(
+  () =>
+    import('~/components/Training/Form/TrainingImagesCaptionViewer').then(
+      (mod) => mod.TrainingImagesCaptions
+    ),
+  { ssr: false }
 );
-const TrainingImagesCaptionViewer = dynamic(() =>
-  import('~/components/Training/Form/TrainingImagesCaptionViewer').then(
-    (x) => x.TrainingImagesCaptionViewer
-  )
+
+const TrainingImagesCaptionViewer = dynamic(
+  () =>
+    import('~/components/Training/Form/TrainingImagesCaptionViewer').then(
+      (mod) => mod.TrainingImagesCaptionViewer
+    ),
+  { ssr: false }
 );
 
 const AutoLabelModal = dynamic(() =>

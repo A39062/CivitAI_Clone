@@ -88,7 +88,7 @@ export const ImagesSearchItem = forwardRef<
         )}
         <UserAvatar size="xs" user={user} withUsername />
         <Group spacing={8}>
-          {tagsMax?.map((tag, index) => (
+          {tagsMax?.map((tag: string, index: number) => (
             <Badge key={index} {...tagBadgeProps}>
               {tag}
             </Badge>

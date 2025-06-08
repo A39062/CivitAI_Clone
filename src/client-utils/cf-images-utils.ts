@@ -30,6 +30,7 @@ const typeExtensions: Record<MediaType, string> = {
   image: '.jpeg',
   video: '.mp4',
   audio: '.mp3',
+  text: '.txt',
 };
 
 export function getEdgeUrl(

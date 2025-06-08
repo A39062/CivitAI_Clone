@@ -274,11 +274,10 @@ export function DailyCreatorCompReward() {
                 </Center>
               ) : filteredResources.length > 0 ? (
                 <div>
-                  <ScrollArea.Autosize
-                    maxHeight={400}
-                    style={{ width: '100%', overflow: 'hidden' }}
+                  <ScrollArea
                     type="auto"
-                    className="[&>*]:w-full"
+                    viewportProps={{ style: { maxHeight: 400, width: '100%', overflow: 'hidden' } }}
+                    className="mt-3"
                   >
                     <Stack spacing={8} px="md">
                       {filteredResources.map((version) => {
@@ -330,7 +329,7 @@ export function DailyCreatorCompReward() {
                         );
                       })}
                     </Stack>
-                  </ScrollArea.Autosize>
+                  </ScrollArea>
                 </div>
               ) : (
                 <Center px="md">

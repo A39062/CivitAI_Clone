@@ -190,7 +190,11 @@ export function BountyEntryUpsertForm({ bountyEntry, bounty }: Props) {
 
   return (
     <Form form={form} onSubmit={handleSubmit}>
-      <ReadOnlyAlert message={"Civitai is currently in read-only mode and you won't be able to publish or see changes made to this entry."} />
+      <ReadOnlyAlert
+        message={
+          "Civitai is currently in read-only mode and you won't be able to publish or see changes made to this entry."
+        }
+      />
       <Stack spacing="xl">
         <Group spacing="md">
           <BackButton url={`/bounties/${bounty.id}`} />
@@ -242,7 +246,6 @@ export function BountyEntryUpsertForm({ bountyEntry, bounty }: Props) {
                 withBorder
               >
                 <EdgeMedia
-                  placeholder="empty"
                   src={image.url}
                   alt={undefined}
                   style={{ objectFit: 'cover', height: '100%' }}
@@ -286,7 +289,6 @@ export function BountyEntryUpsertForm({ bountyEntry, bounty }: Props) {
                   {file.status === 'success' ? (
                     <>
                       <EdgeMedia
-                        placeholder="empty"
                         src={file.url}
                         alt={file.name ?? undefined}
                         style={{ objectFit: 'cover', height: '100%' }}
@@ -625,7 +627,9 @@ export function BountyEntryUpsertForm({ bountyEntry, bounty }: Props) {
           <Button
             loading={bountyEntryUpsertMutation.isLoading && !creating}
             disabled={
-              bountyEntryUpsertMutation.isLoading || (!bountyEntry && !ownershipAcknowledgement) || !features.canWrite
+              bountyEntryUpsertMutation.isLoading ||
+              (!bountyEntry && !ownershipAcknowledgement) ||
+              !features.canWrite
             }
             onClick={() => setCreating(false)}
             type="submit"

@@ -160,7 +160,7 @@ export function AddUserContentModal({ collectionId }: Props) {
 
         <Divider label="or select from your library" labelPosition="center" />
         <ScrollAreaProvider>
-          <ScrollArea.Autosize maxHeight="500px">
+          <ScrollArea type="auto" viewportProps={{ style: { maxHeight: '500px' } }}>
             <MasonryProvider
               columnWidth={constants.cardSizes.image}
               maxColumnCount={4}
@@ -186,7 +186,7 @@ export function AddUserContentModal({ collectionId }: Props) {
                 />
               </MasonryContainer>
             </MasonryProvider>
-          </ScrollArea.Autosize>
+          </ScrollArea>
         </ScrollAreaProvider>
         {(availableTags?.length ?? 0) > 0 && (
           <Select

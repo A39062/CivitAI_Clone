@@ -15,6 +15,8 @@ import {
   useGenerationFormStore,
   useGenerationStore,
 } from '~/store/generation.store';
+import { TextGenerationProvider } from '~/components/Generation/Text/TextGenerationProvider';
+import { TextGenerationForm } from '~/components/Generation/Text/TextGenerationForm';
 
 export function GenerationForm() {
   const type = useGenerationFormStore((state) => state.type);
@@ -77,6 +79,11 @@ export function GenerationForm() {
               <VideoGenerationProvider>
                 <VideoGenerationFormWrapper />
               </VideoGenerationProvider>
+            )}
+            {type === 'text' && (
+              <TextGenerationProvider>
+                <TextGenerationForm />
+              </TextGenerationProvider>
             )}
           </ScrollArea>
         </div>

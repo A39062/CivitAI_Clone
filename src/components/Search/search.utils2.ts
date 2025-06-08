@@ -41,6 +41,7 @@ function imagesTransform(items: Hit<ImageSearchIndexRecord>[]) {
     nsfwLevel: item.nsfwLevel,
     ingestion: ImageIngestionStatus.Scanned,
     publishedAt: item.sortAt,
+    tagNames: item.tagNames as string[],
   }));
 }
 
@@ -54,6 +55,7 @@ function articlesTransform(items: Hit<ArticleSearchIndexRecord>[]) {
       tags: article.coverImage.tags.map((x) => x.id),
       metadata: article.coverImage.metadata as ImageMetadata,
     },
+    tags: article.tags as { id: number; name: string }[], // Thêm type assertion
   }));
 }
 
@@ -75,9 +77,9 @@ function collectionsTransform(items: Hit<CollectionSearchIndexRecord>[]) {
     userId: collection.user.id,
     image: collection.image
       ? {
-          ...collection.image,
-          tagIds: collection.image?.tags.map((x) => x.id),
-        }
+        ...collection.image,
+        tagIds: collection.image?.tags.map((x) => x.id),
+      }
       : null,
     images: collection.images.map((image) => ({
       ...image,
@@ -106,10 +108,7 @@ export type SearchIndexDataMap = {
   bounties: BountiesTransformed;
   tools: ToolsTransformed;
 };
-// type IndexName = keyof typeof searchIndexTransformMap;
-// export type SearchIndexDataTransformType<T extends IndexName> = ReturnType<
-//   (typeof searchIndexTransformMap)[T]
-// >[number];
+
 const searchIndexTransformMap = {
   models: modelsTransform,
   images: imagesTransform,
@@ -119,7 +118,6 @@ const searchIndexTransformMap = {
   bounties: bountiesTransform,
   tools: toolsTransform,
 };
-// #endregion
 
 const transformItems = (items: any[], metadata: TransformItemsMetadata) => {
   if (!metadata.results?.nbHits) return [];

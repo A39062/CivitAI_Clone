@@ -225,7 +225,7 @@ function CollectionListForm({
             </Center>
           ) : (
             <>
-              <ScrollArea.Autosize maxHeight={200}>
+              <ScrollArea type="auto" viewportProps={{ style: { maxHeight: 200 } }}>
                 {ownedCollections.length > 0 ? (
                   <Stack spacing={4}>
                     {ownedCollections.map((collection) => {
@@ -308,13 +308,13 @@ function CollectionListForm({
                     } collections yet.`}</Text>
                   </Center>
                 )}
-              </ScrollArea.Autosize>
+              </ScrollArea>
               {contributingCollections.length > 0 && (
                 <>
                   <Text size="sm" weight="bold" mt="md">
                     Collections you contribute to
                   </Text>
-                  <ScrollArea.Autosize maxHeight={200}>
+                  <ScrollArea type="auto" viewportProps={{ style: { maxHeight: 200 } }}>
                     <Stack spacing={4}>
                       {contributingCollections.map((collection) => {
                         const Icon = collectionReadPrivacyData[collection.read].icon;
@@ -394,7 +394,7 @@ function CollectionListForm({
                         );
                       })}
                     </Stack>
-                  </ScrollArea.Autosize>
+                  </ScrollArea>
                 </>
               )}
             </>

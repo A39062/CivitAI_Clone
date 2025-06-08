@@ -187,7 +187,6 @@ const SectionModelImage = ({ image }: { image: ImagesForModelVersions | undefine
                   type={image.type}
                   width={IMAGE_HEIGHT}
                   // height={IMAGE_HEIGHT}
-                  placeholder="empty"
                   style={{
                     objectFit: 'cover',
                     height: `${IMAGE_HEIGHT}px`,

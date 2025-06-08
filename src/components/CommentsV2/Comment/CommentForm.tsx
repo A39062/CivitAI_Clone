@@ -1,4 +1,4 @@
-import { Alert, Button, Center, createStyles, Group, Stack } from '@mantine/core';
+import { Alert, Button, Center, createStyles, Group, Stack, Box, Text } from '@mantine/core';
 import { IconLock } from '@tabler/icons-react';
 import produce from 'immer';
 import { useMemo, useRef, useState } from 'react';
@@ -56,7 +56,7 @@ export const CommentForm = ({
   const [focused, setFocused] = useState(autoFocus);
   const defaultValues = { ...comment, entityId, entityType };
   if (replyTo)
-    defaultValues.content = `<span data-type="mention" data-id="mention:${replyTo.id}" data-label="${replyTo.username}" contenteditable="false">@${replyTo.username}</span>&nbsp;`;
+    defaultValues.content = `<span data-type="mention" data-id="mention:${replyTo.id}" data-label="${replyTo.username}" contenteditable="false">@${replyTo.username}</span> `;
   const form = useForm({
     schema: upsertCommentv2Schema,
     defaultValues,
@@ -156,26 +156,38 @@ export const CommentForm = ({
   return (
     <Form form={form} onSubmit={handleSubmit} style={{ flex: 1 }}>
       <Stack>
-        <InputRTE
-          innerRef={editorRef}
-          name="content"
-          disabled={isLoading}
-          includeControls={['formatting', 'link', 'mentions']}
-          defaultSuggestions={suggestedMentions}
-          placeholder={
-            !data?.length ? 'Be the first to leave a comment...' : 'Type your comment...'
-          }
-          autoFocus={focused}
-          onFocus={!autoFocus ? () => setFocused(true) : undefined}
-          onSuperEnter={() => form.handleSubmit(handleSubmit)()}
-          classNames={{
-            root: borderless ? 'border-none' : undefined,
-            content: cx(classes.content, 'rounded-3xl'),
-          }}
-          data-testid="comment-form"
-          inputClasses="break-all"
-          hideToolbar
-        />
+        <Box sx={{ position: 'relative' }}>
+          <InputRTE
+            innerRef={editorRef}
+            name="content"
+            disabled={isLoading}
+            includeControls={['formatting', 'link', 'mentions']}
+            defaultSuggestions={suggestedMentions}
+            autoFocus={focused}
+            onFocus={!autoFocus ? () => setFocused(true) : undefined}
+            onSuperEnter={() => form.handleSubmit(handleSubmit)()}
+            classNames={{
+              root: borderless ? 'border-none' : undefined,
+              content: cx(classes.content, 'rounded-3xl'),
+            }}
+            data-testid="comment-form"
+            inputClasses="break-all"
+            hideToolbar
+          />
+          {!form.getValues('content') && (
+            <Text
+              sx={{
+                position: 'absolute',
+                top: 8,
+                left: 12,
+                color: 'gray.5',
+                pointerEvents: 'none',
+              }}
+            >
+              {!data?.length ? 'Be the first to leave a comment...' : 'Type your comment...'}
+            </Text>
+          )}
+        </Box>
         {focused && (
           <Group position="right">
             <Button variant="default" size="xs" onClick={handleCancel}>

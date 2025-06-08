@@ -55,7 +55,6 @@ const onIndexSetup = async ({ indexName }: { indexName: string }) => {
   const filterableAttributes = ['tags.name', 'user.username', 'nsfwLevel'];
 
   if (
-    // Meilisearch stores sorted.
     JSON.stringify(filterableAttributes.sort()) !== JSON.stringify(settings.filterableAttributes)
   ) {
     const updateFilterableAttributesTask = await index.updateFilterableAttributes(
@@ -69,6 +68,13 @@ const onIndexSetup = async ({ indexName }: { indexName: string }) => {
   }
 
   console.log('onIndexSetup :: all tasks completed');
+};
+
+type ArticleTag = {
+  tag: {
+    id: number;
+    name: string;
+  };
 };
 
 const transformData = async ({
@@ -87,23 +93,21 @@ const transformData = async ({
         nsfwLevel: parseBitwiseBrowsingLevel(articleRecord.nsfwLevel),
         stats: stats
           ? {
-              favoriteCount: stats.favoriteCountAllTime,
-              collectedCount: stats.collectedCountAllTime,
-              commentCount: stats.commentCountAllTime,
-              likeCount: stats.likeCountAllTime,
-              dislikeCount: stats.dislikeCountAllTime,
-              heartCount: stats.heartCountAllTime,
-              laughCount: stats.laughCountAllTime,
-              cryCount: stats.cryCountAllTime,
-              viewCount: stats.viewCountAllTime,
-              tippedAmountCount: stats.tippedAmountCountAllTime,
-            }
+            favoriteCount: stats.favoriteCountAllTime,
+            collectedCount: stats.collectedCountAllTime,
+            commentCount: stats.commentCountAllTime,
+            likeCount: stats.likeCountAllTime,
+            dislikeCount: stats.dislikeCountAllTime,
+            heartCount: stats.heartCountAllTime,
+            laughCount: stats.laughCountAllTime,
+            cryCount: stats.cryCountAllTime,
+            viewCount: stats.viewCountAllTime,
+            tippedAmountCount: stats.tippedAmountCountAllTime,
+          }
           : undefined,
-        // Flatten tags:
-        tags: tags.map((articleTag) => articleTag.tag),
+        tags: tags.map((articleTag: ArticleTag) => articleTag.tag),
         coverImage: {
           ...coverImage,
-          // !important - when article `userNsfwLevel` equals article `nsfwLevel`, it's possible that the article `userNsfwLevel` is higher than the cover image `nsfwLevel`. In this case, we update the image to the higher `nsfwLevel` so that it will still pass through front end filters
           nsfwLevel:
             articleRecord.nsfwLevel === articleRecord.userNsfwLevel
               ? articleRecord.nsfwLevel
@@ -149,12 +153,11 @@ export const articlesSearchIndex = createSearchIndexUpdateProcessor({
   prepareBatches: async ({ db }, lastUpdatedAt) => {
     const data = await db.$queryRaw<{ startId: number; endId: number }[]>`
       SELECT MIN(id) as "startId", MAX(id) as "endId" FROM "Article"
-      ${
-        lastUpdatedAt
-          ? Prisma.sql`
+      ${lastUpdatedAt
+        ? Prisma.sql`
         WHERE "createdAt" >= ${lastUpdatedAt}
       `
-          : Prisma.sql``
+        : Prisma.sql``
       };
     `;
 

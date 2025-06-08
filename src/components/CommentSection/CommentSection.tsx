@@ -126,16 +126,13 @@ export function CommentSection({ comments, modelId, parent, highlights }: Props)
 
                 <InputRTE
                   name="content"
-                  placeholder="Type your comment..."
                   includeControls={['formatting', 'link', 'mentions']}
                   disabled={saveCommentMutation.isLoading}
                   onFocus={() => setShowCommentActions(true)}
                   defaultSuggestions={suggestedMentions}
                   autoFocus={showCommentActions}
-                  innerRef={editorRef}
                   onSuperEnter={() => form.handleSubmit(handleSubmitComment)()}
                   hideToolbar
-                  // withLinkValidation
                   inputClasses="break-all"
                 />
               </Box>
@@ -162,9 +159,10 @@ export function CommentSection({ comments, modelId, parent, highlights }: Props)
         <Alert color="yellow" icon={<IconLock />}>
           <Center>
             {isMuted
-              ? 'You cannot add comments because you have been muted' :
-              !features.canWrite ? 'Civitai is in read-only mode' :
-              'This thread has been locked'}
+              ? 'You cannot add comments because you have been muted'
+              : !features.canWrite
+              ? 'Civitai is in read-only mode'
+              : 'This thread has been locked'}
           </Center>
         </Alert>
       )}

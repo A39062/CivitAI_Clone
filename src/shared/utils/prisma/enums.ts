@@ -335,6 +335,7 @@ export const MediaType = {
   image: 'image',
   video: 'video',
   audio: 'audio',
+  text: 'text',
 } as const;
 
 export type MediaType = (typeof MediaType)[keyof typeof MediaType];

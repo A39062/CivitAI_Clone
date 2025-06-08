@@ -9,7 +9,7 @@ interface Props {
 interface State {
   hasError: boolean;
   error?: Error;
-  stack?: string;
+  stack?: string | null;
 }
 
 class GenerationErrorBoundary extends Component<Props, State> {

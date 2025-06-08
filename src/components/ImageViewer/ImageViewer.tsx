@@ -50,6 +50,7 @@ export interface ImageProps {
   thumbnailUrl?: string | null;
   minor?: boolean;
   poi?: boolean;
+  tagIds?: number[];
 }
 
 type ImageViewerState = {

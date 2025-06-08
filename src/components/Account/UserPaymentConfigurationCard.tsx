@@ -77,7 +77,7 @@ export const AcceptCodeOfConduct = ({ onAccepted }: { onAccepted: () => void }) 
         </Center>
       ) : (
         <Stack spacing="md">
-          <ScrollArea.Autosize maxHeight={500}>
+          <ScrollArea style={{ maxHeight: 500 }} offsetScrollbars type="hover">
             <Stack>
               <CustomMarkdown rehypePlugins={[rehypeRaw]}>{data.content}</CustomMarkdown>
               <Checkbox
@@ -87,7 +87,7 @@ export const AcceptCodeOfConduct = ({ onAccepted }: { onAccepted: () => void }) 
                 size="sm"
               />
             </Stack>
-          </ScrollArea.Autosize>
+          </ScrollArea>
           <Group ml="auto">
             <Button onClick={handleClose} color="gray" disabled={updateUserSettings.isLoading}>
               Go back

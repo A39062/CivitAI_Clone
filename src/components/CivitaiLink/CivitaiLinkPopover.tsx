@@ -297,7 +297,7 @@ function InstancesManager() {
           </Button>
         )}
       </Group>
-      <ScrollArea.Autosize maxHeight={410}>
+      <ScrollArea type="auto" viewportProps={{ style: { maxHeight: 410 } }}>
         {instances?.map((instance) => {
           const isSelected = instance.id === selectedInstance?.id;
           return (
@@ -331,7 +331,7 @@ function InstancesManager() {
             </Group>
           );
         })}
-      </ScrollArea.Autosize>
+      </ScrollArea>
     </Stack>
   );
 }
@@ -433,11 +433,11 @@ function ActivityList() {
   const ids = useCivitaiLinkStore((state) => state.ids);
   const { classes } = useStyles();
   return ids.length > 0 ? (
-    <ScrollArea.Autosize maxHeight={410}>
+    <ScrollArea type="auto" viewportProps={{ style: { maxHeight: 410 } }}>
       {ids.map((id) => (
         <LinkActivity key={id} id={id} p="xs" pr="sm" className={classes.listItem} />
       ))}
-    </ScrollArea.Autosize>
+    </ScrollArea>
   ) : (
     <Center p="lg">
       <Text color="dimmed">No activity for this instance</Text>

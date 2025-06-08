@@ -35,7 +35,7 @@ export const ArticlesSearchItem = forwardRef<
     favoriteCount: 0,
     likeCount: 0,
   };
-  const reactionCount = Object.values(reactionStats).reduce((a, b) => a + b, 0);
+  const reactionCount = (Object.values(reactionStats) as number[]).reduce((a, b) => a + b, 0);
   const nsfw = !getIsSafeBrowsingLevel(coverImage.nsfwLevel);
 
   return (
@@ -85,7 +85,7 @@ export const ArticlesSearchItem = forwardRef<
               NSFW
             </Badge>
           )}
-          {tags?.map((tag) => (
+          {tags?.map((tag: { id: number; name: string }) => (
             <Badge key={tag.id} size="xs">
               {tag.name}
             </Badge>

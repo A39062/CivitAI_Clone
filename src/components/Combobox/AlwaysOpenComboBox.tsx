@@ -65,9 +65,9 @@ export function AlwaysOpenCombobox<T extends Key, TOption extends ComboboxOption
           radius="xl"
         />
         <Divider />
-        <ScrollArea.Autosize
-          maxHeight={maxScrollHeight}
+        <ScrollArea
           type="always"
+          viewportProps={{ style: { maxHeight: maxScrollHeight } }}
           offsetScrollbars
           classNames={classes}
         >
@@ -115,7 +115,7 @@ export function AlwaysOpenCombobox<T extends Key, TOption extends ComboboxOption
               </ComboboxOptions>
             </div>
           )}
-        </ScrollArea.Autosize>
+        </ScrollArea>
       </Combobox>
       {footer}
     </div>

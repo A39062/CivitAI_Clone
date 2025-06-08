@@ -137,9 +137,13 @@ const MyCollectionsDrawer = ({
                 </Tooltip>
               </Group>
               <Divider />
-              <ScrollArea.Autosize maxHeight="calc(100vh - 93px)" px="sm">
+              <ScrollArea
+                type="auto"
+                viewportProps={{ style: { maxHeight: 'calc(100vh - 93px)' } }}
+                px="sm"
+              >
                 {Collections}
-              </ScrollArea.Autosize>
+              </ScrollArea>
             </Stack>
           )}
         </MyCollections>
@@ -224,9 +228,14 @@ const CollectionsLayout = ({ children }: { children: React.ReactNode }) => {
                     </Center>
                   )}
                   <Card.Section ml={0}>
-                    <ScrollArea.Autosize maxHeight="calc(80vh - var(--header-height,0))">
+                    <ScrollArea
+                      type="auto"
+                      viewportProps={{
+                        style: { maxHeight: 'calc(80vh - var(--header-height, 0))' },
+                      }}
+                    >
                       {Collections}
-                    </ScrollArea.Autosize>
+                    </ScrollArea>
                   </Card.Section>
                 </>
               )}

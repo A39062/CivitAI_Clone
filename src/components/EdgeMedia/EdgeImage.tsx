@@ -7,6 +7,8 @@ export type EdgeImageProps = React.HTMLAttributes<HTMLImageElement> & {
   src: string;
   fadeIn?: boolean;
   options: Omit<EdgeUrlProps, 'src'>;
+  placeholder?: 'blur' | 'empty';
+  blurDataURL?: string;
 };
 
 export const EdgeImage = forwardRef<HTMLImageElement, EdgeImageProps>(

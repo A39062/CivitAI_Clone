@@ -12,7 +12,7 @@ interface Props {
 interface State {
   hasError: boolean;
   error?: Error;
-  stack?: string;
+  stack?: string | null;
 }
 
 class UserErrorBoundary extends Component<Props, State> {
